@@ -1,0 +1,15 @@
+export interface ICarrera {
+    idCarrera: number,
+    idFacultad: number,
+    idEstadoCarrera: number,
+    codigoCarrera: string,
+    nombreCarrera: string,
+    siglasCarrera: string,
+    tituloCarrera: string,
+    mencionCarrera: string,
+    pathdecretoAprobacionCarrera: string,
+    fechacreaCarrera: Date,
+    fechaactCarrera: Date,
+    fechacierraCarrera: Date,
+    activoCarrera: boolean,   
+}

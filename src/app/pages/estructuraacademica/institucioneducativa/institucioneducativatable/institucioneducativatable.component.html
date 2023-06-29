@@ -1,0 +1,145 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="card">
+      <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+          <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-button-sm"
+                  (click)="deleteSelectedInstitucionEducativa()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+                  [disabled]="!selectedInstitucionEducativa || !selectedInstitucionEducativa.length"></button>
+        </ng-template>
+
+        <ng-template pTemplate="right">
+          <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-sm p-button-outlined p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+          <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-sm p-button-outlined p-button-danger p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
+
+        </ng-template>
+      </p-toolbar>
+
+
+      <p-table #dt [value]="lstInstitucionEducativa" [rows]="10" [paginator]="true" [loading]="loading"
+               [globalFilterFields]="['codigoInstitucionEducativa',
+               'nombreInstitucionEducativa',
+               'codautorizacionInstitucionEducativa',
+               'activoInstitucionEducativa',
+               'idCategoriaDTO.nombreCategoria',
+               'idTipoInstitucionEducativaDTO.nombreTipoInstitucionEducativa']"
+               responsiveLayout="scroll"
+               [(selection)]="selectedInstitucionEducativa" [rowHover]="true" dataKey="idInstitucionEducativa"
+               currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+               [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+          <div class="d-flex justify-content-between flex-wrap">
+            <button pButton label="Clear" class="p-button-outlined p-button-sm" icon="pi pi-filter-slash" (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
+            <label class="text-center">LISTADO DE INSTITUCIONES EDUCATIVAS</label>
+            <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" class="p-inputtext-sm" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General" />
+                </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 3rem">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="idInstitucionEducativa">#
+              <p-sortIcon field="idInstitucionEducativa"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="codigoInstitucionEducativa">Código
+              <p-sortIcon field="codigoInstitucionEducativa"></p-sortIcon>
+            </th>
+            <th pSortableColumn="nombreInstitucionEducativa">Nombre
+              <p-sortIcon field="nombreInstitucionEducativa"></p-sortIcon>
+            </th>
+            <th pSortableColumn="codautorizacionInstitucionEducativa">#Autorización
+              <p-sortIcon field="codautorizacionInstitucionEducativa"></p-sortIcon>
+            </th>
+            <th pSortableColumn="idCategoriaDTO.nombreCategoria">Categoria
+              <p-sortIcon field="idCategoriaDTO.nombreCategoria"></p-sortIcon>
+            </th>
+            <th pSortableColumn="idTipoInstitucionEducativaDTO.nombreTipoInstitucionEducativa">Tipo
+              <p-sortIcon field="idTipoInstitucionEducativaDTO.nombreTipoInstitucionEducativa"></p-sortIcon>
+            </th>
+            <th pSortableColumn="pathauitorizacionInstitucionEducativa">Archivo
+              <p-sortIcon field="pathauitorizacionInstitucionEducativa"></p-sortIcon>
+            </th>
+            <th pSortableColumn="activoInstitucionEducativa">Activo
+              <p-sortIcon field="activoInstitucionEducativa"></p-sortIcon>
+            </th>
+            <th>Opciones</th>
+          </tr>
+          <tr>
+            <th></th>
+            <th>
+              <div class="p-d-flex p-jc-between p-ai-center">
+                <p-columnFilter type="text" field="codigoInstitucionEducativa"></p-columnFilter>
+              </div>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="idInstitucionEducativa"></p-columnFilter>
+            </th>
+
+            <th>
+              <p-columnFilter type="text" field="nombreInstitucionEducativa"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="codautorizacionInstitucionEducativa"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="idCategoriaDTO.nombreCategoria"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="idTipoInstitucionEducativaDTO.nombreTipoInstitucionEducativa"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="pathauitorizacionInstitucionEducativa"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="activoInstitucionEducativa"></p-columnFilter>
+            </th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <td>
+              <p-tableCheckbox [value]="item"></p-tableCheckbox>
+            </td>
+
+            <td>{{item.idInstitucionEducativa}}</td>
+            <td>{{item.codigoInstitucionEducativa}}</td>
+            <td>{{item.nombreInstitucionEducativa}}</td>
+            <td>{{item.codautorizacionInstitucionEducativa}}</td>
+            <td>{{item.idCategoriaDTO.nombreCategoria}}</td>
+            <td>{{item.idTipoInstitucionEducativaDTO.nombreTipoInstitucionEducativa}}</td>
+            <td>
+              <span [class]="item.pathauitorizacionInstitucionEducativa ? 'badge badge-success': 'badge badge-warning'">
+              {{item.pathauitorizacionInstitucionEducativa ? item.pathauitorizacionInstitucionEducativa : 'Correquisito sin Archivo'}}
+              </span>
+              <button *ngIf="item.pathauitorizacionInstitucionEducativa" (click)="descargarArchivo(item.pathauitorizacionInstitucionEducativa)"
+                      pButton pRipple type="button" icon="pi pi-cloud-download" pTooltip="Descargar"
+                      tooltipPosition="top"
+                      class="p-button-rounded p-button-text p-button-lg"></button>
+            </td>
+            <td>{{item.activoInstitucionEducativa ? 'ACTIVO' : 'INACTIVO'}}</td>
+            <td>
+              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
+                      (click)="editInstitucionEducativa(item)" pTooltip="Editar" tooltipPosition="left"></button>
+              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text p-button-sm"
+                      (click)="deleteInstitucionEducativa(item)" pTooltip="Eliminar" tooltipPosition="left"></button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+          <div class="p-d-flex p-ai-center p-jc-between">
+            En Total Existen {{lstInstitucionEducativa ? lstInstitucionEducativa.length : 0 }} Instituciones.
+          </div>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</section>
+
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

@@ -1,0 +1,174 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1></h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Periodo</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="grid grid-nogutter surface-0 text-800 position-relative">
+    <div class="ribbon-wrapper ribbon-l">
+        <div class="ribbon bg-danger text-l">
+            PRUEBAS
+        </div>
+    </div>
+
+    <div class="col-12 md:col-12 p-6 text-center md:text-left align-items-center ">
+        <section>
+            <div class="text-6xl text-primary font-bold mb-1">Registro de Periodo
+                <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+                    <ng-template pTemplate>
+                        <video width="100%" height="auto" autoplay controls>
+                            <source src="assets/video/estadoplan.webm" type="video/mp4">
+                        </video>
+                    </ng-template>
+                </p-overlayPanel>
+
+                <button (click)="op.toggle($event)" pButton pRipple type="button" icon="pi pi-video"
+                    class="p-button-rounded p-button-secondary p-button-text">
+                </button>
+            </div>
+            <p class="mt-0 mb-4 text-700 line-height-3">Un periodo académico es una parte de un año académico, 
+                el tiempo durante el cual una institución educativa imparte clases a los estudiantes que 
+                cursan una o más asignaturas.</p>
+
+            <form [formGroup]="form" enctype="multipart/form-data" accept-charset="utf8">
+                <p-panel header="Registro" [toggleable]="false">
+                    <ng-template pTemplate="icons"
+                        pStyleClass="display: flex; justify-content: end; align-items: center;">
+                        <button pButton pRipple type="button" icon="pi pi-send" (click)="guardar()" pTooltip="Guardar"
+                            tooltipPosition="top" class="p-button-rounded p-button-success p-button-text p-button"></button>
+                        <button pButton pRipple type="button" icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar" 
+                            tooltipPosition="top" class="p-button-rounded p-button-danger p-button-text p-button"></button>
+                    </ng-template>
+                    <div class="p-fluid p-formgrid grid">
+
+                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-codigo" type="text" required="true"
+                                    formControlName="codigoPeriodo">
+                                <label for="ftxt-codigo">* Codigo Periodo</label>
+                            </span>
+                        </div>
+
+                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-codigoNum" type="text" required="true"
+                                    formControlName="codigoNumeroPeriodo">
+                                <label for="ftxt-codigoNum">* Codigo Numero</label>
+                            </span>
+                        </div>
+
+                        <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3 flex justify-content-evenly">
+                            <label for="ftxt-activo">* Activo</label>
+                            <p-inputSwitch id="ftxt-activo" formControlName="activoPeriodo"></p-inputSwitch>
+                        </div>
+
+                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-codigoText" type="text" required="true"
+                                    formControlName="codigoTextoPeriodo">
+                                <label for="ftxt-codigoText">* Codigo Texto</label>
+                            </span>
+                        </div>
+
+                        <div class="p-field col-12 md:col-8 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-descripcion" type="text" required="true"
+                                    formControlName="descripcionPeriodo">
+                                <label for="ftxt-descripcion">* Descripción</label>
+                            </span>
+                        </div>
+
+                        <mat-form-field appearance="fill" class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                            <mat-label>* Fecha de Inicio</mat-label>
+                            <input matInput [matDatepicker]="picker1" formControlName="fechaInicioPeriodo">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1 color="primary"></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                            <mat-label>* Fecha Fin</mat-label>
+                            <input matInput [matDatepicker]="picker2" formControlName="fechaFinPeriodo">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                        </mat-form-field>
+
+                        <div class="p-field col-12 md:col-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <p-dropdown [filter]="true" 
+                                    filterBy="nombreDuracionPeriodo" 
+                                    optionLabel="nombreDuracionPeriodo"
+                                    [showClear]="true" 
+                                    id="fdd-listduracion" required 
+                                    formControlName="idDuracionPeriodoDTO"
+                                    [options]="lstDuracionPer" 
+                                    [autoDisplayFirst]="false">
+                                </p-dropdown>
+                                <label for="fdd-listduracion">* Duracion Periodo</label>
+                            </span>
+                        </div>
+
+                        <div class="p-field col-12 md:col-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <p-dropdown [filter]="true" 
+                                    filterBy="nombreEstadoPeriodo" 
+                                    optionLabel="nombreEstadoPeriodo"
+                                    [showClear]="true" 
+                                    id="fdd-listestado" required 
+                                    formControlName="idEstadoPeriodoDTO"
+                                    [options]="lstEstadoPer" 
+                                    [autoDisplayFirst]="false">
+                                </p-dropdown>
+                                <label for="fdd-listestado">* Estado Periodo</label>
+                            </span>
+                        </div>
+
+                        <div class="p-field col-12 md:col-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <p-dropdown [filter]="true" 
+                                    filterBy="nombreModalidadp" 
+                                    optionLabel="nombreModalidadp"
+                                    [showClear]="true" 
+                                    id="fdd-listmodalidad" required 
+                                    formControlName="idModalidad2DTO"
+                                    [options]="lstModalidadPer" 
+                                    [autoDisplayFirst]="false">
+                                </p-dropdown>
+                                <label for="fdd-listmodalidad">* Modalidad Periodo</label>
+                            </span>
+                        </div>
+
+                        <div class="p-field col-12 md:col-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <p-dropdown [filter]="true" 
+                                    filterBy="nombreTipoPeriodo" 
+                                    optionLabel="nombreTipoPeriodo"
+                                    [showClear]="true" 
+                                    id="fdd-listtipo" required 
+                                    formControlName="idTipoPeriodoDTO"
+                                    [options]="lstTipoPer" 
+                                    [autoDisplayFirst]="false">
+                                </p-dropdown>
+                                <label for="fdd-listtipo">* Tipo Periodo</label>
+                            </span>
+                        </div>
+
+                    </div>
+                </p-panel>
+            </form>
+        </section>
+    </div>
+</div>
+<p-divider></p-divider>
+
+<app-periodotable [lstPeriodo]="lstPeriodo" (periodoSelect)="setSeleccionado($event)">
+  </app-periodotable>

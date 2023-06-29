@@ -1,0 +1,101 @@
+<section class="content">
+    <div class="container-fluid">
+      <div class="card">
+        <!--p-toolbar styleClass="p-mb-4">
+          <ng-template pTemplate="left">
+            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-button-sm"
+                    (click)="deleteSelectedItems()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+                    [disabled]="!selectedTipoMt || !selectedTipoMt.length"></button>
+          </ng-template>
+  
+          <ng-template pTemplate="right">
+            <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-sm p-button-outlined p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+            <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-sm p-button-outlined p-button-danger p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
+  
+          </ng-template>
+        </!--p-toolbar-->
+        <p-table #dt [value]="lstTipoMt" [rows]="10" [paginator]="true" [loading]="loading"
+                 [globalFilterFields]="['idTipoModalidadTitulacion',
+                 'nombreTipoModalidadTitulacion',
+                 'activoTipoModalidadTitulacion',]"
+                 responsiveLayout="stack"
+                 [(selection)]="selectedTipoMt" [rowHover]="true" dataKey="idTipoModalidadTitulacion"
+                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                 [showCurrentPageReport]="true">
+          <ng-template pTemplate="caption">
+            <div class="d-flex justify-content-between flex-wrap">
+                <div>
+                    <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-sm p-button-outlined p-button-success p-mr-2 m-1"  pTooltip="XLS" tooltipPosition="bottom"></button>
+                    <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-sm p-button-outlined p-button-danger p-mr-2 m-1" pTooltip="PDF" tooltipPosition="bottom"></button>
+                    <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-button-sm m-1"
+                            (click)="deleteSelectedItems()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+                            [disabled]="!selectedTipoMt || !selectedTipoMt.length"></button>
+                    <button pButton label="Clear" class="p-button-outlined p-button-sm m-1" icon="pi pi-filter-slash" (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
+                </div>
+
+              <label class="text-center">LISTADO TIPO MODALIDAD TITULACION</label>
+              <span class="p-input-icon-left p-ml-auto">
+                      <i class="pi pi-search"></i>
+                      <input pInputText type="text" class="p-inputtext-sm" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General" />
+                  </span>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 3rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              </th>
+              <th pSortableColumn="idTipoModalidadTitulacion">#
+                <p-sortIcon field="idTipoModalidadTitulacion"></p-sortIcon>
+              </th>
+              <th pSortableColumn="nombreTipoModalidadTitulacion">Nombre
+                <p-sortIcon field="nombreTipoModalidadTitulacion"></p-sortIcon>
+              </th>
+              <th pSortableColumn="activoTipoModalidadTitulacion">Activo
+                <p-sortIcon field="activoTipoModalidadTitulacion"></p-sortIcon>
+              </th>
+              <th>Opciones</th>
+            </tr>
+            <tr>
+              <th></th>
+              <th>
+                <p-columnFilter type="text" field="idTipoModalidadTitulacion"></p-columnFilter>
+              </th>
+                <th>
+                <p-columnFilter type="text" field="nombreTipoModalidadTitulacion"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="activoTipoModalidadTitulacion"></p-columnFilter>
+              </th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-item>
+            <tr>
+              <td>
+                <p-tableCheckbox [value]="item"></p-tableCheckbox>
+              </td>
+              <td>{{item.idTipoModalidadTitulacion}}</td>
+              <td>{{item.nombreTipoModalidadTitulacion}}</td>
+              <td>{{item.activoTipoModalidadTitulacion ? 'ACTIVO' : 'INACTIVO'}}</td>
+              <td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
+                        (click)="editItem(item)" pTooltip="Editar" tooltipPosition="left"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text p-button-sm"
+                        (click)="deleteItem(item)" pTooltip="Eliminar" tooltipPosition="left"></button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+              En Total Existen {{lstTipoMt ? lstTipoMt.length : 0 }} Tipo Modalidad Titulacion.
+            </div>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </section>
+  
+  
+  <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+  

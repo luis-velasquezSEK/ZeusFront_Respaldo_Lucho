@@ -1,0 +1,113 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="card">
+      <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+          <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-button-sm"
+                  (click)="deleteSelectedTipoPlan()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+                  [disabled]="!selectedTipoPlan || !selectedTipoPlan.length"></button>
+        </ng-template>
+
+        <ng-template pTemplate="right">
+          <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-sm p-button-outlined p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+          <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-sm p-button-outlined p-button-danger p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
+
+        </ng-template>
+      </p-toolbar>
+
+
+    <p-table #dt [value]="lstTipoPlan" [rows]="10" [paginator]="true" [loading]="loading"
+             [globalFilterFields]="['nombreTipoPe','observacionTipoPe','activoTipoPe']" responsiveLayout="scroll"
+             [(selection)]="selectedTipoPlan" [rowHover]="true" dataKey="idTipoPe"
+             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+             [showCurrentPageReport]="true">
+      <ng-template pTemplate="caption">
+        <div class="d-flex justify-content-between flex-wrap">
+          <button pButton label="Clear" class="p-button-outlined p-button-sm" icon="pi pi-filter-slash" (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
+          <label class="text-center">LISTADO DE TIPOS PARA PLANES DE ESTUDIO</label>
+          <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" class="p-inputtext-sm" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General" />
+                </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 3rem">
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
+          <th pSortableColumn="nombreTipoPe">Nombre
+            <p-sortIcon field="nombreTipoPe"></p-sortIcon>
+          </th>
+          <th pSortableColumn="observacionTipoPe">Observación
+            <p-sortIcon field="observacionTipoPe"></p-sortIcon>
+          </th>
+          <th pSortableColumn="activoTipoPe">Activo
+            <p-sortIcon field="activoTipoPe"></p-sortIcon>
+          </th>
+          <th>Opciones</th>
+        </tr>
+        <tr>
+          <th></th>
+          <th>
+            <div class="p-d-flex p-jc-between p-ai-center">
+            <p-columnFilter type="text" field="nombreTipoPe"></p-columnFilter>
+            </div>
+          </th>
+          <th>
+            <p-columnFilter type="text" field="observacionTipoPe"></p-columnFilter>
+          </th>
+          <th>
+            <p-columnFilter type="text" field="activoTipoPe"></p-columnFilter>
+          </th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-TipoPlan>
+        <tr>
+          <td>
+            <p-tableCheckbox [value]="TipoPlan"></p-tableCheckbox>
+          </td>
+          <td>{{TipoPlan.nombreTipoPe}}</td>
+          <td>{{TipoPlan.observacionTipoPe}}</td>
+          <td>{{TipoPlan.activoTipoPe ? 'ACTIVO' : 'INACTIVO'}}</td>
+          <td>
+            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
+                    (click)="editTipoPlan(TipoPlan)" pTooltip="Editar" tooltipPosition="left"></button>
+            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text p-button-sm"
+                    (click)="deleteTipoPlan(TipoPlan)" pTooltip="Eliminar" tooltipPosition="left"></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between">
+          In total there are {{lstTipoPlan ? lstTipoPlan.length : 0 }} TipoPlans.
+        </div>
+      </ng-template>
+    </p-table>
+    </div>
+  </div>
+</section>
+
+<p-dialog [(visible)]="tipoPlanDialog" [style]="{width: '450px'}" header="TipoPlan Details" [modal]="true"
+          styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <label for="name">Nombre Estado Plan</label>
+      <input type="text" pInputText id="name" [(ngModel)]="tipoPlan.nombreTipoPe" required autofocus/>
+      <small class="p-error" *ngIf="submitted && !tipoPlan.nombreTipoPe">Name is required.</small>
+    </div>
+    <div class="p-field">
+      <label for="description">Description</label>
+      <textarea id="description" pInputTextarea [(ngModel)]="tipoPlan.observacionTipoPe" required rows="3"
+                cols="20"></textarea>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveTipoPlan()"></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

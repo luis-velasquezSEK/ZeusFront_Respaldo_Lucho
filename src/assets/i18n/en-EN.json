@@ -1,0 +1,30 @@
+{
+  "aplication": {
+    "dashboard": {
+      "title": "Dashboard"
+    },
+    "demo": {
+      "title": "Translation demo",
+      "text": "This is a simple demonstration app for ngx-translate",
+      "greeting": "Hello {{name}}!"
+    },
+    "login": {
+      "userName": "UserName",
+      "password": "Password"
+    },
+    "management": {
+      "customer": {
+        "findCustomer": "Find Customer",
+        "documentNumber": "Document Number",
+        "fullClientName": "Client",
+        "clientStatus": "Status",
+        "actions": "Actions"
+      },
+      "trainingRoom": {
+        "searchTrainingRoom": "Search training room",
+        "stepSubTitleDays": "Dias",
+        "stepSubTitleBranchOffice": "Sedes"
+      }
+    }
+  }
+}

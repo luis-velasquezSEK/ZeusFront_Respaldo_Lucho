@@ -1,0 +1,460 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1></h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Planificación</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+<div class="grid grid-nogutter surface-0 text-800 position-relative"
+    style="background: linear-gradient(199deg, rgba(7,92,187,1) 0%, rgba(52,126,209,1) 7%, rgba(244,246,249,1) 25%);">
+    <div class="ribbon-wrapper ribbon-lg">
+        <div class="ribbon bg-danger text-md">
+            PRUEBA
+        </div>
+    </div>
+    <div class="col-12 md:col-12 p-6 text-center md:text-left align-items-center">
+        <section>
+            <div class="text-6xl text-primary font-bold mb-3">Planificación
+                <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+                    <ng-template pTemplate>
+                        <video width="100%" height="auto" autoplay controls>
+                            <source src="assets/video/estadoplan.webm" type="video/mp4">
+                        </video>
+                    </ng-template>
+                </p-overlayPanel>
+
+                <button (click)="op.toggle($event)" pButton pRipple type="button" icon="pi pi-video"
+                    class="p-button-rounded p-button-secondary p-button-text">
+                </button>
+            </div>
+            <p class="mt-0 mb-4 text-700 line-height-3">Materia a ser usada en la creación de un Reistro para Plan de
+                Estudios.</p>
+            <p-toolbar class="flex justify-content-end p-3">
+                <div class="p-toolbar-group-start">
+                    <p-button label="Guardar" icon="pi pi-save" class="p-1"
+                        styleClass="p-button-outlined p-button-success" (click)="guardar()"></p-button>
+                    <p-button label="Limpiar" icon="pi pi-trash" class="p-1"
+                        styleClass="p-button-outlined p-button-danger" (click)="cancelar()"></p-button>
+                </div>
+            </p-toolbar>
+
+            <p-timeline [value]="sections" align="left" styleClass="customized-timeline w-full">
+                <ng-template pTemplate="marker" let-sections>
+
+                    <span class="custom-marker p-shadow-2" [style.backgroundColor]="sections.color">
+                        <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+                            <ng-template pTemplate>
+                                <video width="100%" height="auto" autoplay controls>
+                                    <source src="assets/video/estadoplan.webm" type="video/mp4">
+                                </video>
+                            </ng-template>
+                        </p-overlayPanel>
+                        <button (click)="op.toggle($event)" pButton pRipple type="button" [icon]="sections.icon"
+                            [style]="{color: 'white'}" class="p-button-rounded p-button-secondary p-button-text">
+                        </button>
+                    </span>
+                </ng-template>
+                <ng-template pTemplate="content" let-sections>
+                    <p-card [header]="sections.header" [subheader]="sections.subheader" class="p-3 w-full">
+                        <!-- FORM PERIODO -->
+                        <form *ngIf="sections.index === 1">
+                            <div class="p-fluid p-formgrid grid" style="margin-left: 14%;">
+                                <div class="p-field col-12 md:col-10  mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <p-dropdown [filter]="true" 
+                                            filterBy="descripcionPeriodo" [showClear]="true"
+                                            id="fdd-listmodmalla" required 
+                                            emptyMessage="No Existe Periodo Disponible"
+                                            [ngModelOptions]="{standalone: true}"
+                                            [options]="listPerido"
+                                            [(ngModel)]="periodo" 
+                                            optionLabel="descripcionPeriodo"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+
+                                        <label for="fdd-listperiodo">* Periodo</label>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- FIN FORM PERIODO -->
+
+                        <!-- FORM 1 REGISTRO -->
+                        <form *ngIf="sections.index === 2">
+                            <!-- <form [formGroup]="form" *ngIf="sections.index === 2"> -->
+                            <div class="p-fluid p-formgrid grid" style="margin-left: 14%;">
+                                <div class="p-field col-12 md:col-5 mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <p-dropdown [filter]="true" 
+                                            filterBy="nombreFacultad" [showClear]="true"
+                                            id="fdd-listfacu" required 
+                                            emptyMessage="No Existe Facultad Disponible"
+                                            [options]="listFacultad"
+                                            [(ngModel)]="facultad" 
+                                            (onChange)="llenarDetalleFacultad($event)"
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="nombreFacultad" 
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                        <label for="fdd-listfacu">* Facultad</label>
+                                    </span>
+                                </div>
+                                <div class="p-field col-12 md:col-5  mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <p-dropdown [filter]="true" 
+                                            filterBy="nombreCarrera" [showClear]="true"
+                                            id="fdd-listcarrera" required 
+                                            emptyMessage="No Existe Carrera Disponible"
+                                            [options]="listCarrera"
+                                            [(ngModel)]="carrera" 
+                                            (onChange)="llenarDetalleCarrera($event)"
+                                            [ngModelOptions]="{standalone: true}" 
+                                            optionLabel="nombreCarrera"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                        <label for="fdd-listcarrera">* Carrera</label>
+                                    </span>
+                                </div>
+                                <div class="p-field col-12 md:col-5  mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <p-dropdown [filter]="true" 
+                                            filterBy="codigoPlanEstudioMalla" [showClear]="true"
+                                            id="fdd-listmalla" required 
+                                            emptyMessage="No Existe Plan de Estudio Disponible"
+                                            [options]="listPlanEstudio"
+                                            [(ngModel)]="planEstudio" 
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="codigoPlanEstudioMalla"
+                                            (onChange)="llenarDetallePlanEstudio($event)"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                        <label for="fdd-listmalla">* Plan de Estudio</label>
+                                    </span>
+                                </div>
+                                <div class="p-field col-12 md:col-5  mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <p-dropdown [filter]="true" 
+                                            filterBy="nombreModalidadPe" [showClear]="true"
+                                            id="fdd-listmodmalla" required 
+                                            emptyMessage="No Existe Modalidad Disponible"
+                                            [ngModelOptions]="{standalone: true}"
+                                            [options]="listModalidadPe"
+                                            [(ngModel)]="modalidad" 
+                                            optionLabel="nombreModalidadPe"
+                                            (onChange)="eventoModalidad($event)"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                        <label for="fdd-listmodmalla">* Modalidad</label>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- FIN FORM 1 -->
+
+                        <!--  INICIO FORM 2 PARA ASIGNATURA -->
+                        <form [formGroup]="form" *ngIf="sections.index === 3">
+                            <div class="p-fluid p-formgrid grid justify-content-center" style="margin-left: 7%; margin-right: 7%;">
+
+                                <div class="p-field col-8 md:col-12  mb-0 px-1">
+                                    <p-button label="Buscar Materias" icon="pi pi-external-link" class="p-1"
+                                        (click)="showAsignatura()">
+                                    </p-button>
+                                </div>
+                                <div class="p-field col-12 md:col-5  mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <input pInputText id="ftxt-nombre" type="text" required="true"
+                                        attr.disabled="false" [(ngModel)]="codMateriaSelected"  formControlName="codigoMateria">
+                                        <label for="ftxt-nombre">* Codigo Materia</label>
+                                    </span>
+                                </div>
+                                <div class="p-field col-12 md:col-5  mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <input pInputText id="ftxt-nombre" type="text" required="true"
+                                        attr.disabled="false" [(ngModel)]="nomMateriaSelected"  formControlName="nombreMateria">
+                                        <label for="ftxt-nombre">* Nombre Materia</label>
+                                    </span>
+                                </div>
+                                <div class="p-field col-12 md:col-5  mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <input pInputText id="ftxt-nombre" type="text" required="true"
+                                        attr.disabled="false" [(ngModel)]="credMateriaSelected"  formControlName="creditosMateria">
+                                        <label for="ftxt-nombre">* Créditos</label>
+                                    </span>
+                                </div>
+                                <div class="p-field col-12 md:col-5  mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <input pInputText id="ftxt-nombre" type="text" required="true"
+                                        attr.disabled="false" [(ngModel)]="horaMateriaSelected"  formControlName="horasSemestralesMateria">
+                                        <label for="ftxt-nombre">* Horas</label>
+                                    </span>
+                                </div>
+                                <!-- INICIO DE PANEL ASIGNATURA -->
+                                <p-dialog header="Header" [(visible)]="visibleAsig" [modal]="true"
+                                    [style]="{ width: '70vw' }" [draggable]="false" [resizable]="false">
+                                    <ng-template pTemplate="header">
+                                        <span class="text-xl font-bold">Selecciona la Asignatura</span>
+                                    </ng-template>
+                                    <div class="card">
+                                        <p-toast></p-toast>
+                                        <p-table #dt2 [value]="listMalla" selectionMode="single"
+                                          [(selection)]="selectedMalla" dataKey="idMateria" (onRowSelect)="onRowSelect($event)"
+                                          (onRowUnselect)="onRowUnselect($event)" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+                                          [loading]="loading" [paginator]="true"
+                                          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                          [globalFilterFields]="['codigoMateria', 'nombreMateria', 'creditosMateria', 'horasSemestralesMateria']">
+                                          <ng-template pTemplate="caption">
+                                            <div class="flex">
+                                              <span class="p-input-icon-left ml-auto">
+                                                <i class="pi pi-search"></i>
+                                                <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')"
+                                                  placeholder="buscar" />
+                                              </span>
+                                            </div>
+                                          </ng-template>
+                                          <ng-template pTemplate="header">
+                                            <tr>
+                                              <th>Código</th>
+                                              <th>Nombre</th>
+                                              <th>Créditos</th>
+                                              <th>Horas Semestrales</th>
+                                            </tr>
+                                          </ng-template>
+                                          <ng-template pTemplate="body" let-materia>
+                                            <tr [pSelectableRow]="materia">
+                  
+                                              <td>{{materia.codigoMateria}}</td>
+                                              <td>{{materia.nombreMateria}}</td>
+                                              <td>{{materia.creditosMateria}}</td>
+                                              <td>{{materia.horasSemestralesMateria}}</td>
+                                            </tr>
+                                          </ng-template>
+                                        </p-table>
+                                    </div>
+                                    <!-- <ng-template pTemplate="footer">
+                                        <p-button icon="pi pi-check" (click)="visibleAsig = false" label="Ok"
+                                            styleClass="p-button-text"></p-button>
+                                    </ng-template> -->
+                                </p-dialog>
+                                <!-- FIN DEL PANEL ASIGNATURA -->
+                            </div>
+                        </form>
+                        <!-- FIN FORM 2 -->
+
+                        <!--  Form 2 para Tipo de Materia y OUC -->
+                        <form form [formGroup]="form" *ngIf="sections.index === 4">
+                            <div class="p-fluid p-formgrid grid" style="margin-left: 14%;">
+
+                                <div class="p-field col-12 md:col-5  mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <p-dropdown [filter]="true" 
+                                            filterBy="codigoComponente" [showClear]="true"
+                                            id="fdd-listmodmalla" required 
+                                            emptyMessage="No Existe Coponente Disponible"
+                                            formControlName="idComponente"
+                                            [options]="listComponente"
+                                            [(ngModel)]="componente" 
+                                            optionLabel="codigoComponente"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                        <label for="fdd-listmodmalla">* Componente</label>
+                                    </span>
+                                </div>
+
+                                <div class="p-field col-12 md:col-5  mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <input pInputText id="ftxt-nombre" type="text" required="true"
+                                            formControlName="paralelo">
+                                        <label for="ftxt-nombre">* Paralelo</label>
+                                    </span>
+                                </div>
+
+                                <div class="p-field col-12 md:col-5  mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <p-inputNumber  inputId="ftxt-peso"
+                                            mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5"
+                                            [showButtons]="true" required="true" formControlName="cupo">
+                                        </p-inputNumber>
+                                        <label for="ftxt-peso">* Cupo</label>
+                                    </span>
+                                </div>
+
+                                <div class="p-field col-12 md:col-5  mb-0 px-3">
+                                    <p-button label="Buscar Docente" icon="pi pi-external-link" class="p-1"
+                                        (click)="showDocente()"></p-button>
+                                </div>
+
+                                <div class="p-field col-12 md:col-5  mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <input pInputText id="ftxt-nombre" type="text" required="true" attr.disabled="false"
+                                        [(ngModel)]="nomDocenteSelected" formControlName="nombresEmp">
+                                        <label for="ftxt-nombre">* Nombre Docente</label>
+                                    </span>
+                                </div>
+
+                                <div class="p-field col-12 md:col-5  mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <input pInputText id="ftxt-nombre" type="text" required="true" attr.disabled="false"
+                                        [(ngModel)]="cedDocenteSelected" formControlName="dniProfesorc">
+                                        <label for="ftxt-nombre">* Cedula Docente</label>
+                                    </span>
+                                </div>
+
+                                <div class="p-field col-12 md:col-5  mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <p-dropdown [filter]="true" 
+                                            filterBy="nombreInfraestructura" [showClear]="true"
+                                            id="fdd-listcarrera" required 
+                                            emptyMessage="No Existe Infraestructura Disponible"
+                                            [options]="listInfraestructura"
+                                            [(ngModel)]="infraestructura" 
+                                            (onChange)="llenarDetalleInfra($event)"
+                                            [ngModelOptions]="{standalone: true}" 
+                                            optionLabel="nombreInfraestructura"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                        <label for="fdd-listcarrera">* Infraestructura</label>
+                                    </span>
+                                </div>
+                                <div class="p-field col-12 md:col-5  mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <p-dropdown [filter]="true" 
+                                            filterBy="nombreNivelInfraestructura" [showClear]="true"
+                                            id="fdd-listmalla" required 
+                                            emptyMessage="No Existe Plan de Estudio Disponible"
+                                            [options]="listNivelInfra"
+                                            [(ngModel)]="nivelInfra" 
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="nombreNivelInfraestructura"
+                                            (onChange)="llenarDetalleNivelInfra($event)"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                        <label for="fdd-listmalla">* Nivel Infraestructura</label>
+                                    </span>
+                                </div>
+                                <div class="p-field col-12 md:col-5  mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <p-dropdown [filter]="true" 
+                                            filterBy="codigoEspaciosFisicos" [showClear]="true"
+                                            id="fdd-listmodmalla" required 
+                                            emptyMessage="No Existe Espacio Fisico Disponible"
+                                            formControlName="idEspaciosFisicos"
+                                            [options]="listEspacio"
+                                            [(ngModel)]="espacio" 
+                                            optionLabel="codigoEspaciosFisicos"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                        <label for="fdd-listmodmalla">* Espacio Físico</label>
+                                    </span>
+                                </div>
+
+                                <p-dialog header="Header" [(visible)]="visibleDoc" [modal]="true"
+                                    [style]="{ width: '70vw' }" [draggable]="false" [resizable]="false">
+                                    <ng-template pTemplate="header">
+                                        <span class="text-xl font-bold">Seleccione el Docente</span>
+                                    </ng-template>
+                                    <div class="card">
+                                        <p-toast></p-toast>
+                                        <p-table #dt2 [value]="listEmpleado" selectionMode="single"
+                                          [(selection)]="selectedEmpleado" dataKey="idEmp" (onRowSelect)="onRowSelectDocente($event)"
+                                          (onRowUnselect)="onRowUnselect($event)" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+                                          [loading]="loading" [paginator]="true"
+                                          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                          [globalFilterFields]="['nombresEmp', 'apellidoEmp', 'dniEmp', 'edadEmp', 'activoEmp']">
+                                          <ng-template pTemplate="caption">
+                                            <div class="flex">
+                                              <span class="p-input-icon-left ml-auto">
+                                                <i class="pi pi-search"></i>
+                                                <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')"
+                                                  placeholder="buscar" />
+                                              </span>
+                                            </div>
+                                          </ng-template>
+                                          <ng-template pTemplate="header">
+                                            <tr>
+                                              <th>Nombre</th>
+                                              <th>Apellido</th>
+                                              <th>Cédula</th>
+                                              <th>Edad</th>
+											  <th>Activo</th>
+                                            </tr>
+                                          </ng-template>
+                                          <ng-template pTemplate="body" let-docente>
+                                            <tr [pSelectableRow]="docente">
+                  
+                                              <td>{{docente.nombresEmp}}</td>
+                                              <td>{{docente.apellidoEmp}}</td>
+                                              <td>{{docente.dniEmp}}</td>
+                                              <td>{{docente.edadEmp}}</td>
+											  <td>{{docente.activoEmp}}</td>
+                                            </tr>
+                                          </ng-template>
+                                        </p-table>
+                                    </div>
+                                </p-dialog>
+
+                            </div>
+                        </form>
+                        <!-- FIN FORM 4 -->
+
+                        <!-- INICIO FORM 5 -->
+                        <form *ngIf="sections.index === 5">
+                            <!-- <p-toolbar class="flex justify-content-end p-3">
+                                <div class="p-toolbar-group-start">
+                                    <p-button label="Nuevo" icon="pi pi-plus" class="p-1"
+                                        styleClass="p-button-outlined p-button-info" (click)="nuevaPlanificacion()"></p-button>
+                                </div>
+                            </p-toolbar> -->
+                            <div class="card">
+                                <p-toast></p-toast>
+                                <p-table #dt2 [value]="listComponentePlan" selectionMode="single"
+                                  [(selection)]="selectedCompPlan" dataKey="idMateria" (onRowSelect)="onRowSelectShowPlan($event)"
+                                  (onRowUnselect)="onRowUnselect($event)" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+                                  [loading]="loading" [paginator]="true"
+                                  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                  [globalFilterFields]="['codigoMateria', 'nombreMateria', 'creditosMateria', 'horasSemestralesMateria']">
+                                  <ng-template pTemplate="caption">
+                                    <div class="flex">
+                                        <p-button label="Nuevo" icon="pi pi-plus" class="p-1"
+                                            styleClass="p-button-outlined p-button-info" (click)="nuevaPlanificacion()"></p-button>
+                                      <span class="p-input-icon-left ml-auto">
+                                        <i class="pi pi-search"></i>
+                                        <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')"
+                                          placeholder="buscar" />
+                                      </span>
+                                    </div>
+                                  </ng-template>
+                                  <ng-template pTemplate="header">
+                                    <tr>
+                                      <th>Código</th>
+                                      <th>Nombre</th>
+                                      <th>Paralelo</th>
+                                      <th>Cupo</th>
+                                      <th>Docente</th>
+                                      <th>Espacio Físico</th>
+                                      <th>Créditos</th>
+                                      <th>Horas Semestrales</th>
+                                    </tr>
+                                  </ng-template>
+                                  <ng-template pTemplate="body" let-materia>
+                                    <tr [pSelectableRow]="materia">
+          
+                                      <td>{{materia.codigO_MATERIA}}</td>
+                                      <td>{{materia.nombrE_MATERIA}}</td>
+                                      <td>{{materia.paralelo}}</td>
+                                      <td>{{materia.cupo}}</td>
+                                      <td>{{materia.nombreS_EMP}}</td>
+                                      <td>{{materia.codigO_ESPACIOS_FISICOS}}</td>
+                                      <td>{{materia.creditoS_MATERIA}}</td>
+                                      <td>{{materia.horaS_SEMESTRALES_MATERIA}}</td>
+                                    </tr>
+                                  </ng-template>
+                                </p-table>
+                            </div>
+                        </form>
+                    </p-card>
+                </ng-template>
+            </p-timeline>
+        </section>
+    </div>
+</div>

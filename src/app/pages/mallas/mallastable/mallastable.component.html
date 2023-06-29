@@ -1,0 +1,202 @@
+<section class="content">
+    <div class="container-fluid">
+      <div class="card">
+        <p-toolbar styleClass="p-mb-4">
+          <ng-template pTemplate="left">
+            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-button-sm"
+                    (click)="deleteSelectedItems()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+                    [disabled]="!selectedMalla || !selectedMalla.length"></button>
+          </ng-template>
+  
+          <ng-template pTemplate="right">
+            <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-sm p-button-outlined p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+            <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-sm p-button-outlined p-button-danger p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
+  
+          </ng-template>
+        </p-toolbar>
+  
+  
+        <p-table #dt [value]="lstMalla" [rows]="10" [paginator]="true" [loading]="loading"
+                 [globalFilterFields]="['idMalla',
+                 'codigoPlanEstudioMalla',
+                 'numerodecretoCesMalla',
+                 'duracionSemestresMalla',
+                 'periodicidadMalla',
+                 'cupoCesMalla',
+                 'fechaAprobacionMalla',
+                 'fechaVigenciaMalla',
+                 'pathdecretoCesMalla',
+                 'semestreInicioMalla',
+                 'semestreFinMalla',
+                 'pathresolucionactivaMalla',
+                 'pathresolucioncierreMalla',
+                 'observacionesMalla',
+                 'activoMalla',
+                 'idCarreraDTO.nombreCarrera',
+                 'idEstadoMallaDTO.nombreEstadoMalla',]"
+                 responsiveLayout="stack"
+                 [(selection)]="selectedMalla" [rowHover]="true" dataKey="idMalla"
+                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                 [showCurrentPageReport]="true">
+          <ng-template pTemplate="caption">
+            <div class="d-flex justify-content-between flex-wrap">
+              <button pButton label="Clear" class="p-button-outlined p-button-sm" icon="pi pi-filter-slash" (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
+              <label class="text-center">LISTADO MALLAS</label>
+              <span class="p-input-icon-left p-ml-auto">
+                      <i class="pi pi-search"></i>
+                      <input pInputText type="text" class="p-inputtext-sm" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General" />
+                  </span>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 3rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              </th>
+              <th pSortableColumn="codigoPlanEstudioMalla">Código
+                <p-sortIcon field="codigoPlanEstudioMalla"></p-sortIcon>
+              </th>
+              <th pSortableColumn="duracionSemestresMalla">Duracion <br> Semestre
+                <p-sortIcon field="duracionSemestresMalla"></p-sortIcon>
+              </th>
+              <th pSortableColumn="activoMalla">Activo
+                <p-sortIcon field="activoMalla"></p-sortIcon>
+              </th>
+              <th pSortableColumn="periodicidadMalla">Periodicidad
+                <p-sortIcon field="periodicidadMalla"></p-sortIcon>
+              </th>
+              <th pSortableColumn="pathdecretoCesMalla">Decreto Ces
+                <p-sortIcon field="pathdecretoCesMalla"></p-sortIcon>
+              </th>
+              <th pSortableColumn="pathresolucionactivaMalla">Solucion <br> Activa
+                <p-sortIcon field="pathresolucionactivaMalla"></p-sortIcon>
+              </th>
+              <th pSortableColumn="pathresolucioncierreMalla">Solucion <br> Cierre
+                <p-sortIcon field="pathresolucioncierreMalla"></p-sortIcon>
+              </th>
+              <th pSortableColumn="fechaVigenciaMalla">F. Vigencia
+                <p-sortIcon field="fechaVigenciaMalla"></p-sortIcon>
+              </th>
+              <th pSortableColumn="semestreInicioMalla">Semestre <br> Inicio
+                <p-sortIcon field="semestreInicioMalla"></p-sortIcon>
+              </th>
+              <th pSortableColumn="semestreFinMalla">Semestre Fin
+                <p-sortIcon field="semestreFinMalla"></p-sortIcon>
+              </th>
+              <th pSortableColumn="idCarreraDTO.nombreCarrera">Carrera
+                <p-sortIcon field="idCarreraDTO.nombreCarrera"></p-sortIcon>
+              </th>
+              <th pSortableColumn="idEstadoMallaDTO.nombreEstadoMalla">Estado <br> Malla
+                <p-sortIcon field="idEstadoMallaDTO.nombreEstadoMalla"></p-sortIcon>
+              </th>
+              <th pSortableColumn="observacionesMalla">Observación
+                <p-sortIcon field="observacionesMalla"></p-sortIcon>
+              </th>
+              <th>Opciones</th>
+            </tr>
+            <tr>
+              <th></th>
+              <th>
+                <p-columnFilter type="text" field="codigoPlanEstudioMalla"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="duracionSemestresMalla"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="activoMalla"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="periodicidadMalla"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="pathdecretoCesMalla"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="pathresolucionactivaMalla"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="pathresolucioncierreMalla"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="fechaVigenciaMalla"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="semestreInicioMalla"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="semestreFinMalla"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="idCarreraDTO.nombreCarrera"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="idEstadoMallaDTO.nombreEstadoMalla"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="observacionesMalla"></p-columnFilter>
+              </th>
+
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-item>
+            <tr>
+              <td>
+                <p-tableCheckbox [value]="item"></p-tableCheckbox>
+              </td>
+              <td>{{item.codigoPlanEstudioMalla}}</td>
+              <td>{{item.duracionSemestresMalla}}</td>
+              <td>{{item.activoMalla ? 'ACTIVO' : 'INACTIVO'}}</td>
+              <td>{{item.periodicidadMalla}}</td>
+              <td>
+                <span [class]="item.pathdecretoCesMalla ? 'badge badge-success': 'badge badge-warning'">
+                    {{item.pathdecretoCesMalla ? item.pathdecretoCesMalla : 'No Existe Decreto'}}
+                  </span>
+                  <button *ngIf="item.pathdecretoCesMalla" (click)="descargarArchivo(item.pathdecretoCesMalla)"
+                    pButton pRipple type="button" icon="pi pi-cloud-download" pTooltip="Descargar"
+                    tooltipPosition="top" class="p-button-rounded p-button-text p-button-lg"></button>
+              </td>
+              <td>
+                <span [class]="item.pathresolucionactivaMalla ? 'badge badge-success': 'badge badge-warning'">
+                    {{item.pathresolucionactivaMalla ? item.pathresolucionactivaMalla : 'No Existe Solucion Activa'}}
+                  </span>
+                  <button *ngIf="item.pathresolucionactivaMalla" (click)="descargarArchivo(item.pathresolucionactivaMalla)"
+                    pButton pRipple type="button" icon="pi pi-cloud-download" pTooltip="Descargar"
+                    tooltipPosition="top" class="p-button-rounded p-button-text p-button-lg"></button>
+              </td>
+              <td>
+                <span [class]="item.pathresolucioncierreMalla ? 'badge badge-success': 'badge badge-warning'">
+                    {{item.pathresolucioncierreMalla ? item.pathresolucioncierreMalla : 'No Existe Soluciones Cierre'}}
+                  </span>
+                  <button *ngIf="item.pathresolucioncierreMalla" (click)="descargarArchivo(item.pathresolucioncierreMalla)"
+                    pButton pRipple type="button" icon="pi pi-cloud-download" pTooltip="Descargar"
+                    tooltipPosition="top" class="p-button-rounded p-button-text p-button-lg"></button>
+              </td>
+              <td>{{item.fechaVigenciaMalla | date : 'short'}}</td>
+              <td>{{item.semestreInicioMalla}}</td>
+              <td>{{item.semestreFinMalla}}</td>
+              <td>{{item.idCarreraDTO.nombreCarrera}}</td>
+              <td>{{item.idEstadoMallaDTO.nombreEstadoMalla}}</td>
+              <td>{{item.observacionesMalla}}</td>
+
+              <td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
+                        (click)="editItem(item)" pTooltip="Editar" tooltipPosition="left"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text p-button-sm"
+                        (click)="deleteItem(item)" pTooltip="Eliminar" tooltipPosition="left"></button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+              En Total Existen {{lstMalla ? lstMalla.length : 0 }} Mallas.
+            </div>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </section>
+  
+  
+  <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+  

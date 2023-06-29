@@ -1,0 +1,162 @@
+<section class="content">
+    <div class="container-fluid">
+      <div class="card">
+        <p-toolbar styleClass="p-mb-4">
+          <ng-template pTemplate="left">
+            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-button-sm"
+                    (click)="deleteSelectedItems()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+                    [disabled]="!selectedModMalla || !selectedModMalla.length"></button>
+          </ng-template>
+  
+          <ng-template pTemplate="right">
+            <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-sm p-button-outlined p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+            <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-sm p-button-outlined p-button-danger p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
+  
+          </ng-template>
+        </p-toolbar>
+  
+        <p-table #dt [value]="lstModMalla" [rows]="10" [paginator]="true" [loading]="loading"
+                 [globalFilterFields]="['idModalidadMalla',
+                 'nombreModalidadMalla',
+                 'descripcionModalidadMalla',
+                 'activoModalidadMalla',
+                 'idEstadoModmallaDTO.nombreEstadoModmalla',
+                 'idMallaDTO.codigoPlanEstudioMalla',
+                 'idModalidadDTO.nombreModalidad',
+                 'idPeriodoDTO.codigoTextoPeriodo',]"
+                 responsiveLayout="stack"
+                 [(selection)]="selectedModMalla" [rowHover]="true" dataKey="idModalidadMalla"
+                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                 [showCurrentPageReport]="true">
+          <ng-template pTemplate="caption">
+            <div class="d-flex justify-content-between flex-wrap">
+              <button pButton label="Clear" class="p-button-outlined p-button-sm" icon="pi pi-filter-slash" (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
+              <label class="text-center">LISTADO DE MODALIDAD MALLA</label>
+              <span class="p-input-icon-left p-ml-auto">
+                      <i class="pi pi-search"></i>
+                      <input pInputText type="text" class="p-inputtext-sm" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General" />
+                  </span>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 3rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              </th>
+              <th pSortableColumn="nombreModalidadMalla">Nombre
+                <p-sortIcon field="nombreModalidadMalla"></p-sortIcon>
+              </th>
+              <th pSortableColumn="idEstadoModmallaDTO.nombreEstadoModmalla">Estado Modalidad Malla
+                <p-sortIcon field="idEstadoModmallaDTO.nombreEstadoModmalla"></p-sortIcon>
+              </th>
+              <th pSortableColumn="idMallaDTO.codigoPlanEstudioMalla">Cod. Plan Estudio
+                <p-sortIcon field="idMallaDTO.codigoPlanEstudioMalla"></p-sortIcon>
+              </th>
+              <th pSortableColumn="idModalidadDTO.nombreModalidad">Modalidad
+                <p-sortIcon field="idModalidadDTO.nombreModalidad"></p-sortIcon>
+              </th>
+              <th pSortableColumn="idPeriodoDTO.codigoTextoPeriodo">Periodo
+                <p-sortIcon field="idPeriodoDTO.codigoTextoPeriodo"></p-sortIcon>
+              </th>
+              <th pSortableColumn="descripcionModalidadMalla">Descripción
+                <p-sortIcon field="descripcionModalidadMalla"></p-sortIcon>
+              </th>
+              <th pSortableColumn="activoModalidadMalla">Activo
+                <p-sortIcon field="activoModalidadMalla"></p-sortIcon>
+              </th>
+              <th>Opciones</th>
+            </tr>
+            <tr>
+              <th></th>
+              <th>
+                <p-columnFilter type="text" field="nombreModalidadMalla"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="idEstadoModmallaDTO.nombreEstadoModmalla"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="idMallaDTO.codigoPlanEstudioMalla"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="idModalidadDTO.nombreModalidad"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="idPeriodoDTO.codigoTextoPeriodo"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="descripcionModalidadMalla"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="activoModalidadMalla"></p-columnFilter>
+              </th>
+
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-item let-expanded="expanded">
+            <tr>
+              <td>
+                <p-tableCheckbox [value]="item"></p-tableCheckbox>
+              </td>
+              <td>{{item.nombreModalidadMalla}}</td>
+              <td>{{item.idEstadoModmallaDTO.nombreEstadoModmalla}}</td>
+              <td>
+                <!--button type="button" pButton pRipple 
+                        [pRowToggler]="item" 
+                        class="p-button-text p-button-rounded p-button-plain" 
+                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></!--button-->
+                {{item.idMallaDTO.codigoPlanEstudioMalla}}
+              </td>
+              <td>{{item.idModalidadDTO.nombreModalidad}}</td>
+              <td>{{item.idPeriodoDTO.codigoTextoPeriodo}}</td>
+              <td>{{item.descripcionModalidadMalla}}</td>
+              <td>{{item.activoModalidadMalla ? 'ACTIVO' : 'INACTIVO'}}</td>
+
+              <td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
+                        (click)="editItem(item)" pTooltip="Editar" tooltipPosition="left"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text p-button-sm"
+                        (click)="deleteItem(item)" pTooltip="Eliminar" tooltipPosition="left"></button>
+              </td>
+            </tr>
+          </ng-template>
+
+          <!-- SUBLIST -->
+          <!--ng-template pTemplate="rowerExpansion" let-item>
+            <tr>
+              <td colspan="7">
+                <div class="p-3">
+                  <p-table [value]="item" dataKey="idModalidadMallaDTO">
+                    <ng-template pTemplate>
+                      <tr>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Activo</th>
+                        <th style="width: 4rem"></th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item>
+                      <tr>
+                        <td>{{ item.nombreModalidadMalla }}</td>
+                        <td>{{ item.descripcionModalidadMalla }}</td>
+                        <td>{{ item.activoModalidadMalla }}</td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </td>
+            </tr>
+          </!--ng-template-->
+          <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+              En Total Existen {{lstModMalla ? lstModMalla.length : 0 }} Modalida malla.
+            </div>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </section>
+  
+  
+  <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+  

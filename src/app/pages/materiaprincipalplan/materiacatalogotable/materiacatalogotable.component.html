@@ -1,0 +1,103 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="card">
+      <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+        </ng-template>
+
+        <ng-template pTemplate="right">
+          <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-sm p-button-outlined p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+          <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-sm p-button-outlined p-button-danger p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
+
+        </ng-template>
+      </p-toolbar>
+
+
+      <p-table #dt [value]="lstMateriaCatalogo" [rows]="10" [paginator]="true" [loading]="loading"
+               [globalFilterFields]="['codigoMateria','nombreMateria','creditosMateria','horasSemestralesMateria','cuposMatriculaMateria','idTipoMateriaCatalogoNavigation.nombreTipoMateriaCatalogo']"
+               responsiveLayout="scroll"
+               selectionMode="single" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)"
+               [(selection)]="materiacatalogoSelect" [rowHover]="true" dataKey="idTipoPe"
+               currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+               [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+          <div class="d-flex justify-content-between flex-wrap">
+            <button pButton label="Clear" class="p-button-outlined p-button-sm" icon="pi pi-filter-slash" (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
+            <label class="text-center">LISTADO DE TIPOS PARA PLANES DE ESTUDIO</label>
+            <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" class="p-inputtext-sm" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General" />
+                </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+
+            <th pSortableColumn="codigoMateria">Código
+              <p-sortIcon field="codigoMateria"></p-sortIcon>
+            </th>
+            <th pSortableColumn="nombreMateria">Nombre
+              <p-sortIcon field="nombreMateria"></p-sortIcon>
+            </th>
+            <th pSortableColumn="creditosMateria">Créditos
+              <p-sortIcon field="creditosMateria"></p-sortIcon>
+            </th>
+            <th pSortableColumn="horasSemestralesMateria">Horas
+              <p-sortIcon field="horasSemestralesMateria"></p-sortIcon>
+            </th>
+            <th pSortableColumn="cuposMatriculaMateria">Cupos
+              <p-sortIcon field="cuposMatriculaMateria"></p-sortIcon>
+            </th>
+            <th pSortableColumn="idTipoMateriaCatalogoNavigation.nombreTipoMateriaCatalogo">Tipo
+              <p-sortIcon field="idTipoMateriaCatalogoNavigation.nombreTipoMateriaCatalogo"></p-sortIcon>
+            </th>
+          </tr>
+          <tr>
+
+            <th>
+              <div class="p-d-flex p-jc-between p-ai-center">
+                <p-columnFilter type="text" field="codigoMateria"></p-columnFilter>
+              </div>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="nombreMateria"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="creditosMateria"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="horasSemestralesMateria"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="cuposMatriculaMateria"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text"
+                              field="idTipoMateriaCatalogoNavigation.nombreTipoMateriaCatalogo"></p-columnFilter>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr>
+
+            <td>{{item.codigoMateria}}</td>
+            <td>{{item.nombreMateria}}</td>
+            <td>{{item.creditosMateria}}</td>
+            <td>{{item.horasSemestralesMateria}}</td>
+            <td>{{item.cuposMatriculaMateria}}</td>
+            <td>{{item.idTipoMateriaCatalogoNavigation.nombreTipoMateriaCatalogo}}</td>
+
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+          <div class="p-d-flex p-ai-center p-jc-between">
+            En total hay {{lstMateriaCatalogo ? lstMateriaCatalogo.length : 0 }} Materias.
+          </div>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</section>
+
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

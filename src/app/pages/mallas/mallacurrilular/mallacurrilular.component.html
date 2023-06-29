@@ -1,0 +1,225 @@
+<!-- <div class="grid grid-nogutter surface-0 text-800 position-relative">
+    <div class="col-12 md:col-12 p-2 text-center md:text-left align-items-center ">
+        <section>
+            <form>
+                <p-panel header="" [toggleable]="false">
+                    <div class="p-fluid p-formgrid flex-row">
+                        <div class="row">
+                            <div class="p-field col-2 md:col-12  mb-0 px-1">
+                                <span class="p-float-label">
+                                    <!-- <p-dropdown [filter]="true" filterBy="nombreUoc"
+                                            [showClear]="true" id="fdd-listfacu"
+                                            required [options]="listFacultad"
+                                            [(ngModel)]="facultadSelected"
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="nombreFacultad"
+                                            (ngModelChange)="llenarDetalleFacultad($event)"
+                                            [autoDisplayFirst]="false"></p-dropdown> -->
+
+<!-- <p-dropdown [filter]="true" filterBy="nombreUoc" 
+                                            [showClear]="true" id="fdd-listnivel" 
+                                            required [options]="lstNivelEstudio" 
+                                            [(ngModel)]="nivelEstudioSelected" 
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="nombreNivelEstudio"
+                                            (ngModelChange)="llenarMaterias($event)" 
+                                            [autoDisplayFirst]="false">
+                                    </p-dropdown> -->
+<!-- <label for="fdd-listnivel">* Nivel Estudios</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </p-panel>
+            </form>
+        </section>
+    </div>
+</div> -->
+
+<div class="col-12 md:col-12 p-1 text-center md:text-left align-items-center ">
+    <p-panel header="" [toggleable]="false">
+        <p-dataView #dv [value]="lstMalla" [paginator]="true" [rows]="9"
+            filterBy="codigoPlanEstudioMalla,idCarreraDTO.nombreCarrera" [sortField]="sortField" [sortOrder]="sortOrder"
+            layout="grid">
+            <ng-template pTemplate="header">
+                <div class="flex flex-column flex-row justify-content-between ">
+                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordenar por nombre"
+                        (onChange)="onSortChange($event)" styleClass="p-mb-2 p-mb-md-0"></p-dropdown>
+                    <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+                        <i class="pi pi-search"></i>
+                        <input type="search" pInputText placeholder="Buscar por nombre"
+                            (input)="dv.filter($event.target.value)">
+                    </span>
+                    <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                </div>
+            </ng-template>
+
+            <ng-template let-item pTemplate="listItem">
+
+                <div class="col-12">
+                    <div class="grid grid-nogutter surface-0 text-800 position-relative">
+                        <div class="ribbon-wrapper ribbon">
+                            <div [class]="item.activoMalla ? 'ribbon bg-success':'ribbon bg-danger'">
+                                {{item.activoMalla ? 'ACTIVO' : 'INACTIVO'}}
+                            </div>
+                        </div>
+                        <div class="product-list-item"
+                            style="background: linear-gradient(199deg, rgba(7,92,187,1) 0%, rgba(52,126,209,1) 7%, rgba(244,246,249,1) 25%);">
+                            <div class="product-list-detail">
+                                <div class="product-name">{{item.codigoPlanEstudioMalla}}</div>
+                                <div class="product-description">{{item.numerodecretoCesMalla}}</div>
+                                <!--<p-rating [ngModel]="item.horasSemestralesMateriap" [readonly]="true" [cancel]="false"></p-rating>-->
+                                <!--<i class="pi pi-tag product-category-icon"></i>-->
+
+                                <!--por definir las horas-->
+                                <!-- <span
+                                    class="product-category">Hrs: {{item.horasSemestralesMateriap}}
+                                    / Créditos: {{item.creditosMateriap}}</span> -->
+                            </div>
+                            <div class="product-list-action">
+                                <span class="product-price"></span>
+                                <span
+                                    [class]="item.cuposMatriculaMateriap >5 ? 'badge bg-success':'badge bg-danger'">Cupos:
+                                    {{item.cupoCesMalla}}</span>
+                                <button pButton pRipple type="button"
+                                    [ngClass]="index !== item.idMalla ? 'p-button-rounded p-button-info':'p-button-rounded p-button-danger'"
+                                    [icon]="index !== item.idMalla ?  'pi pi-plus':'pi pi-trash'"
+                                    [disabled]="!item.activoMalla" (click)="escogerMalla(item)"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+
+            <ng-template let-item pTemplate="gridItem">
+                <div class="p-col-12">
+                    <div class="grid grid-nogutter surface-0 text-800 position-relative">
+                        <div class="ribbon-wrapper ribbon" style="height: 70px !important;
+                                                        overflow: hidden;
+                                                        position: absolute;
+                                                        right: 7px !important;
+                                                        top: 7px !important;
+                                                        width: 70px;
+                                                        z-index: 10;">
+                            <div [class]="item.activoMalla ? 'ribbon bg-success':'ribbon bg-danger'">
+                                {{item.activoMalla ? 'ACTIVO' : 'INACTIVO'}}
+                            </div>
+                        </div>
+                        <div class="product-grid-item card"
+                            style="background: linear-gradient(199deg, rgba(7,92,187,1) 0%, rgba(52,126,209,1) 7%, rgba(244,246,249,1) 25%);">
+                            <div class="product-grid-item-top">
+                                <div>
+                                    <!--<i class="pi pi-tag product-category-icon"></i>-->
+                                    <span class="product-category">Créditos: {{item.creditosMateriap}}</span>
+                                </div>
+                                <span
+                                    [class]="item.cuposMatriculaMateriap >5 ? 'badge bg-success':'badge bg-danger'">Cupos:
+                                    {{item.cupoCesMalla}}</span>
+                            </div>
+                            <div class="product-grid-item-content">
+                                <p-divider></p-divider>
+
+                                <div class="product-name">{{item.codigoPlanEstudioMalla}}</div>
+                                <div class="product-description">{{item.numerodecretoCesMalla}}</div>
+                                <p-divider></p-divider>
+
+                            </div>
+                            <div class="product-grid-item-bottom">
+                                <!--por definir las horas-->
+                                <!--span class="product-price">Hrs: {{item.horasSemestralesMateriap}}</!--span-->
+                                <button pButton pRipple type="button"
+                                    [ngClass]="index !== item.idMalla ? 'p-button-rounded p-button-info':'p-button-rounded p-button-danger'"
+                                    [icon]="index !== item.idMalla ?  'pi pi-plus':'pi pi-trash'"
+                                    [disabled]="!item.activoMalla" (click)="escogerMalla(item)"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </p-dataView>
+
+        <!-- EJEMPLO QUEMADO -->
+
+        <div class="p-grid p-nogutter grid grid-nogutter">
+            <div _ngcontent-jfi-c104="" class="p-col-12 ng-star-inserted" style="">
+                <div _ngcontent-jfi-c104="" class="grid grid-nogutter surface-0 text-800 position-relative">
+                    <div _ngcontent-jfi-c104="" class="ribbon-wrapper ribbon"
+                        style="height: 70px !important; overflow: hidden; position: absolute; right: 7px !important; top: 7px !important; width: 70px; z-index: 10;">
+                        <div _ngcontent-jfi-c104="" class="bg-success ribbon"> ACTIVO </div>
+                    </div>
+                    <div _ngcontent-jfi-c104="" class="product-grid-item card"
+                        style="background: linear-gradient(199deg, rgba(7,92,187,1) 0%, rgba(52,126,209,1) 7%, rgba(244,246,249,1) 25%);">
+                        <div _ngcontent-jfi-c104="" class="product-grid-item-top">
+                            <div _ngcontent-jfi-c104=""><span _ngcontent-jfi-c104="" class="product-category">Créditos:
+                                    2</span></div><span _ngcontent-jfi-c104="" class="badge bg-success">Cupos: 20</span>
+                        </div>
+                        <div _ngcontent-jfi-c104="" class="product-grid-item-content">
+                            <p-divider _ngcontent-jfi-c104="" class="p-element">
+                                <div role="separator"
+                                    class="p-divider p-component p-divider-horizontal p-divider-solid p-divider-left">
+                                    <div class="p-divider-content"></div>
+                                </div>
+                            </p-divider>
+                            <div _ngcontent-jfi-c104="" class="product-name">GESEKBASD1C</div>
+                            <div _ngcontent-jfi-c104="" class="product-description">COMUNICACION ORAL Y ESCRITA</div>
+                            <p-divider _ngcontent-jfi-c104="" class="p-element">
+                                <div role="separator"
+                                    class="p-divider p-component p-divider-horizontal p-divider-solid p-divider-left">
+                                    <div class="p-divider-content"></div>
+                                </div>
+                            </p-divider>
+                        </div>
+                        <div _ngcontent-jfi-c104="" class="product-grid-item-bottom"><span _ngcontent-jfi-c104=""
+                                class="product-price">Hrs: 16</span><button _ngcontent-jfi-c104="" pbutton="" pripple=""
+                                type="button"
+                                class="p-element p-button-rounded p-button-info p-button p-component p-button-icon-only"><span
+                                    class="p-button-icon pi pi-plus" aria-hidden="true"></span><span aria-hidden="true"
+                                    class="p-button-label">&nbsp;</span></button></div>
+                    </div>
+                </div>
+            </div>
+            <!---->
+            <div _ngcontent-jfi-c104="" class="p-col-12 ng-star-inserted" style="">
+                <div _ngcontent-jfi-c104="" class="grid grid-nogutter surface-0 text-800 position-relative">
+                    <div _ngcontent-jfi-c104="" class="ribbon-wrapper ribbon"
+                        style="height: 70px !important; overflow: hidden; position: absolute; right: 7px !important; top: 7px !important; width: 70px; z-index: 10;">
+                        <div _ngcontent-jfi-c104="" class="bg-success ribbon"> ACTIVO </div>
+                    </div>
+                    <div _ngcontent-jfi-c104="" class="product-grid-item card"
+                        style="background: linear-gradient(199deg, rgba(7,92,187,1) 0%, rgba(52,126,209,1) 7%, rgba(244,246,249,1) 25%);">
+                        <div _ngcontent-jfi-c104="" class="product-grid-item-top">
+                            <div _ngcontent-jfi-c104=""><span _ngcontent-jfi-c104="" class="product-category">Créditos:
+                                    2</span></div><span _ngcontent-jfi-c104="" class="badge bg-success">Cupos: 20</span>
+                        </div>
+                        <div _ngcontent-jfi-c104="" class="product-grid-item-content">
+                            <p-divider _ngcontent-jfi-c104="" class="p-element">
+                                <div role="separator"
+                                    class="p-divider p-component p-divider-horizontal p-divider-solid p-divider-left">
+                                    <div class="p-divider-content"></div>
+                                </div>
+                            </p-divider>
+                            <div _ngcontent-jfi-c104="" class="product-name">GESEKBASD1P</div>
+                            <div _ngcontent-jfi-c104="" class="product-description">PENSAMIENTO LOGICO Y CIENTIFICO
+                            </div>
+                            <p-divider _ngcontent-jfi-c104="" class="p-element">
+                                <div role="separator"
+                                    class="p-divider p-component p-divider-horizontal p-divider-solid p-divider-left">
+                                    <div class="p-divider-content"></div>
+                                </div>
+                            </p-divider>
+                        </div>
+                        <div _ngcontent-jfi-c104="" class="product-grid-item-bottom"><span _ngcontent-jfi-c104=""
+                                class="product-price">Hrs: 15</span><button _ngcontent-jfi-c104="" pbutton="" pripple=""
+                                type="button"
+                                class="p-element p-button-rounded p-button-info p-button p-component p-button-icon-only"><span
+                                    class="p-button-icon pi pi-plus" aria-hidden="true"></span><span aria-hidden="true"
+                                    class="p-button-label">&nbsp;</span></button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FIN DEL EJEMPLO  -->
+
+    </p-panel>
+</div>

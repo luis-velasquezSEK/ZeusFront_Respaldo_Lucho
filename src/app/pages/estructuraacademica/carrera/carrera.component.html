@@ -1,0 +1,156 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1></h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Carrera</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<div class="grid grid-nogutter surface-0 text-800 position-relative">
+  <div class="ribbon-wrapper ribbon-xl">
+    <div class="ribbon bg-danger text-xl">
+      PRUEBAS
+    </div>
+  </div>
+  <div class="col-12 md:col-12 p-6 text-center md:text-left align-items-center ">
+    <section>
+      <div class="text-6xl text-primary font-bold mb-3">Carrera
+        <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+          <ng-template pTemplate>
+            <video width="100%" height="auto" autoplay controls>
+              <source src="assets/video/estadoplan.webm" type="video/mp4">
+            </video>
+          </ng-template>
+        </p-overlayPanel>
+
+        <button (click)="op.toggle($event)"
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-video"
+                class="p-button-rounded p-button-secondary p-button-text"
+        >
+        </button>
+      </div>
+      <p class="mt-0 mb-4 text-700 line-height-3">Las Carrearas son unidades especializadas en diferentes
+      ramas académicas, la smismas que pertenecen a una Facultad.</p>
+
+      <form [formGroup]="form" enctype="multipart/form-data" accept-charset="utf8">
+        <p-panel header="Registro" [toggleable]="false">
+          <ng-template pTemplate="icons" pStyleClass="display: flex;
+    justify-content: end;
+    align-items: center;">
+            <button pButton pRipple type="button" icon="pi pi-send" (click)="guardar()" pTooltip="Guardar"
+                    tooltipPosition="top"
+                    class="p-button-rounded p-button-success p-button-text p-button"></button>
+            <button pButton pRipple type="button" icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar"
+                    tooltipPosition="top"
+                    class="p-button-rounded p-button-danger p-button-text p-button"></button>
+
+          </ng-template>
+          <div class="p-fluid p-formgrid grid">
+            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-codigo" type="text" required="true"
+                                       formControlName="codigoCarrera" [maxLength]="3">
+                                <label for="ftxt-codigo">* Código</label>
+                              </span>
+            </div>
+            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-nombre" type="text" required="true"
+                                       formControlName="nombreCarrera">
+                                <label for="ftxt-nombre">* Nombre</label>
+                              </span>
+            </div>
+            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-siglas" type="text" required="true"
+                                       formControlName="siglasCarrera">
+                                <label for="ftxt-siglas">* Siglas</label>
+                              </span>
+            </div>
+            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-titulo" type="text" required="true"
+                                       formControlName="tituloCarrera">
+                                <label for="ftxt-titulo">* Título</label>
+                              </span>
+            </div>
+            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-mencion" type="text" required="true"
+                                       formControlName="mencionCarrera">
+                                <label for="ftxt-mencion">* Mención</label>
+                              </span>
+            </div>
+
+            <div class="p-field col-12 md:col-3 mb-0 px-3">
+                           <span class="p-float-label">
+                             <p-dropdown [filter]="true" filterBy="nombreEstadoCarrera"
+                                         optionLabel="nombreEstadoCarrera"
+                                         [showClear]="true" id="fdd-lstestado"
+                                         required
+                                         formControlName="idEstadoCarreraDTO"
+                                         [options]="lstEstado"
+                                         [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-lstestado">* Estado</label>
+                            </span>
+            </div>
+            <div class="p-field col-12 md:col-3 mb-0 px-3">
+                           <span class="p-float-label">
+                             <p-dropdown [filter]="true" filterBy="nombreFacultad"
+                                         optionLabel="nombreFacultad"
+                                         [showClear]="true" id="fdd-listfacultad"
+                                         required
+                                         formControlName="idFacultadDTO"
+                                         [options]="lstFacultad"
+                                         [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listfacultad">* Facultad</label>
+                            </span>
+            </div>
+
+            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3 flex justify-content-evenly">
+              <label for="ftxt-activo">* Activo </label>
+              <p-inputSwitch id="ftxt-activo" formControlName="activoCarrera"></p-inputSwitch>
+            </div>
+
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3  justify-content-evenly">
+              <label >* Resolución</label>
+
+              <p-fileUpload uploadLabel="Enviar" name="file" [url]="URLFILEUPLOAD" #fileInput
+                            chooseLabel="Seleccionar" cancelLabel="Cancelar"
+                            [chooseIcon]="uploadedFiles.length ? 'pi pi-upload':'pi pi-plus'"
+                            id="upload" (onUpload)="onUploadToBackend($event)"
+                            [multiple]="false" [accept]="ACCEPTFILES" [maxFileSize]="SIZEFILE"
+                            mode="advanced" [showUploadButton]="false">
+                <ng-template pTemplate="content">
+                  <ul *ngIf="uploadedFiles.length">
+                    <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                  </ul>
+                </ng-template>
+              </p-fileUpload>
+
+            </div>
+
+          </div>
+
+        </p-panel>
+      </form>
+    </section>
+  </div>
+</div>
+
+<p-divider></p-divider>
+
+<app-carreratable [lstCarrera]="lstCarrera"
+                   (carreraSelect)=setSeleccionado($event)></app-carreratable>

@@ -1,0 +1,216 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1></h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Mallas</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+
+<div class="grid grid-nogutter surface-0 text-800 position-relative">
+  <div class="ribbon-wrapper ribbon">
+    <div class="ribbon bg-danger">
+      Mallas Prueba
+    </div>
+  </div>
+  <div class="col-12 md:col-12 p-6 text-center md:text-left align-items-center ">
+    <section>
+      <div class="text-6xl text-primary font-bold mb-3">Mallas
+        <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+          <ng-template pTemplate>
+            <video width="100%" height="auto" autoplay controls>
+              <source src="assets/video/estadoplan.webm" type="video/mp4">
+            </video>
+          </ng-template>
+        </p-overlayPanel>
+
+        <button (click)="op.toggle($event)"
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-video"
+                class="p-button-rounded p-button-secondary p-button-text"
+        >
+        </button>
+
+      </div>
+      <p class="mt-0 mb-4 text-700 line-height-3">Las Mallas son representacion de las materias distribuidas en los
+        semestres de una Facultad y su Carrera.</p>
+
+
+      <form>
+        <p-panel header="Vista Mallas por Facultad/Carrera/Modalidad" [toggleable]="false">
+          <ng-template pTemplate="icons">
+            <button pButton pRipple type="button" icon="pi pi-filter"
+                    pTooltip="Filtros"
+                    tooltipPosition="top"
+                    class="p-button-rounded p-button-help p-button-text p-button-lg"></button>
+            <button pButton pRipple type="button" icon="pi pi-cloud-upload" pTooltip="Subir"
+                    tooltipPosition="top"
+                    class="p-button-rounded  p-button-text p-button-lg"></button>
+            <button pButton pRipple type="button" icon="pi pi-cloud-download" pTooltip="Descargar"
+                    tooltipPosition="top"
+                    class="p-button-rounded p-button-text p-button-lg"></button>
+
+          </ng-template>
+          <div class="p-fluid p-formgrid grid">
+            <div class="p-field col-12 md:col-3  mb-0 px-3">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreUoc"
+                                            [showClear]="true" id="fdd-listfacu"
+                                            required [options]="listFacultad"
+                                            [(ngModel)]="facultadSelected"
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="nombreFacultad"
+                                            (ngModelChange)="llenarDetalleFacultad($event)"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listfacu">* Facultad</label>
+                            </span>
+            </div>
+            <div class="p-field col-12 md:col-3  mb-0 px-3">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreUoc"
+                                            [showClear]="true" id="fdd-listcarrera"
+                                            required [options]="listCarrera"
+                                            [(ngModel)]="carreraSelected"
+                                            (ngModelChange)="llenarDetalleCarrera($event)"
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="nombreCarrera"
+
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listcarrera">* Carrera</label>
+                            </span>
+            </div>
+            <div class="p-field col-12 md:col-3  mb-0 px-3">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreUoc"
+                                            [showClear]="true" id="fdd-listmalla"
+                                            required [options]="listMalla"
+                                            [(ngModel)]="mallaSelected"
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="codigoPlanEstudioMalla"
+                                            (ngModelChange)="llenarDetalleMalla($event)"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listmalla">* Malla</label>
+                            </span>
+            </div>
+            <div class="p-field col-12 md:col-3  mb-0 px-3">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreUoc"
+                                            [showClear]="true" id="fdd-listmodmalla"
+                                            required [options]="listModalidadMalla"
+                                            [(ngModel)]="modalidadMallaSelected"
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="nombreModalidadMalla"
+                                            (ngModelChange)="llenarDetalleModalidadMalla($event)"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listmodmalla">* Modalidad Malla</label>
+                            </span>
+            </div>
+
+            <!--
+            <div class="p-field col-12 md:col-12  mb-0 px-3">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreUoc"
+                                            [showClear]="true" id="fdd-listnivel"
+                                            required [options]="listNivelEstudios"
+                                            [(ngModel)]="nivelEstudioSelected"
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="nombreNivelEstudio"
+                                            (ngModelChange)="llenarDetalleNivelEstudios($event)"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listnivel">* Nivel Estudios</label>
+                            </span>
+            </div>
+            -->
+
+          </div>
+
+
+        </p-panel>
+      </form>
+
+    </section>
+  </div>
+</div>
+
+<div *ngFor="let parent of listNivelEstudios" class="p-fluid p-formgrid grid info-box">
+  <div
+    class="p-field col-12 md:col-4  mb-0 px-3 info-box-icon bg-info elevation-1 text-sm">{{parent.nombreNivelEstudio}}</div>
+  <div class="p-0" *ngFor="let item of parent.materiaPrincipalListDTO">
+
+    <div  class="grid grid-nogutter surface-0 text-800 position-relative">
+      <div class="ribbon-wrapper ribbon" style="height: 70px !important;
+    overflow: hidden;
+    position: absolute;
+    right: 7px !important;
+    top: 7px !important;
+    width: 70px;
+    z-index: 10;">
+        <div [class]="item.activoMateriap ? 'ribbon bg-success':'ribbon bg-danger'">
+          {{item.activoMateriap ? 'ACTIVO' : 'INACTIVO'}}
+        </div>
+      </div>
+      <div  class="product-grid-item card"
+           style="background: linear-gradient(199deg, rgba(7,92,187,1) 0%, rgba(52,126,209,1) 7%, rgba(244,246,249,1) 25%);">
+        <div class="product-grid-item-top">
+          <div>
+            <!--<i class="pi pi-tag product-category-icon"></i>-->
+            <span class="product-category">Créditos: {{item.creditosMateriap}}</span>
+          </div>
+          <span
+            [class]="item.cuposMatriculaMateriap >5 ? 'badge bg-success':'badge bg-danger'">Cupos: {{item.cuposMatriculaMateriap}}</span>
+        </div>
+        <div class="product-grid-item-content">
+          <p-divider></p-divider>
+
+          <div class="product-name">{{item.codigoMateriap}}</div>
+          <div class="product-description">{{item.nombreMateriap}}</div>
+          <p-divider></p-divider>
+
+        </div>
+        <div  class="direct-chat-msg right">
+          <div class="direct-chat-infos clearfix">
+            <span class="direct-chat-name float-right">Hrs: {{item.horasSemestralesMateriap}}</span>
+            <span class="direct-chat-timestamp float-left">Paral: {{item.paralelo}}</span>
+          </div>
+          <img src="assets/img/mike.jpg" class="direct-chat-img shadow-8">
+          <div class="direct-chat-text">NOMBRE DOCENTE</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--
+<div *ngFor="let data of lstData" class="p-fluid p-formgrid grid info-box">
+  <div class="p-field col-12 md:col-4  mb-0 px-3 info-box-icon bg-info elevation-1 text-sm">Semestre 1</div>
+  <p-organizationChart [value]="data" selectionMode="single" [(selection)]="selectedNode"
+                       (onNodeSelect)="onNodeSelect($event)"
+                       styleClass="company" class="info-box-content col-12 md:col-8">
+    <ng-template let-node pTemplate="person">
+      <div class="node-header p-corner-top">{{node.label}}</div>
+      <div class="node-content">
+        <img src="assets/img/{{node.data.avatar}}" width="32">
+        <div>{{node.data.name}}</div>
+      </div>
+    </ng-template>
+    <ng-template let-node pTemplate="department">
+      {{node.label}}
+
+      <img src="assets/img/{{node.data.avatar}}" width="32">
+      <div>{{node.data.name}}</div>
+
+    </ng-template>
+  </p-organizationChart>
+</div>
+-->

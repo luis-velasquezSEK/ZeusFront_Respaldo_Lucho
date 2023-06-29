@@ -1,0 +1,170 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="card">
+      <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+          <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-button-sm"
+                  (click)="deleteSelectedItems()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+                  [disabled]="!selectedCampus || !selectedCampus.length"></button>
+        </ng-template>
+
+        <ng-template pTemplate="right">
+          <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-sm p-button-outlined p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+          <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-sm p-button-outlined p-button-danger p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
+
+        </ng-template>
+      </p-toolbar>
+
+
+      <p-table #dt [value]="lstCampus" [rows]="10" [paginator]="true" [loading]="loading"
+               [globalFilterFields]="['idCampus',
+               'codigoCampus',
+               'nombreCampus',
+               'callePrincipalCampus',
+               'calleSecundariaCampus',
+               'numeroCampus',
+               'referenciaCampus',
+               'codPostalCampus',
+               'telefonoCampus',
+               'faxCampus',
+               'emailCampus',
+               'activoCampus',
+               'idSedeInstitucionDTO.nombreSedeInstitucion',]"
+               responsiveLayout="scroll"
+               [(selection)]="selectedCampus" [rowHover]="true" dataKey="idCampus"
+               currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+               [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+          <div class="d-flex justify-content-between flex-wrap">
+            <button pButton label="Clear" class="p-button-outlined p-button-sm" icon="pi pi-filter-slash" (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
+            <label class="text-center">LISTADO DE CAMPUS</label>
+            <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" class="p-inputtext-sm" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General" />
+                </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 3rem">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="codigoCampus">Código
+              <p-sortIcon field="codigoCampus"></p-sortIcon>
+            </th>
+            <th pSortableColumn="nombreCampus">Nombre
+              <p-sortIcon field="nombreCampus"></p-sortIcon>
+            </th>
+            <th pSortableColumn="callePrincipalCampus">Calle Principal
+              <p-sortIcon field="callePrincipalCampus"></p-sortIcon>
+            </th>
+            <th pSortableColumn="calleSecundariaCampus">Calle Secundaria
+              <p-sortIcon field="calleSecundariaCampus"></p-sortIcon>
+            </th>
+            <th pSortableColumn="numeroCampus">No. Campus
+              <p-sortIcon field="numeroCampus"></p-sortIcon>
+            </th>
+            <th pSortableColumn="referenciaCampus">Referencia
+              <p-sortIcon field="referenciaCampus"></p-sortIcon>
+            </th>
+            <th pSortableColumn="codPostalCampus">Cod. Postal
+              <p-sortIcon field="codPostalCampus"></p-sortIcon>
+            </th>
+            <th pSortableColumn="telefonoCampus">Teléfono
+              <p-sortIcon field="telefonoCampus"></p-sortIcon>
+            </th>
+            <th pSortableColumn="faxCampus">Fax
+              <p-sortIcon field="faxCampus"></p-sortIcon>
+            </th>
+            <th pSortableColumn="emailCampus">Email
+              <p-sortIcon field="emailCampus"></p-sortIcon>
+            </th>
+            <th pSortableColumn="activoCampus">Activo
+              <p-sortIcon field="activoCampus"></p-sortIcon>
+            </th>
+            <th pSortableColumn="idSedeInstitucionDTO.nombreSedeInstitucion">Sede
+              <p-sortIcon field="idSedeInstitucionDTO.nombreSedeInstitucion"></p-sortIcon>
+            </th>
+            <th>Opciones</th>
+          </tr>
+          <tr>
+            <th></th>
+            <th>
+              <p-columnFilter type="text" field="codigoCampus"></p-columnFilter>
+            </th>
+
+            <th>
+              <p-columnFilter type="text" field="nombreCampus"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="callePrincipalCampus"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="calleSecundariaCampus"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="numeroCampus"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="referenciaCampus"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="codPostalCampus"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="telefonoCampus"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="faxCampus"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="emailCampus"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="activoCampus"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="idSedeInstitucionDTO.nombreSedeInstitucion"></p-columnFilter>
+            </th>
+
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <td>
+              <p-tableCheckbox [value]="item"></p-tableCheckbox>
+            </td>
+            <td>{{item.codigoCampus}}</td>
+            <td>{{item.nombreCampus}}</td>
+            <td>{{item.callePrincipalCampus}}</td>
+            <td>{{item.calleSecundariaCampus}}</td>
+            <td>{{item.numeroCampus}}</td>
+            <td>{{item.referenciaCampus}}</td>
+            <td>{{item.codPostalCampus}}</td>
+            <td>{{item.telefonoCampus}}</td>
+            <td>{{item.faxCampus}}</td>
+            <td>{{item.emailCampus}}</td>
+            <td>{{item.activoCampus ? 'ACTIVO':'INACTIVO'}}</td>
+            <td>{{item.idSedeInstitucionDTO.nombreSedeInstitucion}}</td>
+
+            <td>
+              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
+                      (click)="editItem(item)" pTooltip="Editar" tooltipPosition="left"></button>
+              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text p-button-sm"
+                      (click)="deleteItem(item)" pTooltip="Eliminar" tooltipPosition="left"></button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+          <div class="p-d-flex p-ai-center p-jc-between">
+            En Total Existen {{lstCampus ? lstCampus.length : 0 }} Campus.
+          </div>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</section>
+
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

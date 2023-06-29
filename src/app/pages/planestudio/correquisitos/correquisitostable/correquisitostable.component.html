@@ -1,0 +1,150 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="card">
+      <p-table #dt [value]="lstCorrequisito" [rows]="10" [paginator]="true" [loading]="loading"
+               [globalFilterFields]="['idCorrequisito',
+               'codMateriaCorrequisito',
+               'observacionCorrequisito',
+               'pathCorrequisito',
+               'cumpleMateriaCorrequisito',
+               'activoMateriaCorrequisito',
+               'idTipoCorrequisitoDTO.nombreTipoCorrequisito']"
+               responsiveLayout="scroll"
+               [(selection)]="selectedCorrequisito" [rowHover]="true" dataKey="idCorrequisito"
+               currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+               [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+          <div class="d-flex justify-content-between flex-wrap">
+            <div>
+              <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-sm p-button-outlined p-button-success p-mr-2 m-1"  pTooltip="XLS" tooltipPosition="bottom"></button>
+              <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-sm p-button-outlined p-button-danger p-mr-2 m-1" pTooltip="PDF" tooltipPosition="bottom"></button>
+              <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-button-sm m-1"
+                      (click)="deleteSelectedCorrequisito()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+                      [disabled]="!selectedCorrequisito || !selectedCorrequisito.length"></button>
+              <button pButton label="Clear" class="p-button-outlined p-button-sm m-1" icon="pi pi-filter-slash" (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
+            </div>
+
+            <label class="text-center">LISTADO DE CORREQUISITOS</label>
+            <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" class="p-inputtext-sm" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General" />
+                </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 3rem">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="idCorrequisito">
+              <div class="flex justify-content-between align-items-center">#
+                <p-sortIcon field="idCorrequisito"></p-sortIcon>
+                <p-columnFilter type="text" field="idCorrequisito" display="menu"></p-columnFilter>
+              </div>
+            </th>
+            <th pSortableColumn="codMateriaCorrequisito">
+              <div class="flex justify-content-between align-items-center">Requisito
+                <p-sortIcon field="codMateriaCorrequisito"></p-sortIcon>
+                <p-columnFilter type="text" field="codMateriaCorrequisito" display="menu"></p-columnFilter>
+              </div>
+            </th>
+            <th pSortableColumn="observacionCorrequisito">
+              <div class="flex justify-content-between align-items-center">Observación
+                <p-sortIcon field="observacionCorrequisito"></p-sortIcon>
+                <p-columnFilter type="text" field="observacionCorrequisito" display="menu"></p-columnFilter>
+              </div>
+            </th>
+            <th pSortableColumn="pathCorrequisito">
+              <div class="flex justify-content-between align-items-center">Archivo
+                <p-sortIcon field="pathCorrequisito"></p-sortIcon>
+                <p-columnFilter type="text" field="pathCorrequisito" display="menu"></p-columnFilter>
+              </div>
+            </th>
+            <th pSortableColumn="idTipoCorrequisitoDTO.nombreTipoCorrequisito">
+              <div class="flex justify-content-between align-items-center">Tipo
+                <p-sortIcon field="idTipoCorrequisitoDTO.nombreTipoCorrequisito"></p-sortIcon>
+                <p-columnFilter type="text" field="idTipoCorrequisitoDTO.nombreTipoCorrequisito" display="menu"></p-columnFilter>
+              </div>
+            </th>
+            <th pSortableColumn="cumpleMateriaCorrequisito">
+              <div class="flex justify-content-between align-items-center">Cumple
+                <p-sortIcon field="cumpleMateriaCorrequisito"></p-sortIcon>
+                <p-columnFilter type="text" field="cumpleMateriaCorrequisito" display="menu"></p-columnFilter>
+              </div>
+            </th>
+            <th pSortableColumn="activoMateriaCorrequisito">
+              <div class="flex justify-content-between align-items-center">Activo
+                <p-sortIcon field="activoMateriaCorrequisito"></p-sortIcon>
+                <p-columnFilter type="text" field="activoMateriaCorrequisito" display="menu"></p-columnFilter>
+              </div>
+            </th>
+            <th>Opciones</th>
+          </tr>
+          <!--<tr>
+            <th></th>
+            <th>
+              <p-columnFilter type="text" field="idComponente"></p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter type="text" field="codigoComponente"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="nombreComponente"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="pesoComponente"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="idDuracionComponenteDTO.nombreDuracionComponente"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="idModalidadComponenteDTO.nombreModalidadComponente"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="idTipoComponenteDTO.nombreTipoComponente"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="activoComponente"></p-columnFilter>
+            </th>
+            <th></th>
+          </tr>-->
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <td>
+              <p-tableCheckbox [value]="item"></p-tableCheckbox>
+            </td>
+            <td>{{item.idCorrequisito}}</td>
+            <td>{{item.codMateriaCorrequisito}}</td>
+            <td>{{item.observacionCorrequisito}}</td>
+            <td>
+              <span [class]="item.pathCorrequisito ? 'badge badge-success': 'badge badge-warning'">
+              {{item.pathCorrequisito ? item.pathCorrequisito : 'Correquisito sin Archivo'}}
+              </span>
+              <button *ngIf="item.pathCorrequisito" (click)="descargarArchivo(item.pathCorrequisito)"
+                      pButton pRipple type="button" icon="pi pi-cloud-download" pTooltip="Descargar"
+                      tooltipPosition="top"
+                      class="p-button-rounded p-button-text p-button-lg"></button>
+            </td>
+            <td>{{item.idTipoCorrequisitoDTO.nombreTipoCorrequisito}}</td>
+            <td>{{item.cumpleMateriaCorrequisito ? 'ACTIVO':'INACTIVO'}}</td>
+            <td>{{item.activoMateriaCorrequisito ? 'ACTIVO':'INACTIVO'}}</td>
+            <td>
+              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
+                      (click)="editCorrequisito(item)" pTooltip="Editar" tooltipPosition="left"></button>
+              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text p-button-sm"
+                      (click)="deleteCorrequisito(item)" pTooltip="Eliminar" tooltipPosition="left"></button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+          <div class="p-d-flex p-ai-center p-jc-between">
+            En total existen {{lstCorrequisito ? lstCorrequisito.length : 0 }} Componentes.
+          </div>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</section>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

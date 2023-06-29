@@ -1,0 +1,21 @@
+export interface IPlanEstudio {
+    idplanestudio: number,
+    idEstadoPe: number,
+    idCarrera: number,
+    idmateria:number,
+    idModalidadPe: number,
+    codigoPlanEstudioMalla: string,
+    numerodecretoCesMalla: string,
+    pathdecretoCesMalla: string,
+    duracionSemestresMalla: number,
+    periodicidadMalla: number,
+    cupoCesMalla: number,
+    fechaAprobacionMalla: Date,
+    fechaVigenciaMalla: Date,
+    semestreInicioMalla: string,
+    semestreFinMalla: string,
+    pathresolucionactivaMalla: string,
+    pathresolucioncierreMalla: string,
+    observacionesMalla: string,
+    activoMalla: boolean
+}

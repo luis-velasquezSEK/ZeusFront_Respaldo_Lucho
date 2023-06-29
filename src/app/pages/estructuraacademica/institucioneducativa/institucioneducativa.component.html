@@ -1,0 +1,185 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1></h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Institución Educativa</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<div class="grid grid-nogutter surface-0 text-800 position-relative">
+  <div class="ribbon-wrapper ribbon-l">
+    <div class="ribbon bg-danger text-xl">
+      PRUEBAS
+    </div>
+  </div>
+  <div class="col-12 md:col-12 p-6 text-center md:text-left align-items-center ">
+    <section>
+      <div class="text-6xl text-primary font-bold mb-3">Institución Educativa
+        <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+          <ng-template pTemplate>
+            <video width="100%" height="auto" autoplay controls>
+              <source src="assets/video/estadoplan.webm" type="video/mp4">
+            </video>
+          </ng-template>
+        </p-overlayPanel>
+
+        <button (click)="op.toggle($event)"
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-video"
+                class="p-button-rounded p-button-secondary p-button-text"
+        >
+        </button>
+      </div>
+      <p class="mt-0 mb-4 text-700 line-height-3">Las Instituciones Educatvas son las
+        entidades iniciales para formar una Estructura Académica.</p>
+
+      <form [formGroup]="form" enctype="multipart/form-data" accept-charset="utf8">
+        <p-panel header="Registro" [toggleable]="false">
+          <ng-template pTemplate="icons" pStyleClass="display: flex;
+    justify-content: end;
+    align-items: center;">
+            <button pButton pRipple type="button" icon="pi pi-cloud-upload" pTooltip="Subir"
+                    tooltipPosition="top" (click)="startUpload()"
+                    class="p-button-rounded  p-button-text p-button-lg"></button>
+            <button pButton pRipple type="button" icon="pi pi-send" (click)="guardar()" pTooltip="Guardar"
+                    tooltipPosition="top"
+                    class="p-button-rounded p-button-success p-button-text p-button"></button>
+            <button pButton pRipple type="button" icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar"
+                    tooltipPosition="top"
+                    class="p-button-rounded p-button-danger p-button-text p-button"></button>
+
+          </ng-template>
+          <div class="p-fluid p-formgrid grid">
+            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-codigo" type="text" required="true"
+                                       formControlName="codigoInstitucionEducativa">
+                                <label for="ftxt-codigo">* Código</label>
+                              </span>
+            </div>
+            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-codigoauth" type="text" required="true"
+                                       formControlName="codautorizacionInstitucionEducativa">
+                                <label for="ftxt-codigoauth">* Código Autorización</label>
+                              </span>
+            </div>
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-nombre" type="text" required="true"
+                                       formControlName="nombreInstitucionEducativa">
+                                <label for="ftxt-nombre">* Nombre</label>
+                              </span>
+            </div>
+
+            <div class="p-field col-12 md:col-3  mb-0 px-3">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreCategoria"
+                                            [showClear]="true" id="fdd-listcategoria"
+                                            required
+                                            [(ngModel)]="categoria"
+                                            [ngModelOptions]="{standalone: true}"
+                                            [options]="lstCategoria"
+                                            optionLabel="nombreCategoria"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listcategoria">* Categoría</label>
+                            </span>
+            </div>
+            <div class="p-field col-12 md:col-3 mb-0 px-3">
+                           <span class="p-float-label">
+                             <p-dropdown [filter]="true" filterBy="nombreTipoInstitucionEducativa"
+                                         [showClear]="true" id="fdd-listtipoinst"
+                                         required [options]="lstTipoInstitucionEducativa"
+                                         [(ngModel)]="tipo"
+                                         [ngModelOptions]="{standalone: true}"
+                                         optionLabel="nombreTipoInstitucionEducativa"
+                                         [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listtipoinst">* Tipo Institución</label>
+                            </span>
+            </div>
+
+
+            <div class="p-field col-12 md:col-2 md:mb-4 mb-0 px-3 flex justify-content-evenly">
+              <label for="ftxt-activo">* Activo </label>
+              <p-inputSwitch id="ftxt-activo" formControlName="activoInstitucionEducativa"></p-inputSwitch>
+            </div>
+
+
+            <!-- <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3  justify-content-evenly">
+              <label >* Autorización</label>
+
+              <p-fileUpload uploadLabel="Enviar" name="file" [url]="URLFILEUPLOAD" #fileInput
+                            chooseLabel="Seleccionar" cancelLabel="Cancelar" [chooseIcon]="uploadedFiles.length ? 'pi pi-upload':'pi pi-plus'"
+                            id="upload" (onUpload)="onUploadToBackend($event)"
+                            [multiple]="false" [accept]="ACCEPTFILES" [maxFileSize]="SIZEFILE"
+                            mode="advanced" [showUploadButton]="false">
+                <ng-template pTemplate="content">
+                  <ul *ngIf="uploadedFiles.length">
+                    <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                  </ul>
+                </ng-template>
+              </p-fileUpload>
+
+            </div> -->
+
+            <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3  justify-content-evenly">
+              <label>* Autorización</label>
+              <p-fileUpload uploadLabel="Enviar" name="file" [url]="URLFILEUPLOAD" #fileInput chooseLabel="Seleccionar"
+                            cancelLabel="Cancelar" [chooseIcon]="uploadedFiles.length ? 'pi pi-upload':'pi pi-plus'"
+                            id="upload" (onSelect)="onFileSelect($event)"
+                            (onUpload)="onUploadToBackend($event)" [multiple]="false" [accept]="ACCEPTFILES"
+                            [maxFileSize]="SIZEFILE" mode="advanced" [showUploadButton]="false">
+
+                <ng-template let-file pTemplate="file">
+                  <div class="p-fileupload-content">
+                    <div class="p-fileupload-files ng-star-inserted">
+                      <div class="ng-star-inserted">
+                        <div class="p-fileupload-row ng-star-inserted">
+                          <div style="font-size: 60px;text-align: center;align-items: center;justify-content: center;">
+                            <i class="{{getFileExtension(file.name)}}"
+                               style="color:#5cb85c;"
+                               aria-hidden="true"></i>
+                            <img [src]="InstitucionURL" alt="" *ngIf="getFileExtension(file.name)===''"
+                                  class="img-fluid ng-star-inserted"></div>
+                          <div class="p-fileupload-filename">{{file.name}}</div>
+                          <div>{{file.size}}</div>
+                          <div>
+                            <button type="button" icon="pi pi-times" pbutton="" (click)="remove($event, file)"
+                                    class="p-element p-button p-component p-button-icon-only">
+                              <span class="p-button-icon pi pi-times" aria-hidden="true"></span>
+                              <span aria-hidden="true" class="p-button-label">&nbsp;</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </p-fileUpload>
+            </div>
+
+
+          </div>
+
+        </p-panel>
+      </form>
+    </section>
+  </div>
+</div>
+
+
+<p-divider></p-divider>
+
+<app-institucioneducativatable [lstInstitucionEducativa]="lstInstitucionEducativa | async"
+                     (institucionEducativaSelect)=setSeleccionado($event)></app-institucioneducativatable>

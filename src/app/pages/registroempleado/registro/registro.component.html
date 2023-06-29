@@ -1,0 +1,723 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1></h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Registro Empleado</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<div class="grid grid-nogutter surface-0 text-800 position-relative"
+  style="background: linear-gradient(199deg, rgba(7,92,187,1) 0%, rgba(52,126,209,1) 7%, rgba(244,246,249,1) 25%);">
+  <div class="ribbon-wrapper ribbon-l">
+    <div class="ribbon bg-danger text-l">
+      PRUEBAS
+    </div>
+  </div>
+
+  <div class="col-12 md:col-12 p-6 text-center md:text-left align-items-center ">
+    <section>
+      <div class="text-6xl text-primary font-bold mb-1">Registro Empleado
+        <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+          <ng-template pTemplate>
+            <video width="100%" height="auto" autoplay controls>
+              <source src="assets/video/estadoplan.webm" type="video/mp4">
+            </video>
+          </ng-template>
+        </p-overlayPanel>
+
+        <button (click)="op.toggle($event)" pButton pRipple type="button" icon="pi pi-video"
+          class="p-button-rounded p-button-secondary p-button-text">
+        </button>
+      </div>
+      <p class="mt-0 mb-4 text-700 line-height-3">Seccion de Registro de datos del nuevo empleador</p>
+
+      <div class="spinner" *ngIf="loadReady">
+        <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8"
+          fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+      </div>
+
+      <div *ngIf="loadProgres">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
+
+      <p-toolbar class="flex justify-content-end p-3">
+        <div class="p-toolbar-group-start">
+          <p-button label="Guardar" icon="pi pi-save" class="p-1" styleClass="p-button-outlined p-button-success"
+            (click)="guardar()"></p-button>
+          <p-button label="Limpiar" icon="pi pi-trash" class="p-1" styleClass="p-button-outlined p-button-danger"
+            (click)="cancelar()"></p-button>
+          <p-button label="Ver Catalogo" icon="pi pi-book" class="p-1" styleClass="p-button-outlined p-button-help"
+            (click)="showModalDialog()"></p-button>
+        </div>
+      </p-toolbar>
+
+      <p-timeline [value]="sections" align="left" styleClass="customized-timeline w-full">
+        <ng-template pTemplate="marker" let-sections>
+
+          <span class="custom-marker p-shadow-2" [style.backgroundColor]="sections.color">
+            <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+              <ng-template pTemplate>
+                <video width="100%" height="auto" autoplay controls>
+                  <source src="assets/video/estadoplan.webm" type="video/mp4">
+                </video>
+              </ng-template>
+            </p-overlayPanel>
+            <button (click)="op.toggle($event)" pButton pRipple type="button" [icon]="sections.icon"
+              [style]="{color: 'white'}" class="p-button-rounded p-button-secondary p-button-text">
+            </button>
+          </span>
+        </ng-template>
+        <ng-template pTemplate="content" let-sections>
+          <p-card [header]="sections.header" [subheader]="sections.subheader" class="p-3 w-full">
+
+            <!-- FORM 1 DATOS PERSONALES -->
+            <form [formGroup]="form" *ngIf="sections.index === 1">
+              <div class="p-fluid p-formgrid grid justify-content-center" style="margin-left: 14%; margin-right: 14%;">
+                <div class="col-6 justify-content-center">
+                  <div class="row">
+                    <div class="p-field col-12 md:col-12 mb-0 px-3">
+                      <span class="p-float-label">
+                        <p-dropdown [filter]="true" 
+                            filterBy="tipoDocumento1" [showClear]="true"
+                            id="fdd-lsttipodoc" required 
+                            emptyMessage="No Existe Identificaion Disponible"
+                            [formControl]="form.controls['idTipoDocumento']"
+                            [options]="lstTipoDoc"
+                            (onChange)="llenarDetalleTipoDoc($event)"
+                            optionLabel="tipoDocumento1"
+                            [autoDisplayFirst]="false"></p-dropdown>
+                        <label for="fdd-lsttipodoc">* Tipo de Identificación</label>
+                      </span>
+                    </div>
+
+                    <div class="p-field col-12 md:col-12 mb-0 px-3">
+                      <span class="p-float-label">
+                        <input pInputText id="ftxt-apellido" type="text" required="true" formControlName="apellidoEmp"
+                          maxlength="50">
+                        <label for="ftxt-apellido">* Apellido</label>
+                      </span>
+                    </div>
+
+                    <div class="p-field col-12 md:col-12 mb-0 px-3">
+                      <span class="p-float-label">
+                        <input pInputText id="ftxt-nombre" type="text" required="true" formControlName="nombresEmp"
+                          maxlength="50">
+                        <label for="ftxt-nombre">* Nombre</label>
+                      </span>
+                    </div>
+
+                    <div class="p-field col-12 md:col-12 mb-0 px-3">
+                      <span class="p-float-label">
+                        <p-dropdown [filter]="true" 
+                                filterBy="label" [showClear]="true"
+                                id="fdd-sexo" required 
+                                emptyMessage="No Existe Sexo Disponible"
+                                [formControl]="form.controls['sexoEmp']"
+                                [options]="lstSexo"
+                                (onChange)="eventoGenero($event)"
+                                optionLabel="label"
+                                [autoDisplayFirst]="false"></p-dropdown>
+                        <label for="fdd-sexo">* Sexo</label>
+                      </span>
+                    </div>
+    
+                    <mat-form-field appearance="fill" class="p-field col-12 md:col-12 mb-0 px-3">
+                      <mat-label>* Fecha Nacimiento</mat-label>
+                      <input matInput [matDatepicker]="picker" formControlName="fnacEmp"
+                        (dateInput)="ageEvent('input', $event)">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker color="primary"></mat-datepicker>
+                    </mat-form-field>
+                    
+                    <div class="p-field col-12 md:col-12 mb-0 px-3" [style.display]="'none'">
+                      <span class="p-float-label">
+                        <p-inputNumber formControlName="edadEmp" inputId="ftxt-edad" [showButtons]="true" required="true"
+                          min="0" maxlength="2">
+                        </p-inputNumber>
+                        <label for="ftxt-edad" disabled="false">* Edad</label>
+                      </span>
+                    </div>
+    
+                    <div class="p-field col-12 md:col-12 mb-0 px-3">
+                      <span class="p-float-label">
+                        <p-dropdown [filter]="true" 
+                                filterBy="nombrePais" [showClear]="true"
+                                id="fdd-listpais" required 
+                                emptyMessage="No Existe Pais de Nacionalidad Disponible"
+                                [formControl]="form.controls['idPaisNac']"
+                                [options]="lstPaisNac"
+                                (onChange)="llenarDetallePaisNac($event)"
+                                optionLabel="nombrePais"
+                                [autoDisplayFirst]="false"></p-dropdown>
+                        <label for="fdd-listpais">* Nacionalidad</label>
+                      </span>
+                    </div>
+                    <!-- <div class="p-field col-12 md:col-12 mb-0 px-3 flex justify-content-evenly">
+                    <label for="ftxt-activo">* Activo</label>
+                    <p-inputSwitch id="ftxt-activo" formControlName="activoEmp"></p-inputSwitch>
+                  </div>   -->
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="p-field col-12 md:col-12 mb-0 px-3">
+                    <span class="p-float-label">
+                      <input pInputText id="ftxt-identificacion" type="text" required="true" formControlName="identificacionEmp" maxlength="10">
+                      <label for="ftxt-identificacion">* N° Identificación</label>
+                    </span>
+                  </div>
+
+                  <!-- Imagen de Usuario -->
+                <div class="p-field col-12 md:col-12 mb-0 px-3 flex justify-content-center" style="padding: 16%;">
+                  <span class="p-float">
+                    <label for="ftxt-usuario">* Usuario</label>
+                  </span>
+                  <div class="avatar-preview">
+                    <div id="imagePreview" style="background-image: url({{imageURL}});
+                         background-position: center;
+                         background-size: contain;">
+                    </div>
+                  </div>
+
+                  <div class="user-input">
+                    <div id="imageUpload">
+                      <i class="pi pi-pencil"></i>
+                    </div>
+                  </div>
+                  <input id="file-input" type="file" accept="image/*" (change)="preViewUser($event, 0)"
+                    [accept]="ACCEPTFILES" />
+                </div>
+                </div>
+                
+              </div>
+            </form>
+            <!-- FIN FORM 1 -->
+
+            <!-- FORM 2 DATOS CONTACTO -->
+            <form [formGroup]="form" *ngIf="sections.index === 2">
+              <div class="p-fluid p-formgrid grid justify-content-center" style="margin-left: 7%; margin-right: 7%;">
+                <div class="p-field col-12 md:col-5 mb-0 px-3">
+                  <span class="p-float-label">
+                    <p-dropdown [filter]="true" 
+                                filterBy="nombrePais" [showClear]="true"
+                                id="fdd-listpais" required 
+                                emptyMessage="No Existe Pais Disponible"
+                                [options]="lstPais"
+                                (onChange)="llenarDetallePais($event)"
+                                [formControl]="form.controls['idPais']"
+                                optionLabel="nombrePais" 
+                                [autoDisplayFirst]="false"></p-dropdown>
+                    <label for="fdd-listpais">* Pais</label>
+                  </span>
+                </div>
+    
+                <div class="p-field col-12 md:col-5 mb-0 px-3">
+                  <span class="p-float-label">
+                    <p-dropdown [filter]="true" 
+                                filterBy="nombreProvincia" [showClear]="true"
+                                id="fdd-listprovincia" required 
+                                emptyMessage="No Existe Provincia Disponible"
+                                [options]="lstProvincia"
+                                (onChange)="llenarDetalleProvincia($event)"
+                                [formControl]="form.controls['idProvincia']"
+                                optionLabel="nombreProvincia" 
+                                [autoDisplayFirst]="false"></p-dropdown>
+                    <label for="fdd-listprovincia">* Provincia</label>
+                  </span>
+                </div>
+                <div class="p-field col-12 md:col-5 mb-0 px-3">
+                  <span class="p-float-label">
+                    <p-dropdown [filter]="true" 
+                                filterBy="nombreCanton" [showClear]="true"
+                                id="fdd-listcanton" required 
+                                emptyMessage="No Existe Canton Disponible"
+                                [options]="lstCanton"
+                                (onChange)="llenarDetalleCanton($event)"
+                                [formControl]="form.controls['idCanton']"
+                                optionLabel="nombreCanton" 
+                                [autoDisplayFirst]="false"></p-dropdown>
+                    <label for="fdd-listcanton">* Canton</label>
+                  </span>
+                </div>
+                <div class="p-field col-12 md:col-5 mb-0 px-3">
+                  <span class="p-float-label">
+                    <p-dropdown [filter]="true" 
+                                filterBy="nombreParroquia" [showClear]="true"
+                                id="fdd-listparroquia" required 
+                                emptyMessage="No Existe Parroquia Disponible"
+                                [formControl]="form.controls['idParroquia']"
+                                [options]="lstParroquia"
+                                (onChange)="llenarDetalleParroquia($event)"
+                                optionLabel="nombreParroquia"
+                                [autoDisplayFirst]="false"></p-dropdown>
+                    <label for="fdd-listparroquia">* Parroquia</label>
+                  </span>
+                </div>
+    
+                <div class="p-field col-12 md:col-10 mb-0 px-3">
+                  <span class="p-float-label">
+                    <input pInputText id="ftxt-callePrin" type="text" formControlName="callePrincipal">
+                    <label for="ftxt-callePrin">* Calle Principal</label>
+                  </span>
+                </div>
+    
+                <div class="p-field col-12 md:col-10 mb-0 px-3">
+                  <span class="p-float-label">
+                    <input pInputText id="ftxt-calleSec" type="text" formControlName="calleSecundaria">
+                    <label for="ftxt-calleSec">* Calle Secundaria</label>
+                  </span>
+                </div>
+    
+                <div class="p-field col-12 md:col-5 mb-0 px-3">
+                  <span class="p-float-label">
+                    <input pInputText id="ftxt-referencia" type="text" formControlName="numeracion">
+                    <label for="ftxt-referencia">* Numeración</label>
+                  </span>
+                </div>
+    
+                <div class="p-field col-12 md:col-5 mb-0 px-3">
+                  <span class="p-float-label">
+                    <input pInputText id="ftxt-referencia" type="text" formControlName="codPostal">
+                    <label for="ftxt-referencia">* Cod Postal</label>
+                  </span>
+                </div>
+    
+                <div class="p-field col-12 md:col-10 mb-0 px-3">
+                  <span class="p-float-label">
+                    <input pInputText id="ftxt-referencia" type="text" formControlName="referencia">
+                    <label for="ftxt-referencia">* Referencia</label>
+                  </span>
+                </div>
+    
+                <div class="p-field col-12 md:col-5 mb-0 px-3">
+                  <span class="p-float-label">
+                    <input pInputText id="ftxt-telfDomicilio" type="text" formControlName="telefonoEmp" maxlength="10">
+                    <label for="ftxt-telfDomicilio">* Telefono Domicilio</label>
+                  </span>
+                </div>
+    
+                <div class="p-field col-12 md:col-5 mb-0 px-3">
+                  <span class="p-float-label">
+                    <input pInputText id="ftxt-celular" type="text" formControlName="celularEmp" maxlength="10">
+                    <label for="ftxt-celular">* Telefono Convencional</label>
+                  </span>
+                </div>
+    
+                <div class="p-field col-12 md:col-5 mb-0 px-3">
+                  <span class="p-float-label">
+                    <input pInputText id="ftxt-emailPer" type="text" formControlName="correoEmp">
+                    <label for="ftxt-emailPer">* Correo Personal</label>
+                  </span>
+                </div>
+                <div class="p-field col-12 md:col-5 mb-0 px-3">
+                </div>
+              </div>
+            </form>
+            <!-- FIN FORM 2 -->
+
+            <!--  INICIO FORM 3 DATOS CONTRATO -->
+            <form [formGroup]="form" *ngIf="sections.index === 3">
+              <div class="p-fluid p-formgrid grid justify-content-center" style="margin-left: 7%; margin-right: 7%;">
+
+                <mat-form-field appearance="fill" class="p-field col-12 md:col-5 mb-0 px-3">
+                  <mat-label>* Fecha Ingreso</mat-label>
+                  <input matInput [matDatepicker]="picker" formControlName="fechaRegistroEmp">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker color="primary"></mat-datepicker>
+                </mat-form-field>
+    
+                <!-- ESTADO DEL DEL EMPLEADO -->
+                <div class="p-field col-12 md:col-5 mb-0 px-3">
+                  <span class="p-float-label">
+                    <p-dropdown [filter]="true" 
+                                filterBy="nombreEstadoEmp" [showClear]="true"
+                                id="fdd-lstestado" required 
+                                emptyMessage="No Existe Estado Emp Disponible"
+                                [formControl]="form.controls['idEstadoEmp']"
+                                [options]="lstEstado"
+                                (onChange)="llenarDetalleEstadoEmp($event)"
+                                optionLabel="nombreEstadoEmp"
+                                [autoDisplayFirst]="false"></p-dropdown>
+                    <label for="fdd-lstestado">* Estado Empleado</label>
+                  </span>
+                </div>
+    
+                <!-- TIPO DE EMPLEADO -->
+                <div class="p-field col-12 md:col-5 mb-0 px-3">
+                  <span class="p-float-label">
+                    <p-dropdown [filter]="true" 
+                                filterBy="nombreTipoEmp" [showClear]="true"
+                                id="fdd-listtipoEmp" required 
+                                emptyMessage="No Existe Tipo Emp Disponible"
+                                [formControl]="form.controls['idTipoEmp']"
+                                [options]="lstTipoEmp"
+                                (onChange)="llenarDetalleTipoEmp($event)"
+                                optionLabel="nombreTipoEmp"
+                                [autoDisplayFirst]="false"></p-dropdown>
+                    <label for="fdd-listtipoEmp">* Tipo Empleado</label>
+                  </span>
+                </div>
+    
+                <!-- TIPO DEL CONTRATO -->
+                <!-- <div class="p-field col-12 md:col-5 mb-0 px-3">
+                  <span class="p-float-label">
+                    <p-dropdown [filter]="true" filterBy="nombreTipoEmp" optionLabel="nombreTipoEmp" [showClear]="true"
+                                id="fdd-listtipoEmp" required formControlName="idTipoEmp" [options]="lstTipoEmp"
+                                [autoDisplayFirst]="false"></p-dropdown>
+                    <label for="fdd-listtipoEmp">* Tipo Contrato</label>
+                  </span>
+                </div> -->
+    
+                <!-- FACULTAD PARA EMPLEADO -->
+                <div class="p-field col-12 md:col-5 mb-0 px-3">
+                  <span class="p-float-label">
+                    <p-dropdown [filter]="true" 
+                                filterBy="unidadOrganizativa1" [showClear]="true"
+                                id="fdd-listunidadorg" required 
+                                emptyMessage="No Existe Unidad Organizativa Disponible"
+                                [formControl]="form.controls['idUnidad']"
+                                [options]="lstUnidadOrg"
+                                (onChange)="llenarDetalleUnidadOrganizativa($event)"
+                                optionLabel="unidadOrganizativa1"
+                                [autoDisplayFirst]="false"></p-dropdown>
+                    <label for="fdd-listunidadorg">* Unidad Organizativa</label>
+                  </span>
+                </div>
+    
+                <div class="p-field col-12 md:col-5 mb-0 px-3">
+                </div>
+    
+                <!-- <div class="p-field col-12 md:col-5 mb-0 px-3  justify-content-evenly">
+                  <label>* Firma Digital</label>
+    
+                  <p-fileUpload uploadLabel="Enviar" name="file" [url]="URLFILEUPLOAD" #fileInput chooseLabel="Seleccionar"
+                                cancelLabel="Cancelar" [chooseIcon]="uploadedFiles.length ? 'pi pi-upload':'pi pi-plus'"
+                                id="upload" (onSelect)="onFileSelect($event)"
+                                (onUpload)="onUploadToBackend($event)" [multiple]="false" [accept]="ACCEPTFILES"
+                                [maxFileSize]="SIZEFILE" mode="advanced" [showUploadButton]="false">
+    
+                    <ng-template let-file pTemplate="file">
+                      <div class="p-fileupload-content">
+                        <div class="p-fileupload-files ng-star-inserted">
+                          <div class="ng-star-inserted">
+                            <div class="p-fileupload-row ng-star-inserted">
+                              <div style="font-size: 60px;text-align: center;align-items: center;justify-content: center;">
+                                <i class="{{getFileExtension(file.name)}}"
+                                   style="color:#5cb85c;"
+                                   aria-hidden="true"></i>
+                                <img [src]="FirmaURL" alt="" *ngIf="getFileExtension(file.name)===''"
+                                      class="img-fluid ng-star-inserted"></div>
+                              <div class="p-fileupload-filename">{{file.name}}</div>
+                              <div>{{file.size}}</div>
+                              <div>
+                                <button type="button" icon="pi pi-times" pbutton="" (click)="remove($event, file)"
+                                        class="p-element p-button p-component p-button-icon-only">
+                                  <span class="p-button-icon pi pi-times" aria-hidden="true"></span>
+                                  <span aria-hidden="true" class="p-button-label">&nbsp;</span>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+    
+    
+                  </p-fileUpload>
+                </div>
+    
+                <div class="p-field col-12 md:col-5 mb-0 px-3  justify-content-evenly">
+                  <label>* Firma Electronica</label>
+    
+                  <p-fileUpload uploadLabel="Enviar" name="file" chooseLabel="Seleccionar" cancelLabel="Cancelar"
+                                [chooseIcon]="uploadedFiles.length ? 'pi pi-upload':'pi pi-plus'" id="upload"
+                                [multiple]="false"
+                                [accept]="ACCEPTFILES" [maxFileSize]="SIZEFILE" mode="advanced" [showUploadButton]="false">
+                  </p-fileUpload>
+                </div>
+    
+                <div class="p-field col-12 md:col-5 mb-0 px-3">
+                  <span class="p-float-label">
+                    <p-password id="ftxt-claveElectronica" [toggleMask]="true" [feedback]="false"
+                                formControlName="claveElectroEmp">
+                    </p-password>
+                    <label for="ftxt-claveElectronica">* Clave Firma Electronica</label>
+                  </span>
+                </div> -->
+    
+              </div>
+            </form>
+            <!-- FIN FORM 3 -->
+          </p-card>
+        </ng-template>
+      </p-timeline>
+    </section>
+
+    <!--p-divider></!--p-divider-->
+
+    <!-- SECCION DE DIVISIONES POR PESTAÑAS -->
+
+    <!--p-tabView class="w-full">
+      <p-tabPanel header="Componentes" leftIcon="pi pi-share-alt" tooltip="#Componentes">
+        <app-componente></app-componente>
+      </p-tabPanel>
+    </!--p-tabView-->
+
+    <!-- LISTA DE EMPLEADO -->
+
+    <p-dialog [(visible)]="displayModal" position="right" [modal]="true"
+      [style]="{width: '80vw', height:'100vh', 'max-height': '100%', margin: '0rem'}" [draggable]="false"
+      [resizable]="false">
+
+      <ng-template pTemplate="header">
+        <div class="col-12 md:col-8 text-center md:text-left flex align-items-center ">
+          <div class="text-3xl text-primary font-bold mb-0">Listado Empleado
+            <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+              <ng-template pTemplate>
+                <video width="100%" height="auto" autoplay controls>
+                  <source src="assets/video/estadoplan.webm" type="video/mp4">
+                </video>
+              </ng-template>
+            </p-overlayPanel>
+
+            <button (click)="op.toggle($event)" pButton pRipple type="button" icon="pi pi-video"
+              class="p-button-rounded p-button-secondary p-button-text">
+            </button>
+
+          </div>
+          <!--p class="mt-0 mb-0 text-700 line-height-3">Templates de Empleados.</!--p-->
+        </div>
+      </ng-template>
+      <!-- Inicio tabla Materias catalogo-->
+
+      <section class="content">
+        <div class="container-fluid">
+          <div class="card">
+            <p-toolbar styleClass="p-mb-4">
+              <ng-template pTemplate="left">
+                <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-button-sm"
+                  (click)="deleteSelectedItems()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+                  [disabled]="!selectedEmpleado || !selectedEmpleado.length"></button>
+              </ng-template>
+
+              <ng-template pTemplate="right">
+                <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
+                  class="p-button-sm p-button-outlined p-button-success p-mr-2" pTooltip="XLS"
+                  tooltipPosition="bottom"></button>
+                <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
+                  class="p-button-sm p-button-outlined p-button-danger p-mr-2" pTooltip="PDF"
+                  tooltipPosition="bottom"></button>
+
+              </ng-template>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="lstEmpleado" [rows]="10" [paginator]="true" [loading]="loading" [globalFilterFields]="['idEmp',
+                    'nombresEmp',
+                    'apellidoEmp',
+                    'identificacionEmp',
+                    'fnacEmp',
+                    'edadEmp',
+                    'sexoEmp',
+                    'callePrincipal',
+                    'calleSecundaria',
+                    'numeracion',
+                    'codPostal',
+                    'referencia',
+                    'telefonoEmp',
+                    'celularEmp',
+                    'correoEmp',
+                    'fechaRegistroEmp',
+                    'fechaActualizaEmp',
+                    'pathfirmadigitalEmp',
+                    'fotoEmp',
+                    'activoEmp',
+                    'idCantonNavigation.nombreCanton',
+                    'idEstadoEmpNavigation.nombreEstadoEmp',
+                    'idPaisNacNavigation.nombrePais',
+                    'idParroquiaNavigation.nombreParroquia',
+                    'idProvinciaNavigation.nombreProvincia',
+                    'idTipoDocumentoNavigation.tipoDocumento1',
+                    'idTipoEmpNavigation.nombreTipoEmp',
+                    'idUnidadNavigation.unidadOrganizativa1',]" responsiveLayout="stack" [(selection)]="selectedEmpleado"
+              [rowHover]="true" dataKey="idEmp"
+              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+              [showCurrentPageReport]="true">
+              <ng-template pTemplate="caption">
+                <div class="d-flex justify-content-between flex-wrap">
+                  <button pButton label="Clear" class="p-button-outlined p-button-sm" icon="pi pi-filter-slash"
+                    (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
+                  <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" class="p-inputtext-sm"
+                      (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General" />
+                  </span>
+                </div>
+              </ng-template>
+
+              <ng-template pTemplate="header">
+                <div class="spinner" *ngIf="loadReady">
+                  <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner"
+                    strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+                </div>
+                <tr>
+                  <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                  </th>
+                  <th pSortableColumn="nombresEmp">Nombres
+                    <p-sortIcon field="nombresEmp"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="apellidoEmp">Apellido
+                    <p-sortIcon field="apellidoEmp"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="identificacionEmp">DNI
+                    <p-sortIcon field="identificacionEmp"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="edadEmp">Edad
+                    <p-sortIcon field="edadEmp"></p-sortIcon>
+                  </th>
+                  <!--th pSortableColumn="emailEmp">Email
+                    <p-sortIcon field="emailEmp"></p-sortIcon>
+                  </!--th-->
+                  <!--th pSortableColumn="celularEmp">Celular
+                    <p-sortIcon field="celularEmp"></p-sortIcon>
+                  </!--th-->
+                  <!--th pSortableColumn="fechaRegistroEmp">F. Registro
+                    <p-sortIcon field="fechaRegistroEmp"></p-sortIcon>
+                  </!--th-->
+                  <th pSortableColumn="fnacEmp">F. Nacimiento
+                    <p-sortIcon field="fnacEmp"></p-sortIcon>
+                  </th>
+
+                  <th pSortableColumn="pathfirmadigitalEmp">Firma
+                    <p-sortIcon field="pathfirmadigitalEmp"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="activoEmp">Activo
+                    <p-sortIcon field="activoEmp"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="idEstadoEmpNavigation.nombreEstadoEmp">Estado
+                    <p-sortIcon field="idEstadoEmpNavigation.nombreEstadoEmp"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="idUnidadNavigation.unidadOrganizativa1">Unidad Org.
+                    <p-sortIcon field="idUnidadNavigation.unidadOrganizativa1"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="idTipoEmpNavigation.nombreTipoEmp">Tipo
+                    <p-sortIcon field="idTipoEmpNavigation.nombreTipoEmp"></p-sortIcon>
+                  </th>
+                  <th>Opciones</th>
+                </tr>
+                <tr>
+                  <th></th>
+                  <th>
+                    <p-columnFilter type="text" field="nombresEmp"></p-columnFilter>
+                  </th>
+
+                  <th>
+                    <p-columnFilter type="text" field="apellidoEmp"></p-columnFilter>
+                  </th>
+                  <th>
+                    <p-columnFilter type="text" field="identificacionEmp"></p-columnFilter>
+                  </th>
+                  <th>
+                    <p-columnFilter type="text" field="edadEmp"></p-columnFilter>
+                  </th>
+                  <!--th>
+                    <p-columnFilter type="text" field="emailEmp"></p-columnFilter>
+                  </!--th-->
+                  <!--th>
+                    <p-columnFilter type="text" field="celularEmp"></p-columnFilter>
+                  </!--th-->
+                  <th>
+                    <p-columnFilter type="text" field="fnacEmp"></p-columnFilter>
+                  </th>
+                  <!--th>
+                    <p-columnFilter type="text" field="fechaRegistroEmp"></p-columnFilter>
+                  </!--th-->
+                  <th>
+                    <p-columnFilter type="text" field="pathfirmadigitalEmp"></p-columnFilter>
+                  </th>
+                  <th>
+                    <p-columnFilter type="text" field="activoEmp"></p-columnFilter>
+                  </th>
+                  <th>
+                    <p-columnFilter type="text" field="idEstadoEmpNavigation.nombreEstadoEmp"></p-columnFilter>
+                  </th>
+                  <th>
+                    <p-columnFilter type="text" field="idUnidadNavigation.unidadOrganizativa1"></p-columnFilter>
+                  </th>
+                  <th>
+                    <p-columnFilter type="text" field="idTipoEmpNavigation.nombreTipoEmp"></p-columnFilter>
+                  </th>
+
+                  <th></th>
+                </tr>
+              </ng-template>
+
+
+              <ng-template pTemplate="body" let-item>
+                <tr>
+                  <td>
+                    <p-tableCheckbox [value]="item"></p-tableCheckbox>
+                  </td>
+                  <td>{{item.nombresEmp}}</td>
+                  <td>{{item.apellidoEmp}}</td>
+                  <td>{{item.identificacionEmp}}</td>
+                  <td>{{item.edadEmp}}</td>
+                  <td>{{item.fnacEmp | date : 'short'}}</td>
+                  <!--td>{{item.emailEmp}}</!--td-->
+                  <!--td>{{item.celularEmp}}</!--td-->
+                  <!--td>{{item.fechaRegistroEmp | date : 'short'}}</!--td-->
+                  <td>
+                    <span [class]="item.pathfirmadigitalEmp ? 'badge badge-success': 'badge badge-warning'">
+                      {{item.pathfirmadigitalEmp ? item.pathfirmadigitalEmp : 'No Existe Firma'}}
+                    </span>
+                    <button *ngIf="item.pathfirmadigitalEmp" (click)="descargarArchivo(item.pathfirmadigitalEmp)"
+                      pButton pRipple type="button" icon="pi pi-cloud-download" pTooltip="Descargar"
+                      tooltipPosition="top" class="p-button-rounded p-button-text p-button-lg"></button>
+                  </td>
+                  <!--td>{{item.fechaActualizaEmp | date : 'short'}}</!--td-->
+                  <td>{{item.activoEmp ? 'ACTIVO' : 'INACTIVO'}}</td>
+                  <td>{{item.idEstadoEmpNavigation.nombreEstadoEmp}}</td>
+                  <td>{{item.idUnidadNavigation.unidadOrganizativa1}}</td>
+                  <td>{{item.idTipoEmpNavigation.nombreTipoEmp}}</td>
+
+                  <td>
+                    <button pButton pRipple icon="pi pi-pencil"
+                      class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
+                      (click)="editItem(item)" pTooltip="Editar" tooltipPosition="left"></button>
+                    <button pButton pRipple icon="pi pi-trash"
+                      class="p-button-rounded p-button-danger p-button-text p-button-sm" (click)="deleteItem(item)"
+                      pTooltip="Eliminar" tooltipPosition="left"></button>
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="summary">
+                <div class="p-d-flex p-ai-center p-jc-between">
+                  En Total Existen {{lstEmpleado ? lstEmpleado.length : 0 }} Empleado.
+                </div>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </section>
+      <p-confirmDialog [style]="{width: '450px'}">
+      </p-confirmDialog>
+      <!-- Fin tabla catalogo materias-->
+    </p-dialog>
+
+  </div>
+</div>
+
+<!--app-registroempleadotable [lstEmpleado]="lstEmpleado" (empleadoSelect)="setSeleccionado($event)">
+</!--app-registroempleadotable-->
+
+<!--p-divider></!--p-divider-->

@@ -1,0 +1,135 @@
+{
+    "aplication": {
+        "login": {
+            "userName": "Usuario",
+            "password": "Contraseña"
+        },
+        "management":  {
+            "customer": {
+                "findCustomer": "Buscar Cliente",
+                "documentNumber": "N° de Documento",
+                "fullClientName": "Cliente",
+                "clientStatus": "Estado",
+                "actions": "Acciones",
+                "clientNames": "Nombres",
+                "clientSurname": "Apellidos",
+                "documentType": "Tipo de Documento",
+                "customerPhoto": "Foto",
+                "birthDate": "Fecha de Nacimiento",
+                "age": "Edad",
+                "bloodType": "Tipo de Sangre",
+                "address": "Dirección",
+                "mobile": "Móvil",
+                "gender": "Genero",
+                "email": "Correo Electronico",
+                "physicalObjective": "Objetivo Físico",
+                "sportsBackground": "Antecedente Deportivo",
+                "clientType": "Tipo de Cliente",
+                "professionOrOccupation": "Profesion u Oficio",
+                "healthEntity": "Entidad de Salud",
+                "companionName": "Nombre Acompañante",
+                "companionMobile": "Movil Acompañante",
+                "relationship": "Parentesco",
+                "clinicalHistory": "Antecedentes Clinicos",
+                "howDidYouFindOut": "¿Como se entero?"
+            },
+            "stepsCustomer": {
+                "stepTitle": "Registro de Cliente",
+                "stepSubTitlePerson": "Datos Personales",
+                "stepSubTitleComplementary": "Datos Complementarios",
+                "stepSubTitleCompany": "Datos Laborales"
+            },
+            "plan": {
+                "namePlan" : "Nombre del Plan",
+                "costPlan" : "Costo",
+                "vatPlan" : "Impuesto del País",
+                "durationPlan" : "Dias Plan",
+                "freezingDaysPlan" : "Dias Congelación",
+                "descriptionPlan" : "Descripción",
+                "startTimeWorkDay" : "Hora Inicio",
+                "endTimeWorkDay" : "Hora Fin",
+                "requiredField" : "Este campo es requerido.",
+                "positiveNumberField" : "Este campo no acepta valores negativos.",
+                "selectDays" : "Seleccionar Días",
+                "selectBranchOffices" : "Seleccionar Sedes",
+                "add" : "Agregar",
+                "save" : "Guardar"
+            },
+            "tablePlan": {
+                "showing" : "Mostrando ",
+                "to" : " a ",
+                "of" : " de ",
+                "entries" : " registros",
+                "search" : "Buscar",
+                "cleanFilters" : "Limpiar filtros",
+                "columnTitleNamePlan" : "Plan",
+                "columnTitleCostPlan" : "Costo",
+                "columnTitleVatPlan" : "Impuesto Del País",
+                "columnTitleDurationPlan" : "Dias Plan",
+                "columnTitleFreezingDaysPlan" : "Dias Congelacion",
+                "columnTitleDay" : "Dias",
+                "columnTitleStartTime" : "Hora Inicio",
+                "columnTitleEndTime" : "Hora Fin",
+                "columnTitleDescriptionPlan" : "Descripción",
+                "columnTitleActions" : "Acciones",
+                "actionEdit" : "Editar",
+                "actionDisable" : "Inhabilitar" ,
+                "noPlansFound" : "No se encontraron planes"
+            },
+            "stepsPlan": {
+                "stepTitle": "Registro de Planes",
+                "stepSubTitleDays": "Dias",
+                "stepSubTitleBranchOffice": "Sedes",
+                "stepSubTitleListPlans": "Listado de Planes",
+                "stepNext": "Siguiente"
+            },
+            "ticket": {
+                "nameTik" : "Nombre",
+                "levelTik" : "Nivel",
+                "unitCostTik" : "Costo",
+                "quantitiesTik" : "Cantidad",
+                "vatTik" : "IVA",
+                "durationTik" : "Vigencia",
+                "clientDepartureTimeTik" : "Lapo salida",
+                "freezingDaysTik" : "Dias congelación",
+                "totalCostTik": "Total",
+                "requiredField" : "Este campo es requerido.",
+                "selectDays" : "Seleccionar Días",
+                "selectBranchOffices" : "Seleccionar Sedes",
+                "add" : "Agregar",
+                "save" : "Guardar"
+
+            },
+            "stepsTicket": {
+                "stepTitle": "Registro de Tickets",
+                "stepSubTitleDays": "Dias",
+                "stepSubTitleBranchOffice": "Sedes",
+                "stepSubTitleListTickets": "Listado de Tickets",
+                "stepNext": "Siguiente"
+            },
+            "tableTicket": {
+                "showing" : "Mostrando ",
+                "to" : " a ",
+                "of" : " de ",
+                "entries" : " registros",
+                "search" : "Buscar",
+                "cleanFilters" : "Limpiar filtros",
+                "columnTitleNameTik" : "Nombre",
+                "columnTitleLevelTik" : "Nivel",
+                "columnTitleUnitCostTik" : "Costo",
+                "columnTitleQuantitiesTik" : "Cantidad",
+                "columnTitleVatTik" : "IVA",
+                "columnTitleTotalCostTik" : "Total",
+                "columnTitleDurationTik" : "Vigencia",
+                "columnTitleClientDepartureTimeTik" : "Lapso salida",
+                "columnTitleDay" : "Dias",
+                "columnTitleStartTime" : "Hora Inicio",
+                "columnTitleEndTime" : "Hora Fin",
+                "columnTitleActions" : "Acciones",
+                "actionEdit" : "Editar",
+                "actionDisable" : "Inhabilitar" ,
+                "noTicketFound" : "No se encontraron tickets"
+            }
+        }
+    }
+}

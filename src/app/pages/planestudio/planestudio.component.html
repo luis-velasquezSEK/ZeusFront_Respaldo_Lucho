@@ -1,0 +1,242 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1></h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Plan Estudio</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<div class="grid grid-nogutter surface-0 text-800 position-relative">
+
+  <div class="ribbon-wrapper ribbon-lg">
+    <div class="ribbon bg-danger text-lg">
+      PRUEBAS
+    </div>
+  </div>
+
+
+  <!-- Seccion Datos Generales -->
+  <div class="col-12 md:col-12 p-2 text-center md:text-left align-items-center ">
+
+
+    <div class="text-6xl text-primary font-bold mb-3">Plan Estudios
+      <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+        <ng-template pTemplate>
+          <video width="100%" height="auto" autoplay controls>
+            <source src="assets/video/estadoplan.webm" type="video/mp4">
+          </video>
+        </ng-template>
+      </p-overlayPanel>
+
+      <button (click)="op.toggle($event)"
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-video"
+              class="p-button-rounded p-button-secondary p-button-text"
+      >
+      </button>
+
+    </div>
+    <p class="mt-0 mb-4 text-700 line-height-3">Planes de estudio o denominados (MALLAS),
+      son las diferentes agrupaciones académicas que se ofertará al estudiante.</p>
+
+
+    <form [formGroup]="form">
+
+      <!-- Seccion para mostrar avatar para usar en formulario hoja de vida -->
+      <!--<div class="container">
+        <div class="avatar-upload">
+          <div class="avatar-edit">
+            <input id="imageUpload" type="file" accept="image/*" (change)="showPreview($event)"/>
+            <label for="imageUpload"></label>
+          </div>
+
+            <div class="avatar-preview">
+              <div id="imagePreview"
+                   style="background-image: url({{imageURL}});
+                   background-position: center;
+                   background-size: contain;">
+              </div>
+            </div>
+
+        </div>
+        <p-button label="Subir Foto a FTP" icon="pi pi-send" class="p-button-rounded p-button-success"
+                  (click)="submit()"></p-button>
+      </div>
+      -->
+
+      <p-panel header="Registro" [toggleable]="false">
+        <div class="text-600">Datos iniciales para la creacion de un Plan de Estudios</div>
+        <hr class="my-3 mx-0 border-top-1 border-bottom-none border-300"/>
+
+        <ng-template pTemplate="icons">
+          <button pButton pRipple type="button" icon="pi pi-send" (click)="guardar()" pTooltip="Guardar"
+                  tooltipPosition="top"
+                  class="p-button-rounded p-button-success p-button-text p-button"></button>
+          <button pButton pRipple type="button" icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar"
+                  tooltipPosition="top"
+                  class="p-button-rounded p-button-danger p-button-text p-button"></button>
+
+        </ng-template>
+
+        <div class="p-fluid p-formgrid grid">
+
+          <div class="p-field col-12 md:col-3  mb-0 px-3">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombrePeriodicidad"
+                                            [showClear]="true" id="fdd-listperiodicidad"
+                                            required [options]="lstPeriodicidadPlan"
+                                            [(ngModel)]="periodicidadPlan"
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="nombrePeriodicidad"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listperiodicidad">* Periodicidad</label>
+                            </span>
+          </div>
+          <div class="p-field col-12 md:col-3  mb-0 px-3">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreEstadoPe"
+                                            [showClear]="true" id="fdd-listestado"
+                                            required [options]="lstEstadoPlan"
+                                            [(ngModel)]="estadoPlan"
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="nombreEstadoPe"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listestado">* Estado</label>
+                            </span>
+          </div>
+          <!-- <div class="p-field col-12 md:col-2  mb-0 px-3">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreTipoPe"
+                                            [showClear]="true" id="fdd-listtipo"
+                                            required [options]="lstTipoPlan"
+                                            [(ngModel)]="tipoPlan"
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="nombreTipoPe"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listtipo">* Tipo</label>
+                            </span>
+          </div> -->
+          <div class="p-field col-12 md:col-2 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                              <p-inputNumber formControlName="nombreTipoPe" inputId="ftxt-nombre"
+                                             required="true"
+                                             [showButtons]="true" required="true">
+                                </p-inputNumber>
+                                <label for="ftxt-nombre">* Orden</label>
+                              </span>
+          </div>
+          <div class="p-field col-12 md:col-2 md:mb-4 mb-0 px-3 flex justify-content-evenly">
+            <label for="ftxt-activo">* Activo </label>
+            <p-inputSwitch id="ftxt-activo" formControlName="activoTipoPe"></p-inputSwitch>
+          </div>
+
+          <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-paralelo" type="text" required="true"
+                                       formControlName="paraleloPe">
+                                <label for="ftxt-paralelo">* Paralelo</label>
+                              </span>
+          </div>
+
+
+          <div class="p-field col-12 md:col-5 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-obs" type="text" required="true"
+                                       formControlName="observacionTipoPe">
+                                <label for="ftxt-obs">* Observación</label>
+                              </span>
+          </div>
+
+
+        </div>
+
+        <app-materiaprincipal></app-materiaprincipal>
+
+      </p-panel>
+
+      <div class="w-full col-12 md:col-6 lg:col-6 flex flex-wrap justify-content-center ">
+        <p-button [label]="materiaInput.nombreMateriap || 'Materia NO seleccionado'" icon="pi pi-book"
+                  [styleClass]="materiaInput.nombreMateriap === undefined ? 'p-button-warning':'p-button-success'"></p-button>
+        <p-button label="# Componentes" icon="pi pi-share-alt"
+                  [styleClass]="componenteInput.length === 0 ?  'p-button-warning':'p-button-success'"
+                  [badge]="componenteInput.length"
+                  [badgeClass]="componenteInput.length === 0 ? 'p-badge-danger':''"></p-button>
+        <p-button label="# Correquisitos" icon="pi pi-sliders-h"
+                  [styleClass]="correquisitoInput.length === 0 ?  'p-button-warning':'p-button-success'"
+                  [badge]="correquisitoInput.length"
+                  [badgeClass]="correquisitoInput.length === 0 ? 'p-badge-danger':''"></p-button>
+        <p-button label="# Prerrequisitos" icon="pi pi-sitemap"
+                  [styleClass]="prerrequisitoInput.length === 0 ?  'p-button-warning':'p-button-success'"
+                  [badge]="prerrequisitoInput.length"
+                  [badgeClass]="prerrequisitoInput.length === 0 ? 'p-badge-danger':''"></p-button>
+        <p-button label="# Compartidas" icon="pi pi-table"
+                  [styleClass]="compartidaInput.length === 0 ?  'p-button-warning':'p-button-success'"
+                  [badge]="compartidaInput.length"
+                  [badgeClass]="compartidaInput.length === 0 ? 'p-badge-danger':''"></p-button>
+        <p-button label="# Equivalentes" icon="pi pi-th-large"
+                  [styleClass]="equivalenteInput.length === 0 ?  'p-button-warning':'p-button-success'"
+                  [badge]="equivalenteInput.length"
+                  [badgeClass]="equivalenteInput.length === 0 ? 'p-badge-danger':''"></p-button>
+        <p-button label=" Horario {{tipoHorario}}" icon="pi pi-calendar-minus"
+                  [styleClass]="numeroHorarios === 0 ?  'p-button-warning':'p-button-success'" [badge]="numeroHorarios"
+                  [badgeClass]="numeroHorarios === 0 ? 'p-badge-danger':''">
+          <i *ngIf="tipoHorario === 'Horarios Fecha'"
+             [ngClass]="classModular === '1' ? 'cloackGreenBefore mr-2':'cloackRedBefore mr-2'"></i>
+          <i *ngIf="tipoHorario === 'Modular'"
+             [ngClass]="classFi === '1' ? 'cloackGreenBefore mr-1':'cloackRedBefore mr-1'"></i>
+          <i *ngIf="tipoHorario === 'Modular'"
+             [ngClass]="classFf === '1' ? 'cloackGreenAfter mr-1':'cloackRedAfter mr-2'"></i>
+        </p-button>
+        <p-button label="Espacio" icon="far fa-building"
+                  [styleClass]="espacioInput === undefined || espacioInput === null ?  'p-button-warning':'p-button-success'"
+                  [badge]="espacioInput === undefined || espacioInput === null ? 0:1"
+                  [badgeClass]="espacioInput === undefined || espacioInput === null ? 'p-badge-danger':''"></p-button>
+      </div>
+
+    </form>
+
+
+  </div>
+  <!-- Fin Seccion Datos Generales-->
+
+  <p-tabView class="w-full">
+
+    <!--<p-tabPanel header="Materia Principal" leftIcon="pi pi-book"
+                [tooltip]="materiaPrincipal.nombreMateriap !== undefined ? 'Con materia: '+materiaPrincipal.nombreMateriap :'Sin Materia'">
+                -->
+
+    <p-tabPanel header="Componentes" leftIcon="pi pi-share-alt" tooltip="#Componentes">
+      <app-componente></app-componente>
+    </p-tabPanel>
+    <p-tabPanel header="Correquisitos" leftIcon="pi pi-sliders-h" tooltip="#Correquisitos">
+      <app-correquisitos></app-correquisitos>
+    </p-tabPanel>
+    <p-tabPanel header="Prerrequisitos" leftIcon="pi pi-sitemap" tooltip="#Prerrequisitos">
+      <app-prerrequisitos></app-prerrequisitos>
+    </p-tabPanel>
+    <p-tabPanel header="Compartidas" leftIcon="pi pi-table" tooltip="#Compartidas">
+      <app-materiacompartida></app-materiacompartida>
+    </p-tabPanel>
+    <p-tabPanel header="Equivalentes" leftIcon="pi pi-th-large" tooltip="#Equivalentes">
+      <app-materiaequivalente></app-materiaequivalente>
+    </p-tabPanel>
+    <p-tabPanel header="Horarios" leftIcon="pi pi-calendar-plus" tooltip="Horarios ?">
+      <app-horarios></app-horarios>
+    </p-tabPanel>
+  </p-tabView>
+
+
+</div>
+
+

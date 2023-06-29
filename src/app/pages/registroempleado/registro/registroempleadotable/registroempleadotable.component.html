@@ -1,0 +1,199 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="card">
+      <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+          <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-button-sm"
+            (click)="deleteSelectedItems()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+            [disabled]="!selectedEmpleado || !selectedEmpleado.length"></button>
+        </ng-template>
+
+        <ng-template pTemplate="right">
+          <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
+            class="p-button-sm p-button-outlined p-button-success p-mr-2" pTooltip="XLS"
+            tooltipPosition="bottom"></button>
+          <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
+            class="p-button-sm p-button-outlined p-button-danger p-mr-2" pTooltip="PDF"
+            tooltipPosition="bottom"></button>
+
+        </ng-template>
+      </p-toolbar>
+
+
+      <p-table #dt [value]="lstEmpleado" [rows]="10" [paginator]="true" [loading]="loading" [globalFilterFields]="['idEmp',
+                       'nombresEmp',
+                       'apellidoEmp',
+                       'dniEmp',
+                       'fnacEmp',
+                       'edadEmp',
+                       'direccionEmp',
+                       'emailEmp',
+                       'celularEmp',
+                       'telefonoEmp',
+                       'fechaRegistroEmp',
+                       'fechaActualizaEmp',
+                       'pathfirmadigitalEmp',
+                       'activoEmp',
+                       'fotoEmp',
+                       'idEstadoEmpDTO.nombreEstadoEmp',
+                       'idFacultadDTO.nombreFacultad',
+                       'idTipoEmpDTO.nombreTipoEmp']" responsiveLayout="stack" [(selection)]="selectedEmpleado"
+              [rowHover]="true" dataKey="idEmp"
+              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+              [showCurrentPageReport]="true">
+              <ng-template pTemplate="caption">
+                <div class="d-flex justify-content-between flex-wrap">
+                  <button pButton label="Clear" class="p-button-outlined p-button-sm" icon="pi pi-filter-slash"
+                    (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
+                  <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" class="p-inputtext-sm"
+                      (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General" />
+                  </span>
+                </div>
+              </ng-template>
+
+              <ng-template pTemplate="header">
+                <tr>
+                  <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                  </th>
+                  <th pSortableColumn="nombresEmp">Nombres
+                    <p-sortIcon field="nombresEmp"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="apellidoEmp">Apellido
+                    <p-sortIcon field="apellidoEmp"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="dniEmp">DNI
+                    <p-sortIcon field="dniEmp"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="edadEmp">Edad
+                    <p-sortIcon field="edadEmp"></p-sortIcon>
+                  </th>
+                  <!--th pSortableColumn="emailEmp">Email
+                    <p-sortIcon field="emailEmp"></p-sortIcon>
+                  </!--th-->
+                  <!--th pSortableColumn="celularEmp">Celular
+                    <p-sortIcon field="celularEmp"></p-sortIcon>
+                  </!--th-->
+                  <!--th pSortableColumn="fechaRegistroEmp">F. Registro
+                    <p-sortIcon field="fechaRegistroEmp"></p-sortIcon>
+                  </!--th-->
+                  <th pSortableColumn="fnacEmp">F. Nacimiento
+                    <p-sortIcon field="fnacEmp"></p-sortIcon>
+                  </th>
+
+                  <th pSortableColumn="pathfirmadigitalEmp">Firma
+                    <p-sortIcon field="pathfirmadigitalEmp"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="activoEmp">Activo
+                    <p-sortIcon field="activoEmp"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="idEstadoEmpDTO.nombreEstadoEmp">Estado
+                    <p-sortIcon field="idEstadoEmpDTO.nombreEstadoEmp"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="idFacultadDTO.nombreFacultad">Facultad
+                    <p-sortIcon field="idFacultadDTO.nombreFacultad"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="idTipoEmpDTO.nombreTipoEmp">Tipo
+                    <p-sortIcon field="idTipoEmpDTO.nombreTipoEmp"></p-sortIcon>
+                  </th>
+                  <th>Opciones</th>
+                </tr>
+                <tr>
+                  <th></th>
+                  <th>
+                    <p-columnFilter type="text" field="nombresEmp"></p-columnFilter>
+                  </th>
+
+                  <th>
+                    <p-columnFilter type="text" field="apellidoEmp"></p-columnFilter>
+                  </th>
+                  <th>
+                    <p-columnFilter type="text" field="dniEmp"></p-columnFilter>
+                  </th>
+                  <th>
+                    <p-columnFilter type="text" field="edadEmp"></p-columnFilter>
+                  </th>
+                  <!--th>
+                    <p-columnFilter type="text" field="emailEmp"></p-columnFilter>
+                  </!--th-->
+                  <!--th>
+                    <p-columnFilter type="text" field="celularEmp"></p-columnFilter>
+                  </!--th-->
+                  <th>
+                    <p-columnFilter type="text" field="fnacEmp"></p-columnFilter>
+                  </th>
+                  <!--th>
+                    <p-columnFilter type="text" field="fechaRegistroEmp"></p-columnFilter>
+                  </!--th-->
+                  <th>
+                    <p-columnFilter type="text" field="pathfirmadigitalEmp"></p-columnFilter>
+                  </th>
+                  <th>
+                    <p-columnFilter type="text" field="activoEmp"></p-columnFilter>
+                  </th>
+                  <th>
+                    <p-columnFilter type="text" field="idEstadoEmpDTO.nombreEstadoEmp"></p-columnFilter>
+                  </th>
+                  <th>
+                    <p-columnFilter type="text" field="idFacultadDTO.nombreFacultad"></p-columnFilter>
+                  </th>
+                  <th>
+                    <p-columnFilter type="text" field="idTipoEmpDTO.nombreTipoEmp"></p-columnFilter>
+                  </th>
+
+                  <th></th>
+                </tr>
+              </ng-template>
+
+
+              <ng-template pTemplate="body" let-item>
+                <tr>
+                  <td>
+                    <p-tableCheckbox [value]="item"></p-tableCheckbox>
+                  </td>
+                  <td>{{item.nombresEmp}}</td>
+                  <td>{{item.apellidoEmp}}</td>
+                  <td>{{item.dniEmp}}</td>
+                  <td>{{item.edadEmp}}</td>
+                  <td>{{item.fnacEmp | date : 'short'}}</td>
+                  <!--td>{{item.emailEmp}}</!--td-->
+                  <!--td>{{item.celularEmp}}</!--td-->
+                  <!--td>{{item.fechaRegistroEmp | date : 'short'}}</!--td-->
+                  <td>
+                    <span [class]="item.pathfirmadigitalEmp ? 'badge badge-success': 'badge badge-warning'">
+                      {{item.pathfirmadigitalEmp ? item.pathfirmadigitalEmp : 'No Existe Firma'}}
+                    </span>
+                    <button *ngIf="item.pathfirmadigitalEmp" (click)="descargarArchivo(item.pathfirmadigitalEmp)"
+                      pButton pRipple type="button" icon="pi pi-cloud-download" pTooltip="Descargar"
+                      tooltipPosition="top" class="p-button-rounded p-button-text p-button-lg"></button>
+                  </td>
+                  <!--td>{{item.fechaActualizaEmp | date : 'short'}}</!--td-->
+                  <td>{{item.activoEmp ? 'ACTIVO':'INACTIVO'}}</td>
+                  <td>{{item.idEstadoEmpDTO.nombreEstadoEmp}}</td>
+                  <td>{{item.idFacultadDTO.nombreFacultad}}</td>
+                  <td>{{item.idTipoEmpDTO.nombreTipoEmp}}</td>
+
+                  <td>
+                    <button pButton pRipple icon="pi pi-pencil"
+                      class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
+                      (click)="editItem(item)" pTooltip="Editar" tooltipPosition="left"></button>
+                    <button pButton pRipple icon="pi pi-trash"
+                      class="p-button-rounded p-button-danger p-button-text p-button-sm" (click)="deleteItem(item)"
+                      pTooltip="Eliminar" tooltipPosition="left"></button>
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="summary">
+                <div class="p-d-flex p-ai-center p-jc-between">
+                  En Total Existen {{lstEmpleado ? lstEmpleado.length : 0 }} Empleado.
+                </div>
+              </ng-template>
+            </p-table>
+    </div>
+  </div>
+</section>
+
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

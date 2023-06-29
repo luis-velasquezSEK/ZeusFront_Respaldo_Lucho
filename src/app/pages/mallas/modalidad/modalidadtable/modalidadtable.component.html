@@ -1,0 +1,105 @@
+<section class="content">
+    <div class="container-fluid">
+      <div class="card">
+        <p-toolbar styleClass="p-mb-4">
+          <ng-template pTemplate="left">
+            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-button-sm"
+                    (click)="deleteSelectedItems()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+                    [disabled]="!selectedModalidad || !selectedModalidad.length"></button>
+          </ng-template>
+  
+          <ng-template pTemplate="right">
+            <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-sm p-button-outlined p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+            <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-sm p-button-outlined p-button-danger p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
+  
+          </ng-template>
+        </p-toolbar>
+  
+  
+        <p-table #dt [value]="lstModalidad" [rows]="10" [paginator]="true" [loading]="loading"
+                 [globalFilterFields]="['idModalidad',
+                 'codigoModalidad',
+                 'nombreModalidad',
+                 'descripcionModalidad',
+                 'activoModalidad',]"
+                 responsiveLayout="stack"
+                 [(selection)]="selectedModalidad" [rowHover]="true" dataKey="idModalidad"
+                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                 [showCurrentPageReport]="true">
+          <ng-template pTemplate="caption">
+            <div class="d-flex justify-content-between flex-wrap">
+              <button pButton label="Clear" class="p-button-outlined p-button-sm" icon="pi pi-filter-slash" (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
+              <label class="text-center">LISTADO MODALIDAD</label>
+              <span class="p-input-icon-left p-ml-auto">
+                      <i class="pi pi-search"></i>
+                      <input pInputText type="text" class="p-inputtext-sm" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General" />
+                  </span>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 3rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              </th>
+              <th pSortableColumn="codigoModalidad">Código
+                <p-sortIcon field="codigoModalidad"></p-sortIcon>
+              </th>
+              <th pSortableColumn="nombreModalidad">Nombre
+                <p-sortIcon field="nombreModalidad"></p-sortIcon>
+              </th>
+              <th pSortableColumn="descripcionModalidad">Descripción
+                <p-sortIcon field="descripcionModalidad"></p-sortIcon>
+              </th>
+              <th pSortableColumn="activoModalidad">Activo
+                <p-sortIcon field="activoModalidad"></p-sortIcon>
+              </th>
+              <th>Opciones</th>
+            </tr>
+            <tr>
+              <th></th>
+              <th>
+                <p-columnFilter type="text" field="codigoModalidad"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="nombreModalidad"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="descripcionModalidad"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="activoModalidad"></p-columnFilter>
+              </th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-item>
+            <tr>
+              <td>
+                <p-tableCheckbox [value]="item"></p-tableCheckbox>
+              </td>
+              <td>{{item.codigoModalidad}}</td>
+              <td>{{item.nombreModalidad}}</td>
+              <td>{{item.descripcionModalidad}}</td>
+              <td>{{item.activoModalidad ? 'ACTIVO' : 'INACTIVO'}}</td>
+
+              <td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
+                        (click)="editItem(item)" pTooltip="Editar" tooltipPosition="left"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text p-button-sm"
+                        (click)="deleteItem(item)" pTooltip="Eliminar" tooltipPosition="left"></button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+              En Total Existen {{lstModalidad ? lstModalidad.length : 0 }} Modalidad.
+            </div>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </section>
+  
+  
+  <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+  

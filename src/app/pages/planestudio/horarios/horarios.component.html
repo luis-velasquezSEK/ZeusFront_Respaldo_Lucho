@@ -1,0 +1,222 @@
+<form [formGroup]="form" enctype="multipart/form-data" accept-charset="utf8">
+  <p-panel header="Vista Mallas por Facultad/Carrera/Modalidad" [toggleable]="false">
+    <!--<p>Se debe enfocar primero para poder ingresar el valor</p>
+    <input autofocus type="text" id="codigo" placeholder="Enfoca este input y usa el lector" [(ngModel)]="valorBarras"
+           [ngModelOptions]="{standalone: true}"/>
+           -->
+
+
+    <ng-template pTemplate="icons">
+      <button pButton pRipple type="button" icon="fas fa-random" (click)="checarCruceSemanal()"
+              pTooltip="Verificar Cruces"
+              tooltipPosition="top"
+              class="p-button-rounded p-button-help p-button-text p-button"></button>
+      <button pButton pRipple type="button" icon="pi pi-send" (click)="guardar()" pTooltip="Guardar"
+              tooltipPosition="top"
+              class="p-button-rounded p-button-success p-button-text p-button"></button>
+      <button pButton pRipple type="button" icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar"
+              tooltipPosition="top"
+              class="p-button-rounded p-button-danger p-button-text p-button"></button>
+
+    </ng-template>
+
+    <div class="row grid p-fluid justify-content-around">
+      <div class="p-field mb-2 px-1 col-12 md:col-6 lg:col-7">
+        <div class="row grid  mr-1 p-fluid">
+          <div class="p-field mb-2 px-1 col-12 md:col-6 lg:col-3">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreUoc"
+                                            [showClear]="true" id="fdd-listfacu"
+                                            required [options]="listFacultad"
+                                            [(ngModel)]="facultadSelected"
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="nombreFacultad"
+                                            (ngModelChange)="llenarDetalleFacultad($event)"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listfacu">* Facultad</label>
+                            </span>
+          </div>
+          <div class="p-field mb-2 px-1 col-12 md:col-6 lg:col-3">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreUoc"
+                                            [showClear]="true" id="fdd-listcarrera"
+                                            required [options]="listCarrera"
+                                            [(ngModel)]="carreraSelected"
+                                            (ngModelChange)="llenarDetalleCarrera($event)"
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="nombreCarrera"
+
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listcarrera">* Carrera</label>
+                            </span>
+          </div>
+          <div class="p-field mb-2 px-1 col-12 md:col-6 lg:col-3">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreUoc"
+                                            [showClear]="true" id="fdd-listmalla"
+                                            required [options]="listMalla"
+                                            [(ngModel)]="mallaSelected"
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="codigoPlanEstudioMalla"
+                                            (ngModelChange)="llenarDetalleMalla($event)"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listmalla">* Malla</label>
+                            </span>
+          </div>
+          <div class="p-field mb-0 px-1 col-12 md:col-6 lg:col-3">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreUoc"
+                                            [showClear]="true" id="fdd-listmodmalla"
+                                            required [options]="listModalidadMalla"
+                                            [(ngModel)]="modalidadMallaSelected"
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="nombreModalidadMalla"
+                                            (ngModelChange)="llenarDetalleModalidadMalla($event)"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listmodmalla">* Modalidad Malla</label>
+                            </span>
+          </div>
+        </div>
+      </div>
+      <div class="p-field mb-2 px-1 col-12 md:col-6 lg:col-5">
+        <div class="row grid ml-1 p-fluid">
+          <div class="p-field mb-2 px-1 col-12 md:col-6 lg:col-4">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreTipoInfraestructura"
+                                            [showClear]="true" id="fdd-listtipoinfra"
+                                            required [options]="lstTipoInfraestructura"
+                                            [(ngModel)]="tipoInfraSelected"
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="nombreTipoInfraestructura"
+                                            (ngModelChange)="llenarDetalleTipoInfra($event)"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listtipoinfra">* Tipo Infraestructura</label>
+                            </span>
+          </div>
+          <div class="p-field mb-2 px-1 col-12 md:col-6 lg:col-4">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreInfraestructura"
+                                            [showClear]="true" id="fdd-listinfra"
+                                            required [options]="lstInfraestructura"
+                                            [(ngModel)]="infraSelected"
+                                            (ngModelChange)="llenarDetalleInfra($event)"
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="nombreInfraestructura"
+
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listinfra">* Infraestructura</label>
+                            </span>
+          </div>
+          <div class="p-field mb-2 px-1 col-12 md:col-6 lg:col-4">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreNivelInfraestructura"
+                                            [showClear]="true" id="fdd-listnivel"
+                                            required [options]="lstNivelInfraestructura"
+                                            [(ngModel)]="nivelSelected"
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="nombreNivelInfraestructura"
+                                            (ngModelChange)="llenarDetalleNivel($event)"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listnivel">* Niveles</label>
+                            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <span class="p-buttonset">
+    <button pButton pRipple icon="fa fa-calendar" (click)="setTipoHorario(0)" label="Semanal"></button>
+    <button pButton pRipple icon="fa fa-clock-o" (click)="setTipoHorario(1)" label="Horarios Fecha"></button>
+    <button pButton pRipple icon="fa fa-cubes" (click)="setTipoHorario(2)" label="Modular"></button>
+</span>
+  </p-panel>
+</form>
+
+<p-tabView class="w-full" [(activeIndex)]="tipoHorario">
+
+  <p-tabPanel>
+    <app-horario-semanal
+    ></app-horario-semanal>
+  </p-tabPanel>
+  <p-tabPanel>
+    <app-horario-fecha
+    ></app-horario-fecha>
+  </p-tabPanel>
+  <p-tabPanel>
+    <app-horario-modular
+    ></app-horario-modular>
+  </p-tabPanel>
+</p-tabView>
+
+<p-sidebar [(visible)]="sidecruces" [position]="muestraCrucesSemanal.length===0 ? 'right':'top'" [baseZIndex]="10000"
+           [style]="muestraCrucesSemanal.length>0 ? {height: 'auto'}:''">
+  <div class="text-6xl text-primary font-bold mb-3">Información de Cruces</div>
+  <div *ngIf="muestraCrucesSemanal.length===0"
+       class="flex justify-content-evenly flex-wrap card-container yellow-container">
+    <div class="text-orange-500">FECHA</div>
+    <div class="text-blue-600">HORA INICIAL</div>
+    <div class="text-blue-600">HORA FINAL</div>
+  </div>
+
+  <div *ngIf="muestraCrucesSemanal.length===0" class="flex justify-content-evenly flex-wrap">
+    <p-divider class="w-full"></p-divider>
+  </div>
+  <div *ngIf="muestraCrucesSemanal.length===0"
+       class="flex justify-content-evenly flex-wrap card-container yellow-container">
+    <div class="text-orange-500">{{muestraCruces.fecha | date : 'dd-MM-yyyy'}}</div>
+    <div class="text-blue-600">{{muestraCruces.horaI | date:'HH:mm'}}</div>
+    <div class="text-blue-600">{{muestraCruces.horaF| date:'HH:mm'}}</div>
+  </div>
+
+
+  <p-table *ngIf="muestraCrucesSemanal.length>0" responsiveLayout="stack" [value]="muestraCrucesSemanal">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th>HORARIO</th>
+        <th>LUNES</th>
+        <th>MARTES</th>
+        <th>MIERCOLES</th>
+        <th>JUEVES</th>
+        <th>VIERNES</th>
+        <th>SABADO</th>
+        <th>DOMINGO</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item let-columns="columns">
+      <tr>
+        <td><span class="p-column-title">HORARIO</span>{{item.horarioiFranjaHorario | date : 'HH:mm'}}
+          - {{item.horariofFranjaHorario| date : 'HH:mm'}}</td>
+        <td
+          [class]="item.estadoLunesFranjaHorario === undefined ?
+          'bg-danger' : !item.estadoLunesFranjaHorario ? 'bg-primary' : 'bg-green-300 text-white'">
+          <span class="p-column-title">LUNES</span>{{item.lunesFranjaHorario}}</td>
+        <td
+          [class]="item.estadoMartesFranjaHorario === undefined ?
+          'bg-danger' : !item.estadoMartesFranjaHorario ? 'bg-primary' : 'bg-green-300 text-white'">
+          <span class="p-column-title">MARTES</span>{{item.martesFranjaHorario}}</td>
+        <td [class]="item.estadoMiercolesFranjaHorario === undefined ?
+        'bg-danger' : !item.estadoMiercolesFranjaHorario ? 'bg-primary' : 'bg-green-300 text-white'">
+          <span class="p-column-title">MIERCOLES</span>{{item.miercolesFranjaHorario}}</td>
+        <td
+          [class]="item.estadoJuevesFranjaHorario === undefined ?
+          'bg-danger' : !item.estadoJuevesFranjaHorario ? 'bg-primary' : 'bg-green-300 text-white'">
+          <span class="p-column-title">JUEVES</span>{{item.juevesFranjaHorario}}</td>
+        <td
+          [class]="item.estadoViernesFranjaHorario === undefined ?
+          'bg-danger' : !item.estadoViernesFranjaHorario ? 'bg-primary' : 'bg-green-300 text-white'">
+          <span class="p-column-title">VIERNES</span>{{item.viernesFranjaHorario}}</td>
+        <td
+          [class]="item.estadoSabadoFranjaHorario === undefined ?
+          'bg-danger' : !item.estadoSabadoFranjaHorario ? 'bg-primary' : 'bg-green-300 text-white'">
+          <span class="p-column-title">SABADO</span>{{item.sabadoFranjaHorario}}</td>
+        <td
+          [class]="item.estadoDomingoFranjaHorario === undefined ?
+          'bg-danger' : !item.estadoDomingoFranjaHorario ? 'bg-primary' : 'bg-green-300 text-white'">
+          <span class="p-column-title">DOMINGO</span>{{item.domingoFranjaHorario}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+
+</p-sidebar>
+

@@ -1,0 +1,255 @@
+<!-- Seccion materi aprincipal -->
+<div class="grid grid-nogutter surface-0 text-800 position-relative">
+  <!--<div class="ribbon-wrapper ribbon">
+    <div class="ribbon bg-danger">
+      Materias Prueba
+    </div>
+  </div>
+  -->
+  <div class="col-12 md:col-12 p-2 text-center md:text-left align-items-center ">
+    <section>
+      <!--<div class="text-6xl text-primary font-bold mb-3">Materia Principal
+        <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+          <ng-template pTemplate>
+            <video width="100%" height="auto" autoplay controls>
+              <source src="assets/video/estadoplan.webm" type="video/mp4">
+            </video>
+          </ng-template>
+        </p-overlayPanel>
+
+        <button (click)="op.toggle($event)"
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-video"
+                class="p-button-rounded p-button-secondary p-button-text"
+        >
+        </button>
+
+      </div>-->
+      <p class="mt-0 mb-4 text-700 line-height-3">Materia a ser usada en la creación de un Reistro para Plan de
+        Estudios.</p>
+      <form>
+        <p-panel header="" [toggleable]="false">
+          <div class="p-fluid p-formgrid flex-row">
+            <div class="row">
+              <div class="p-field col-3 md:col-12  mb-0 px-1">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreUoc"
+                                            [showClear]="true" id="fdd-listfacu"
+                                            required [options]="listFacultad"
+                                            [(ngModel)]="facultadSelected"
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="nombreFacultad"
+                                 
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listfacu">* Facultad</label>
+                            </span>
+              </div>
+              <div class="p-field col-3 md:col-12  mb-0 px-1">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreUoc"
+                                            [showClear]="true" id="fdd-listcarrera"
+                                            required [options]="listCarrera"
+                                            [(ngModel)]="carreraSelected"
+                                            (ngModelChange)="llenarDetalleCarrera($event)"
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="nombreCarrera"
+
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listcarrera">* Carrera</label>
+                            </span>
+              </div>
+              <div class="p-field col-2 md:col-12  mb-0 px-1">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreUoc"
+                                            [showClear]="true" id="fdd-listmalla"
+                                            required [options]="listMalla"
+                                            [(ngModel)]="mallaSelected"
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="codigoPlanEstudioMalla"
+                                            (ngModelChange)="llenarDetalleMalla($event)"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listmalla">* Malla</label>
+                            </span>
+              </div>
+              <div class="p-field col-2 md:col-12  mb-0 px-1">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreUoc"
+                                            [showClear]="true" id="fdd-listmodmalla"
+                                            required [options]="listModalidadMalla"
+                                            [(ngModel)]="modalidadMallaSelected"
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="nombreModalidadMalla"
+                                            (ngModelChange)="llenarDetalleModalidadMalla($event)"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listmodmalla">* Modalidad Malla</label>
+                            </span>
+              </div>
+              <div class="p-field col-2 md:col-12  mb-0 px-1">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreNivelEstudio"
+                                            [showClear]="true" id="fdd-listnivel"
+                                            required [options]="listNivelEstudios"
+                                            [(ngModel)]="nivelEstudioSelected"
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="nombreNivelEstudio"
+                                            (ngModelChange)="llenarDetalleNivelEstudios($event)"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listnivel">* Nivel Estudios</label>
+                            </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="p-0 h-full col-12 md:col-12 lg:col-12 w-full" >
+                <ul class="list-group list-group-horizontal flex flex-wrap justify-content-center">
+                  <li class="list-group-item border-0">
+                    <i
+                      class="fa fa-cogs"></i>
+                    <span class="text-600"> Estados sobre información cargada</span>
+                  </li>
+                  <li class="list-group-item">
+                    <i
+                      [class]="facultadShow.activoFacultad ? 'pi pi-check-circle text-green-500 mr-2' : 'pi pi-ban text-pink-600 mr-2'"></i>
+                    <span>{{facultadShow.nombreFacultad || 'Facultad NO seleccionada'}}</span>
+                  </li>
+                  <li class="list-group-item">
+                    <i
+                      [class]="carreraShow.activoCarrera ? 'pi pi-check-circle text-green-500 mr-2' : 'pi pi-ban text-pink-600 mr-2'"></i>
+                    <span>{{carreraShow.nombreCarrera || 'Carrera NO seleccionada'}}</span>
+                  </li>
+                  <li class="list-group-item">
+                    <i
+                      [class]="mallaShow.activoMalla ? 'pi pi-check-circle text-green-500 mr-2' : 'pi pi-ban text-pink-600 mr-2'"></i>
+                    <span>{{mallaShow.codigoPlanEstudioMalla || 'Malla NO seleccionada'}}</span>
+                  </li>
+                  <li class="list-group-item">
+                    <i
+                      [class]="modalidadMallaShow.activoModalidadMalla ? 'pi pi-check-circle text-green-500 mr-2' : 'pi pi-ban text-pink-600 mr-2'"></i>
+                    <span>{{modalidadMallaShow.nombreModalidadMalla || 'Modalidad NO seleccionada'}}</span>
+                  </li>
+                  <li class="list-group-item">
+                    <i
+                      [class]="nivelEstudiosShow.activoNivelEstudio ? 'pi pi-check-circle text-green-500 mr-2' : 'pi pi-ban text-pink-600 mr-2'"></i>
+                    <span>{{nivelEstudiosShow.nombreNivelEstudio || 'Nivel NO seleccionado'}}</span>
+                  </li>
+                  <li class="list-group-item">
+                    <i
+                      [class]="materiaPrincipal.activoMateriap ? 'pi pi-check-circle text-green-500 mr-2' : 'pi pi-ban text-pink-600 mr-2'"></i>
+                    <span>{{materiaPrincipal.nombreMateriap || 'Materia NO seleccionado'}}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </p-panel>
+      </form>
+
+    </section>
+  </div>
+</div>
+
+
+<!-- Fin seccion materia principal -->
+
+<!-- Inicio DataGrid de materias principales-->
+
+<div class="col-12 md:col-12 p-1 text-center md:text-left align-items-center ">
+  <p-panel header="" [toggleable]="false">
+    <p-dataView #dv [value]="lstMateriaPrincipal" [paginator]="true" [rows]="9" filterBy="nombreMateriap,codigoMateriap"
+                [sortField]="sortField" [sortOrder]="sortOrder" layout="grid">
+      <ng-template pTemplate="header">
+        <div class="flex flex-column flex-row justify-content-between ">
+          <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordenar por nombre"
+                      (onChange)="onSortChange($event)" styleClass="p-mb-2 p-mb-md-0"></p-dropdown>
+          <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+                    <i class="pi pi-search"></i>
+                    <input type="search" pInputText placeholder="Buscar por nombre"
+                           (input)="dv.filter($event.target.value)">
+                </span>
+          <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+        </div>
+      </ng-template>
+      <ng-template let-item pTemplate="listItem">
+
+        <div class="col-12">
+          <div class="grid grid-nogutter surface-0 text-800 position-relative">
+            <div class="ribbon-wrapper ribbon">
+              <div [class]="item.activoMateriap ? 'ribbon bg-success':'ribbon bg-danger'">
+                {{item.activoMateriap ? 'ACTIVO' : 'INACTIVO'}}
+              </div>
+            </div>
+            <div class="product-list-item"
+                 style="background: linear-gradient(199deg, rgba(7,92,187,1) 0%, rgba(52,126,209,1) 7%, rgba(244,246,249,1) 25%);">
+              <div class="product-list-detail">
+                <div class="product-name">{{item.codigoMateriap}}</div>
+                <div class="product-description">{{item.nombreMateriap}}</div>
+                <!--<p-rating [ngModel]="item.horasSemestralesMateriap" [readonly]="true" [cancel]="false"></p-rating>-->
+                <!--<i class="pi pi-tag product-category-icon"></i>--><span
+                class="product-category">Hrs: {{item.horasSemestralesMateriap}}
+                / Créditos: {{item.creditosMateriap}}</span>
+              </div>
+              <div class="product-list-action">
+                <span class="product-price"></span>
+                <span
+                  [class]="item.cuposMatriculaMateriap >5 ? 'badge bg-success':'badge bg-danger'">Cupos: {{item.cuposMatriculaMateriap}}</span>
+                <button pButton pRipple type="button"
+                        [ngClass]="index !== item.idMateriap ? 'p-button-rounded p-button-info':'p-button-rounded p-button-danger'"
+                        [icon]="index !== item.idMateriap ?  'pi pi-plus':'pi pi-trash'"
+                        [disabled]="!item.activoMateriap"
+                        (click)="escogerMateria(item)"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </ng-template>
+      <ng-template let-item pTemplate="gridItem">
+
+        <div class="p-col-12">
+          <div class="grid grid-nogutter surface-0 text-800 position-relative">
+            <div class="ribbon-wrapper ribbon" style="height: 70px !important;
+                                                      overflow: hidden;
+                                                      position: absolute;
+                                                      right: 7px !important;
+                                                      top: 7px !important;
+                                                      width: 70px;
+                                                      z-index: 10;">
+              <div [class]="item.activoMateriap ? 'ribbon bg-success':'ribbon bg-danger'">
+                {{item.activoMateriap ? 'ACTIVO' : 'INACTIVO'}}
+              </div>
+            </div>
+            <div class="product-grid-item card"
+                 style="background: linear-gradient(199deg, rgba(7,92,187,1) 0%, rgba(52,126,209,1) 7%, rgba(244,246,249,1) 25%);">
+              <div class="product-grid-item-top">
+                <div>
+                  <!--<i class="pi pi-tag product-category-icon"></i>-->
+                  <span class="product-category">Créditos: {{item.creditosMateriap}}</span>
+                </div>
+                <span
+                  [class]="item.cuposMatriculaMateriap >5 ? 'badge bg-success':'badge bg-danger'">Cupos: {{item.cuposMatriculaMateriap}}</span>
+              </div>
+              <div class="product-grid-item-content">
+                <p-divider></p-divider>
+
+                <div class="product-name">{{item.codigoMateriap}}</div>
+                <div class="product-description">{{item.nombreMateriap}}</div>
+                <p-divider></p-divider>
+
+              </div>
+              <div class="product-grid-item-bottom">
+                <span class="product-price">Hrs: {{item.horasSemestralesMateriap}}</span>
+                <button pButton pRipple type="button"
+                        [ngClass]="index !== item.idMateriap ? 'p-button-rounded p-button-info':'p-button-rounded p-button-danger'"
+                        [icon]="index !== item.idMateriap ?  'pi pi-plus':'pi pi-trash'"
+                        [disabled]="!item.activoMateriap"
+                        (click)="escogerMateria(item)"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-dataView>
+  </p-panel>
+</div>
+<!--  Fin seccion materias principales -->

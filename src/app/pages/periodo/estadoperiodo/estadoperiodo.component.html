@@ -1,0 +1,85 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1></h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Estado Periodo</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="grid grid-nogutter surface-0 text-800 position-relative">
+    <div class="ribbon-wrapper ribbon-xl">
+        <div class="ribbon bg-danger text-xl">
+            PRUEBAS
+        </div>
+    </div>
+    <div class="col-12 md:col-6 overflow-hidden">
+        <img src="assets/img/estadoPeriodo.jpg" alt="Image" class="md:ml-auto block md:h-full img-fluid"
+           style="clip-path: polygon(0 0, 100% 0, 92% 100%, 0% 100%)">
+    </div>
+    <div class="col-12 md:col-6 p-6 text-center md:text-left flex align-items-center ">
+        <section>
+            <div class="text-6xl text-primary font-bold mb-3">Estado Periodo
+                <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+                    <ng-template pTemplate>
+                        <video width="100%" height="auto" autoplay controls>
+                            <source src="assets/video/estadoplan.webm" type="video/mp4">
+                        </video>
+                    </ng-template>
+                </p-overlayPanel>
+
+                <button (click)="op.toggle($event)" pButton pRipple type="button" icon="pi pi-video"
+                    class="p-button-rounded p-button-secondary p-button-text">
+                </button>
+
+            </div>
+            <p class="mt-0 mb-4 text-700 line-height-3">La duracion de un perido es un tiempo
+                equivalente a Anual, Semestral y Bimestral. Es una parte de un año académico, 
+                el tiempo durante el cual una institución educativa imparte clases a los estudiantes que cursan una o 
+                más asignaturas. </p>
+
+
+            <form [formGroup]="form">
+                <p-panel header="Registro" [toggleable]="false">
+                    <ng-template pTemplate="icons">
+                        <button pButton pRipple type="button" icon="pi pi-send" (click)="guardar()" pTooltip="Guardar"
+                            tooltipPosition="top"
+                            class="p-button-rounded p-button-success p-button-text p-button"></button>
+                        <button pButton pRipple type="button" icon="pi pi-times" (click)="cancelar()"
+                            pTooltip="Cancelar" tooltipPosition="top"
+                            class="p-button-rounded p-button-danger p-button-text p-button"></button>
+
+                    </ng-template>
+
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="p-field col-12 md:col-8 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-nombre" type="text" required="true"
+                                    formControlName="nombreEstadoPeriodo">
+                                <label for="ftxt-nombre">* Estado del Periodo </label>
+                            </span>
+                        </div>
+                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3 flex justify-content-evenly">
+                            <label for="ftxt-activo">* Activo </label>
+                            <p-inputSwitch id="ftxt-activo" formControlName="activoEstadoPeriodo">
+                            </p-inputSwitch>
+                        </div>
+                    </div>
+                </p-panel>
+            </form>
+        </section>
+    </div>
+    
+</div>
+
+<p-divider></p-divider>
+
+<app-estadopertable [lstEstadoPer]="lstEstadoPer | async" (estadoPerSelect)=setSeleccionado($event)>
+</app-estadopertable>

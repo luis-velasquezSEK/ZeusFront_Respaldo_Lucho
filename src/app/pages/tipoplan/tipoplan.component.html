@@ -1,0 +1,103 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1></h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Tipo Plan Estudio</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+
+  <div class="grid grid-nogutter surface-0 text-800 position-relative" >
+    <div class="ribbon-wrapper ribbon-xl">
+      <div class="ribbon bg-danger text-xl">
+        PRUEBAS
+      </div>
+    </div>
+    <div class="col-12 md:col-6 p-6 text-center md:text-left flex align-items-center ">
+      <section>
+        <div class="text-6xl text-primary font-bold mb-3">Tipos de Plan Estudios
+          <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}" >
+            <ng-template pTemplate>
+              <video width="100%" height="auto" autoplay controls>
+                <source src="assets/video/estadoplan.webm" type="video/mp4">
+              </video>
+            </ng-template>
+          </p-overlayPanel>
+
+          <button (click)="op.toggle($event)"
+                  pButton
+                  pRipple
+                  type="button"
+                  icon="pi pi-video"
+                  class="p-button-rounded p-button-secondary p-button-text"
+          >
+          </button>
+
+        </div>
+        <p class="mt-0 mb-4 text-700 line-height-3">Planes de estudio o denominados (MALLAS),
+          son las diferentes agrupaciones académicas que se ofertará al estudiante.</p>
+
+
+        <form [formGroup]="form">
+          <p-panel header="Registro" [toggleable]="false">
+
+
+            <ng-template pTemplate="icons">
+              <button pButton pRipple type="button" icon="pi pi-send" (click)="guardar()" pTooltip="Guardar" tooltipPosition="top"
+                      class="p-button-rounded p-button-success p-button-text p-button"></button>
+              <button pButton pRipple type="button" icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar" tooltipPosition="top"
+                      class="p-button-rounded p-button-danger p-button-text p-button"></button>
+
+            </ng-template>
+
+            <div class="p-fluid p-formgrid grid">
+              <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-nombre" type="text" required="true"
+                                       formControlName="nombreTipoPe">
+                                <label for="ftxt-nombre">* Tipo Plan Estudio</label>
+                              </span>
+              </div>
+              <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3 flex justify-content-evenly">
+                <label for="ftxt-activo">* Activo </label>
+                <p-inputSwitch id="ftxt-activo" formControlName="activoTipoPe"></p-inputSwitch>
+
+              </div>
+              <div class="p-field col-12 md:col-12 md:mb-4 mb-0 px-3">
+                              <span class="p-float-label">
+                                  <input pInputText id="ftxt-obs" type="text" required="true"
+                                         formControlName="observacionTipoPe">
+                                  <label for="ftxt-obs">* Observaciones </label>
+                             </span>
+              </div>
+
+            </div>
+
+
+          </p-panel>
+        </form>
+
+      </section>
+    </div>
+    <div class="col-12 md:col-6 overflow-hidden">
+      <img src="assets/img/tipoplan.jpeg" alt="Image" class="md:ml-auto block md:h-full img-fluid"
+           style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%)">
+    </div>
+</div>
+
+
+
+
+<p-divider></p-divider>
+
+
+<app-tipoplantable [lstTipoPlan]="lstTipoPlan" (tipoPlanSelect)=setSeleccionado($event)></app-tipoplantable>

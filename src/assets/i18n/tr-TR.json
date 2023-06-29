@@ -1,0 +1,12 @@
+{
+  "aplication": {
+    "dashboard": {
+      "title": "Gösterge Paneli"
+    },
+    "demo": {
+      "title": "Çeviri Demosu",
+      "text": "Bu, ngx-translate api için bir örnektir",
+      "greeting": "Merhaba {{name}}!"
+    }
+ }
+}

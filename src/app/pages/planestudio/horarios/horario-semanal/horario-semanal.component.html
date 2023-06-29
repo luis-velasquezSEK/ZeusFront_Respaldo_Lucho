@@ -1,0 +1,256 @@
+<div class="grid grid-nogutter surface-0 text-800 position-relative">
+  <div class="ribbon-wrapper ribbon">
+    <div class="ribbon bg-danger">
+      Pruebas
+    </div>
+  </div>
+  <div class="col-12 md:col-12 p-1">
+    <section>
+      <div class="text-6xl text-primary font-bold mb-3">Franja Semanal
+        <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+          <ng-template pTemplate>
+            <video width="100%" height="auto" autoplay controls>
+              <source src="assets/video/estadoplan.webm" type="video/mp4">
+            </video>
+          </ng-template>
+        </p-overlayPanel>
+
+        <button (click)="op.toggle($event)"
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-video"
+                class="p-button-rounded p-button-secondary p-button-text"
+        >
+        </button>
+
+      </div>
+      <p class="mt-0 mb-4 text-700 line-height-3">
+        La planificacion semanal es para todo el semestre y se reparte entre los dias de la semana y los horarios
+        disponibles.</p>
+
+
+      <div class="row">
+
+
+        <div class="row grid p-fluid justify-content-around">
+          <div class="p-field mb-2 px-1 col-12 md:col-6 lg:col-6">
+            <div class=" mr-1">
+              <p-table [value]="lstHorariosInput" dataKey="idFranjaHorario" editMode="row"
+                       responsiveLayout="stack" selectionMode="single">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Horario</th>
+                    <th>Lunes</th>
+                    <th>Martes</th>
+                    <th>Miércoles</th>
+                    <th>Jueves</th>
+                    <th>Viernes</th>
+                    <th>Sábado</th>
+                    <th>Domingo</th>
+                    <th style="width:8rem"></th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-dia let-editing="editing" let-ri="rowIndex">
+                  <tr [pEditableRow]="dia">
+                    <td pEditableColumn class="bg-primary">
+                      {{dia.horarioiFranjaHorario | date:'HH:mm'}} - {{dia.horariofFranjaHorario | date:'HH:mm'}}
+
+                    </td>
+                    <td pEditableColumn
+                        [class]="dia.lunesFranjaHorario === null ? 'bg-purple-500' : !dia.lunesFranjaHorario ? 'bg-pink-700' : 'bg-green-500'">
+                      <p-cellEditor>
+                        <ng-template pTemplate="input">
+                          <p-triStateCheckbox [(ngModel)]="dia.lunesFranjaHorario" (onChange)="onRowEditSave(dia)"
+                                              [ngModelOptions]="{standalone: true}"></p-triStateCheckbox>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                          <i
+                            [class]="dia.lunesFranjaHorario === null ? 'fas fa-plus-square text-gray-50 text-2xl' : !dia.lunesFranjaHorario ? 'pi pi-times-circle text-gray-50 text-2xl' : 'pi pi-check-circle text-gray-50 text-2xl'"></i>
+
+                        </ng-template>
+                      </p-cellEditor>
+                    </td>
+                    <td pEditableColumn
+                        [class]="dia.martesFranjaHorario === null ? 'bg-purple-500' : !dia.martesFranjaHorario ? 'bg-pink-700' : 'bg-green-500'">
+                      <p-cellEditor>
+                        <ng-template pTemplate="input">
+                          <p-triStateCheckbox [(ngModel)]="dia.martesFranjaHorario" (onChange)="onRowEditSave(dia)"
+                                              [ngModelOptions]="{standalone: true}"></p-triStateCheckbox>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                          <i
+                            [class]="dia.martesFranjaHorario === null ? 'fas fa-plus-square text-gray-50 text-2xl' : !dia.martesFranjaHorario ? 'pi pi-times-circle text-gray-50 text-2xl' : 'pi pi-check-circle text-gray-50 text-2xl'"></i>
+
+                        </ng-template>
+                      </p-cellEditor>
+                    </td>
+                    <td pEditableColumn
+                        [class]="dia.miercolesFranjaHorario === null ? 'bg-purple-500' : !dia.miercolesFranjaHorario ? 'bg-pink-700' : 'bg-green-500'">
+                      <p-cellEditor>
+                        <ng-template pTemplate="input">
+                          <p-triStateCheckbox [(ngModel)]="dia.miercolesFranjaHorario" (onChange)="onRowEditSave(dia)"
+                                              [ngModelOptions]="{standalone: true}"></p-triStateCheckbox>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                          <i
+                            [class]="dia.miercolesFranjaHorario === null ? 'fas fa-plus-square text-gray-50 text-2xl' : !dia.miercolesFranjaHorario ? 'pi pi-times-circle text-gray-50 text-2xl' : 'pi pi-check-circle text-gray-50 text-2xl'"></i>
+
+                        </ng-template>
+                      </p-cellEditor>
+                    </td>
+                    <td pEditableColumn
+                        [class]="dia.juevesFranjaHorario === null ? 'bg-purple-500' : !dia.juevesFranjaHorario ? 'bg-pink-700' : 'bg-green-500'">
+                      <p-cellEditor>
+                        <ng-template pTemplate="input">
+                          <p-triStateCheckbox [(ngModel)]="dia.juevesFranjaHorario" (onChange)="onRowEditSave(dia)"
+                                              [ngModelOptions]="{standalone: true}"></p-triStateCheckbox>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                          <i
+                            [class]="dia.juevesFranjaHorario === null ? 'fas fa-plus-square text-gray-50 text-2xl' : !dia.juevesFranjaHorario ? 'pi pi-times-circle text-gray-50 text-2xl' : 'pi pi-check-circle text-gray-50 text-2xl'"></i>
+
+                        </ng-template>
+                      </p-cellEditor>
+                    </td>
+                    <td pEditableColumn
+                        [class]="dia.viernesFranjaHorario === null ? 'bg-purple-500' : !dia.viernesFranjaHorario ? 'bg-pink-700' : 'bg-green-500'">
+                      <p-cellEditor>
+                        <ng-template pTemplate="input">
+                          <p-triStateCheckbox [(ngModel)]="dia.viernesFranjaHorario" (onChange)="onRowEditSave(dia)"
+                                              [ngModelOptions]="{standalone: true}"></p-triStateCheckbox>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                          <i
+                            [class]="dia.viernesFranjaHorario === null ? 'fas fa-plus-square text-gray-50 text-2xl' : !dia.viernesFranjaHorario ? 'pi pi-times-circle text-gray-50 text-2xl' : 'pi pi-check-circle text-gray-50 text-2xl'"></i>
+
+                        </ng-template>
+                      </p-cellEditor>
+                    </td>
+                    <td pEditableColumn
+                        [class]="dia.sabadoFranjaHorario === null ? 'bg-purple-500' : !dia.sabadoFranjaHorario ? 'bg-pink-700' : 'bg-green-500'">
+                      <p-cellEditor>
+                        <ng-template pTemplate="input">
+                          <p-triStateCheckbox [(ngModel)]="dia.sabadoFranjaHorario" (onChange)="onRowEditSave(dia)"
+                                              [ngModelOptions]="{standalone: true}"></p-triStateCheckbox>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                          <i
+                            [class]="dia.sabadoFranjaHorario === null ? 'fas fa-plus-square text-gray-50 text-2xl' : !dia.sabadoFranjaHorario ? 'pi pi-times-circle text-gray-50 text-2xl' : 'pi pi-check-circle text-gray-50 text-2xl'"></i>
+
+                        </ng-template>
+                      </p-cellEditor>
+                    </td>
+                    <td pEditableColumn
+                        [class]="dia.domingoFranjaHorario === null ? 'bg-purple-500' : !dia.domingoFranjaHorario ? 'bg-pink-700' : 'bg-green-500'">
+                      <p-cellEditor>
+                        <ng-template pTemplate="input">
+                          <p-triStateCheckbox [(ngModel)]="dia.domingoFranjaHorario" (onChange)="onRowEditSave(dia)"
+                                              [ngModelOptions]="{standalone: true}"></p-triStateCheckbox>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                          <i
+                            [class]="dia.domingoFranjaHorario === null ? 'fas fa-plus-square text-gray-50 text-2xl' : !dia.domingoFranjaHorario ? 'pi pi-times-circle text-gray-50 text-2xl' : 'pi pi-check-circle text-gray-50 text-2xl'"></i>
+
+                        </ng-template>
+                      </p-cellEditor>
+                    </td>
+                    <td style="text-align:center">
+                      <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+                              (click)="onRowEditInit(dia)" class="p-button-rounded p-button-outlined"></button>
+                      <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+                              (click)="onRowEditSave(dia)"
+                              class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+                      <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+                              (click)="onRowEditCancel(dia, ri)"
+                              class="p-button-rounded p-button-text p-button-danger"></button>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+          <div class="p-field mb-2 px-1 col-12 md:col-6 lg:col-6">
+
+            <div class=" ml-1">
+              <p-table [value]="lstEspacioInput" [(selection)]="espacioSelect"
+                       dataKey="idEspaciosFisicos" responsiveLayout="stack">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th style="width: 3rem">
+
+                    </th>
+                    <th pSortableColumn="codigoEspaciosFisicos">
+                      <div class="flex justify-content-between align-items-center">Código
+                        <p-sortIcon field="codigoEspaciosFisicos"></p-sortIcon>
+                        <p-columnFilter type="text" field="codigoEspaciosFisicos" display="menu"></p-columnFilter>
+                      </div>
+                    </th>
+                    <th pSortableColumn="nombreEspaciosFisicos">
+                      <div class="flex justify-content-between align-items-center">Nombre
+                        <p-sortIcon field="nombreEspaciosFisicos"></p-sortIcon>
+                        <p-columnFilter type="text" field="nombreEspaciosFisicos" display="menu"></p-columnFilter>
+                      </div>
+                    </th>
+                    <th pSortableColumn="descripcionEspaciosFisicos">
+                      <div class="flex justify-content-between align-items-center">Descripción
+                        <p-sortIcon field="descripcionEspaciosFisicos"></p-sortIcon>
+                        <p-columnFilter type="text" field="descripcionEspaciosFisicos"
+                                        display="menu"></p-columnFilter>
+                      </div>
+                    </th>
+                    <th pSortableColumn="activoEspaciosFisicos">
+                      <div class="flex justify-content-between align-items-center">Activo
+                        <p-sortIcon field="activoEspaciosFisicos"></p-sortIcon>
+                        <p-columnFilter type="boolean" field="activoEspaciosFisicos" display="menu">
+                        </p-columnFilter>
+                      </div>
+                    </th>
+                    <th pSortableColumn="idTipoEspacioDTO.nombreTipoEspacio">
+                      <div class="flex justify-content-between align-items-center">Tipo
+                        <p-sortIcon field="idTipoEspacioDTO.nombreTipoEspacio"></p-sortIcon>
+                        <p-columnFilter type="text" field="idTipoEspacioDTO.nombreTipoEspacio"
+                                        display="menu"></p-columnFilter>
+                      </div>
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-espacio>
+                  <tr>
+                    <td>
+                      <p-tableRadioButton [value]="espacio" (click)="setChange($event)"></p-tableRadioButton>
+                    </td>
+                    <td pEditableColumn>
+                      {{espacio.codigoEspaciosFisicos}}
+                    </td>
+                    <td pEditableColumn>
+                      {{espacio.nombreEspaciosFisicos}}
+                    </td>
+                    <td pEditableColumn>
+                      {{espacio.descripcionEspaciosFisicos}}
+                    </td>
+                    <td pEditableColumn>
+                      <i class="pi"
+                         [ngClass]="{'true-icon pi-check-circle text-green-500': espacio.activoEspaciosFisicos, 'false-icon pi-times-circle text-red': !espacio.activoEspaciosFisicos}"></i>
+                    </td>
+                    <td pEditableColumn>
+                      {{espacio.idTipoEspacioDTO.nombreTipoEspacio}}
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+  </div>
+</div>
+
+
+
+
+
+

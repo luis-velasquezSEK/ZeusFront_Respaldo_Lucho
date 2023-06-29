@@ -1,0 +1,197 @@
+<div class="grid grid-nogutter surface-0 text-800 position-relative">
+  <div class="ribbon-wrapper ribbon">
+    <div class="ribbon bg-danger">
+      Pruebas
+    </div>
+  </div>
+  <div class="col-12 md:col-12 p-1">
+    <section>
+      <div class="text-6xl text-primary font-bold mb-3">Franja Modular
+        <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+          <ng-template pTemplate>
+            <video width="100%" height="auto" autoplay controls>
+              <source src="assets/video/estadoplan.webm" type="video/mp4">
+            </video>
+          </ng-template>
+        </p-overlayPanel>
+
+        <button (click)="op.toggle($event)"
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-video"
+                class="p-button-rounded p-button-secondary p-button-text"
+        >
+        </button>
+
+      </div>
+      <p class="mt-0 mb-4 text-700 line-height-3">
+        El horario modular escoje un rango de fechas para ubicar los horarios en los que se va a planificar.</p>
+
+
+      <div class="row">
+        <div class="flex justify-content-end " style="border-bottom-style: ridge">
+          <button pButton pRipple type="button" icon="pi pi-send" (click)="guardar()" pTooltip="Guardar"
+                  tooltipPosition="top"
+                  class="p-button-rounded p-button-success p-button-text p-button"></button>
+          <button pButton pRipple type="button" icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar"
+                  tooltipPosition="top"
+                  class="p-button-rounded p-button-danger p-button-text p-button"></button>
+
+        </div>
+
+        <div class="row grid p-fluid justify-content-around">
+          <div class="p-field mb-2 px-1 col-12 md:col-6 lg:col-6">
+            <div class=" mr-1">
+              <div class="flex justify-content-between">
+                <mat-form-field appearance="fill" class="mt-2" ngDefaultControl>
+                  <mat-label>Elija un Rango de Fechas</mat-label>
+                  <mat-date-range-input [rangePicker]="picker">
+                    <input #dateRangeStart matStartDate placeholder="Fecha Inicial">
+                    <input #dateRangeEnd matEndDate placeholder="Fecha Final"
+                           (dateChange)="dateRangeChange(dateRangeStart, dateRangeEnd)">
+                  </mat-date-range-input>
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+
+                <div class="justify-content-end">
+                  <button pButton pRipple type="button" icon="pi pi-send" (click)="guardar()" pTooltip="Guardar"
+                          tooltipPosition="top"
+                          class="p-button-rounded p-button-success p-button-text p-button"></button>
+                  <button pButton pRipple type="button" icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar"
+                          tooltipPosition="top"
+                          class="p-button-rounded p-button-danger p-button-text p-button"></button>
+                </div>
+              </div>
+
+
+              <div class="surface-card shadow-2 p-3 border-round">
+                <div class="flex justify-content-between mb-3">
+                  <div>
+                    <span class="block text-500 font-medium mb-3">Horarios Disponibles: <span
+                      class="text-900 font-medium text-xl">{{lstHorariosModuloInput.length}}</span>
+                    </span>
+
+                  </div>
+                  <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
+                       style="width:2.5rem;height:2.5rem">
+                    <i class="pi pi-inbox text-cyan-500 text-xl"></i>
+                  </div>
+                </div>
+                <div class="row itemsBlock" style="padding: 0% 5% 0% 5%;">
+                  <div *ngFor="let item of lstHorariosModuloInput" class="col-md-4 col-sm-6 col-12"
+                       style="padding: 5px 0px 5px 0px; border:2rem">
+                    <mat-checkbox [(ngModel)]="item.activoFechaHorario" [color]="'primary'"
+                                  (ngModelChange)="onTimeSelected(item)">
+                    <span class="itemitle">{{item.fechaiFechaHorario | date: 'HH:mm'}}
+                      - {{item.fechafFechaHorario | date: 'HH:mm'}}</span>
+                    </mat-checkbox>
+                  </div>
+                </div>
+
+                <div class="surface-section">
+                  <ul class="list-none p-0 m-0" *ngFor="let item of moduloFechasHorario">
+                    <li class="flex align-items-center py-3 px-2 border-top-1 flex-wrap surface-border border-gray-300">
+                      <div class="text-500 text-primary w-6 md:w-3 font-medium">{{item.fechaI | date: 'dd-MM-yyyy'}}
+                        - {{item.fechaF | date: 'dd-MM-yyyy'}}</div>
+                      <div class="text-900 w-full md:w-6 md:flex-order-0 d-flex justify-content-evenly">
+                        <p-chip [label]="item.horaI | date: 'HH:mm'" class="mr-2"></p-chip>
+                        <p-chip [label]="item.horaF | date: 'HH:mm'" class="mr-2"></p-chip>
+                      </div>
+                      <div class="w-6 md:w-3 flex justify-content-end">
+                        <button pButton pRipple label="Quitar"
+                                (click)="quitarFechaHorario(item)"
+                                icon="pi pi-trash" class="p-button-text text-red"></button>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="p-field mb-2 px-1 col-12 md:col-6 lg:col-6">
+
+            <div class=" ml-1">
+              <p-table [value]="lstEspacioInput" [(selection)]="espacioSelect"
+                       dataKey="idEspaciosFisicos" responsiveLayout="stack">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th style="width: 3rem">
+
+                    </th>
+                    <th pSortableColumn="codigoEspaciosFisicos">
+                      <div class="flex justify-content-between align-items-center">Código
+                        <p-sortIcon field="codigoEspaciosFisicos"></p-sortIcon>
+                        <p-columnFilter type="text" field="codigoEspaciosFisicos" display="menu"></p-columnFilter>
+                      </div>
+                    </th>
+                    <th pSortableColumn="nombreEspaciosFisicos">
+                      <div class="flex justify-content-between align-items-center">Nombre
+                        <p-sortIcon field="nombreEspaciosFisicos"></p-sortIcon>
+                        <p-columnFilter type="text" field="nombreEspaciosFisicos" display="menu"></p-columnFilter>
+                      </div>
+                    </th>
+                    <th pSortableColumn="descripcionEspaciosFisicos">
+                      <div class="flex justify-content-between align-items-center">Descripción
+                        <p-sortIcon field="descripcionEspaciosFisicos"></p-sortIcon>
+                        <p-columnFilter type="text" field="descripcionEspaciosFisicos"
+                                        display="menu"></p-columnFilter>
+                      </div>
+                    </th>
+                    <th pSortableColumn="activoEspaciosFisicos">
+                      <div class="flex justify-content-between align-items-center">Activo
+                        <p-sortIcon field="activoEspaciosFisicos"></p-sortIcon>
+                        <p-columnFilter type="boolean" field="activoEspaciosFisicos" display="menu">
+                        </p-columnFilter>
+                      </div>
+                    </th>
+                    <th pSortableColumn="idTipoEspacioDTO.nombreTipoEspacio">
+                      <div class="flex justify-content-between align-items-center">Tipo
+                        <p-sortIcon field="idTipoEspacioDTO.nombreTipoEspacio"></p-sortIcon>
+                        <p-columnFilter type="text" field="idTipoEspacioDTO.nombreTipoEspacio"
+                                        display="menu"></p-columnFilter>
+                      </div>
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-espacio>
+                  <tr>
+                    <td>
+                      <p-tableRadioButton [value]="espacio" (click)="setChange($event)"></p-tableRadioButton>
+                    </td>
+                    <td pEditableColumn>
+                      {{espacio.codigoEspaciosFisicos}}
+                    </td>
+                    <td pEditableColumn>
+                      {{espacio.nombreEspaciosFisicos}}
+                    </td>
+                    <td pEditableColumn>
+                      {{espacio.descripcionEspaciosFisicos}}
+                    </td>
+                    <td pEditableColumn>
+                      <i class="pi"
+                         [ngClass]="{'true-icon pi-check-circle text-green-500': espacio.activoEspaciosFisicos, 'false-icon pi-times-circle text-red': !espacio.activoEspaciosFisicos}"></i>
+                    </td>
+                    <td pEditableColumn>
+                      {{espacio.idTipoEspacioDTO.nombreTipoEspacio}}
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+  </div>
+</div>
+
+
+
+
+
+

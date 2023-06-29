@@ -1,0 +1,123 @@
+<section class="content">
+    <div class="container-fluid">
+      <div class="card">
+        <p-toolbar styleClass="p-mb-4">
+          <ng-template pTemplate="left">
+            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-button-sm"
+                    (click)="deleteSelectedItems()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+                    [disabled]="!selectedReqEgresamiento || !selectedReqEgresamiento.length"></button>
+          </ng-template>
+  
+          <ng-template pTemplate="right">
+            <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-sm p-button-outlined p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+            <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-sm p-button-outlined p-button-danger p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
+  
+          </ng-template>
+        </p-toolbar>
+  
+  
+        <p-table #dt [value]="lstReqEgresamiento" [rows]="10" [paginator]="true" [loading]="loading"
+                 [globalFilterFields]="['idReqEgresamiento',
+                 'nombreReqEgresamiento',
+                 'codigoReqEgresamiento',
+                 'descripcionReqEgresamiento',
+                 'observacionReqEgresamiento',
+                 'activoReqEgresamiento',
+                 'idMallaDTO',
+                 'idTipoReqEgresamientoDTO.nombreTipoReqEgresamiento',]"
+                 responsiveLayout="stack"
+                 [(selection)]="selectedReqEgresamiento" [rowHover]="true" dataKey="idReqEgresamiento"
+                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                 [showCurrentPageReport]="true">
+          <ng-template pTemplate="caption">
+            <div class="d-flex justify-content-between flex-wrap">
+              <button pButton label="Clear" class="p-button-outlined p-button-sm" icon="pi pi-filter-slash" (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
+              <label class="text-center">LISTADO DE REQUISITOS EGRESAMIENTO</label>
+              <span class="p-input-icon-left p-ml-auto">
+                      <i class="pi pi-search"></i>
+                      <input pInputText type="text" class="p-inputtext-sm" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General" />
+                  </span>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 3rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              </th>
+              <th pSortableColumn="codigoReqEgresamiento">Codigo
+                <p-sortIcon field="codigoReqEgresamiento"></p-sortIcon>
+              </th>
+              <th pSortableColumn="nombreReqEgresamiento">Nombre
+                <p-sortIcon field="nombreReqEgresamiento"></p-sortIcon>
+              </th>
+              <th pSortableColumn="descripcionReqEgresamiento">Descripción
+                <p-sortIcon field="descripcionReqEgresamiento"></p-sortIcon>
+              </th>
+              <th pSortableColumn="observacionReqEgresamiento">Observacciones
+                <p-sortIcon field="observacionReqEgresamiento"></p-sortIcon>
+              </th>
+              <th pSortableColumn="idTipoReqEgresamientoDTO.nombreTipoReqEgresamiento">Tipo Requisito
+                <p-sortIcon field="idTipoReqEgresamientoDTO.nombreTipoReqEgresamiento"></p-sortIcon>
+              </th>
+              <th pSortableColumn="activoReqEgresamiento">Activo
+                <p-sortIcon field="activoReqEgresamiento"></p-sortIcon>
+              </th>
+              <th>Opciones</th>
+            </tr>
+            <tr>
+              <th></th>
+              <th>
+                <p-columnFilter type="text" field="codigoReqEgresamiento"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="nombreReqEgresamiento"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="descripcionReqEgresamiento"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="observacionReqEgresamiento"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="idTipoReqEgresamientoDTO.nombreTipoReqEgresamiento"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="activoReqEgresamiento"></p-columnFilter>
+              </th>
+
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-item>
+            <tr>
+              <td>
+                <p-tableCheckbox [value]="item"></p-tableCheckbox>
+              </td>
+              <td>{{item.codigoReqEgresamiento}}</td>
+              <td>{{item.nombreReqEgresamiento}}</td>
+              <td>{{item.descripcionReqEgresamiento}}</td>
+              <td>{{item.observacionReqEgresamiento}}</td>
+              <td>{{item.idTipoReqEgresamientoDTO.nombreTipoReqEgresamiento}}</td>
+              <td>{{item.activoReqEgresamiento ? 'ACTIVO' : 'INACTIVO'}}</td>
+
+              <td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
+                        (click)="editItem(item)" pTooltip="Editar" tooltipPosition="left"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text p-button-sm"
+                        (click)="deleteItem(item)" pTooltip="Eliminar" tooltipPosition="left"></button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+              En Total Existen {{lstReqEgresamiento ? lstReqEgresamiento.length : 0 }} Requisitos Egresamientos.
+            </div>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </section>
+  
+  
+  <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+  

@@ -1,0 +1,148 @@
+{
+  "aplication": {
+    "dashboard": {
+      "title": "Cuadro de Mando"
+    },
+    "demo": {
+      "title": "Demo de Traduccion",
+      "text": "Este es un ejemplo para el api ngx-translate",
+      "greeting": "Hola {{name}}!"
+    },
+    "login": {
+      "userName": "Usuario",
+      "password": "Contraseña"
+    },
+    "management": {
+      "customer": {
+        "findCustomer": "Buscar Cliente",
+        "documentNumber": "N° de Documento",
+        "fullClientName": "Cliente",
+        "clientStatus": "Estado",
+        "actions": "Acciones",
+        "clientNames": "Nombres",
+        "clientSurname": "Apellidos",
+        "documentType": "Tipo de Documento",
+        "customerPhoto": "Foto",
+        "birthDate": "Fecha de Nacimiento",
+        "age": "Edad",
+        "bloodType": "Tipo de Sangre",
+        "address": "Dirección",
+        "mobile": "Móvil",
+        "gender": "Genero",
+        "email": "Correo Electronico",
+        "physicalObjective": "Objetivo Físico",
+        "sportsBackground": "Antecedente Deportivo",
+        "clientType": "Tipo de Cliente",
+        "professionOrOccupation": "Profesion u Oficio",
+        "healthEntity": "Entidad de Salud",
+        "companionName": "Nombre Acompañante",
+        "companionMobile": "Movil Acompañante",
+        "relationship": "Parentesco",
+        "clinicalHistory": "Antecedentes Clinicos",
+        "howDidYouFindOut": "¿Como se entero?"
+      },
+      "stepsCustomer": {
+        "stepTitle": "Registro de Cliente",
+        "stepSubTitlePerson": "Datos Personales",
+        "stepSubTitleComplementary": "Datos Complementarios",
+        "stepSubTitleCompany": "Datos Laborales"
+      },
+      "plan": {
+        "namePlan": "Nombre del Plan",
+        "costPlan": "Valor del Plan",
+        "vatPlan": "Impuesto del País",
+        "durationPlan": "Dias Plan",
+        "freezingDaysPlan": "Dias Congelación",
+        "descriptionPlan": "Descripción",
+        "startTimeWorkDay": "Hora Inicio",
+        "endTimeWorkDay": "Hora Fin",
+        "requiredField": "Este campo es requerido.",
+        "negativeValuesField": "Este campo no acepta valores negativos.",
+        "specialCharactersField": "Este campo no acepta caracteres especiales.",
+        "maximum100CharactersField": "Este campo acepta como máximo 100 caracteres.",
+        "maximum10CharactersField": "Este campo acepta como máximo 10 caracteres.",
+        "maximum3CharactersField": "Este campo acepta como máximo 3 caracteres.",
+        "selectDays": "Seleccionar Días",
+        "selectBranchOffices": "Seleccionar Sedes",
+        "add": "Agregar",
+        "save": "Guardar",
+        "actionDelete": "Eliminar"
+      },
+      "tablePlan": {
+        "showing": "Mostrando ",
+        "to": " a ",
+        "of": " de ",
+        "entries": " registros",
+        "search": "Buscar",
+        "cleanFilters": "Limpiar filtros",
+        "columnTitleNamePlan": "Plan",
+        "columnTitleCostPlan": "Costo",
+        "columnTitleVatPlan": "Impuesto Del País",
+        "columnTitleDurationPlan": "Dias Plan",
+        "columnTitleFreezingDaysPlan": "Dias Congelacion",
+        "columnTitleDay": "Dias",
+        "columnTitleStartTime": "Hora Inicio",
+        "columnTitleEndTime": "Hora Fin",
+        "columnTitleDescriptionPlan": "Descripción",
+        "columnTitleActions": "Acciones",
+        "actionEdit": "Editar",
+        "actionDisable": "Inhabilitar",
+        "noPlansFound": "No se encontraron planes"
+      },
+      "stepsPlan": {
+        "stepTitle": "Registro de Planes",
+        "stepSubTitleDays": "Dias",
+        "stepSubTitleBranchOffice": "Sedes",
+        "stepSubTitleListPlans": "Listado de Planes",
+        "stepNext": "Siguiente"
+      },
+      "ticket": {
+        "nameTik": "Nombre",
+        "levelTik": "Nivel",
+        "unitCostTik": "Costo",
+        "quantitiesTik": "Cantidad",
+        "vatTik": "IVA",
+        "durationTik": "Vigencia",
+        "clientDepartureTimeTik": "Lapo salida",
+        "freezingDaysTik": "Dias congelación",
+        "totalCostTik": "Total",
+        "requiredField": "Este campo es requerido.",
+        "negativeValuesField": "Este campo no acepta valores negativos.",
+        "specialCharactersField": "Este campo no acepta caracteres especiales.",
+        "maximum100CharactersField": "Este campo acepta como máximo 100 caracteres.",
+        "maximum50CharactersField": "Este campo acepta como máximo 50 caracteres.",
+        "maximum10CharactersField": "Este campo acepta como máximo 10 caracteres.",
+        "maximum5CharactersField": "Este campo acepta como máximo 5 caracteres.",
+        "maximum4CharactersField": "Este campo acepta como máximo 3 caracteres.",
+        "maximum3CharactersField": "Este campo acepta como máximo 3 caracteres.",
+        "selectDays": "Seleccionar Días",
+        "selectBranchOffices": "Seleccionar Sedes",
+        "add": "Agregar",
+        "save": "Guardar"
+      },
+      "trainingRoom": {
+        "searchTrainingRoom": "Buscar sala de formación",
+        "actions": "Acciones",
+        "codeTrainingRoom": "Codigo salon",
+        "name": "Nombre salon",
+        "save": "Guardar",
+        "newRoom": "Nuevo salon"
+      },
+      "danceClasses": {
+        "searchDanceClasses": "Buscar clase",
+        "actions": "Acciones",
+        "nameTrainingRoom": "Nombre de la clase",
+        "capacity": "Capacidad",
+        "startDate": "Fecha inicio",
+        "finalDate": "Fecha fin",
+        "danceGenresId": "Genero",
+        "room": "Salon",
+        "danceLevelsId": "Nivel",
+        "nameInstructor": "Instructor",
+        "status": "Estado",
+        "save": "Guardar",
+        "newClass": "Nueva clase"
+      }
+    }
+  }
+}

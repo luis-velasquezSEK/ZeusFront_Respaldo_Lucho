@@ -1,0 +1,112 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="card">
+      <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+          <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-button-sm"
+                  (click)="deleteSelectedPeriodicidadPlan()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+                  [disabled]="!selectedPeriodicidadPlan || !selectedPeriodicidadPlan.length"></button>
+        </ng-template>
+
+        <ng-template pTemplate="right">
+          <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
+                  class="p-button-sm p-button-outlined p-button-success p-mr-2" pTooltip="XLS"
+                  tooltipPosition="bottom"></button>
+          <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
+                  class="p-button-sm p-button-outlined p-button-danger p-mr-2" pTooltip="PDF"
+                  tooltipPosition="bottom"></button>
+
+        </ng-template>
+      </p-toolbar>
+
+
+      <p-table #dt [value]="lstPeriodicidadPlan" [rows]="10" [paginator]="true" [loading]="loading"
+               [globalFilterFields]="['nombrePeriodicidadPlanEstudios','codigoPeriodicidadPlanEstudios','descripcionPeriodicidadPlanEstudios','activoPeriodicidadPlanEstudios']"
+               responsiveLayout="stack"
+               [(selection)]="selectedPeriodicidadPlan" [rowHover]="true" dataKey="idPeriodicidadPlanEstudios"
+               currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+               [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+          <div class="d-flex justify-content-between flex-wrap">
+              <button pButton label="Clear" class="p-button-outlined p-button-sm" icon="pi pi-filter-slash"
+                      (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
+              <label class="text-center">LISTADO DE TIPOS PARA PLANES DE ESTUDIO</label>
+            <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" class="p-inputtext-sm"
+                           (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General"/>
+                </span>
+
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 3rem">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="nombrePeriodicidadPlanEstudios">Nombre
+              <p-sortIcon field="nombrePeriodicidadPlanEstudios"></p-sortIcon>
+            </th>
+            <th pSortableColumn="codigoPeriodicidadPlanEstudios">Código
+              <p-sortIcon field="codigoPeriodicidadPlanEstudios"></p-sortIcon>
+            </th>
+            <th pSortableColumn="descripcionPeriodicidadPlanEstudios">Descripción
+              <p-sortIcon field="descripcionPeriodicidadPlanEstudios"></p-sortIcon>
+            </th>
+            <th pSortableColumn="activoPeriodicidadPlanEstudios">Activo
+              <p-sortIcon field="activoPeriodicidadPlanEstudios"></p-sortIcon>
+            </th>
+            <th>Opciones</th>
+          </tr>
+          <tr>
+            <th></th>
+            <th>
+              <div class="p-d-flex p-jc-between p-ai-center">
+                <p-columnFilter type="text" field="nombrePeriodicidadPlanEstudios"></p-columnFilter>
+              </div>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="codigoPeriodicidadPlanEstudios"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="descripcionPeriodicidadPlanEstudios"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="activoPeriodicidadPlanEstudios"></p-columnFilter>
+            </th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-PeriodicidadPlan>
+          <tr>
+            <td>
+              <p-tableCheckbox [value]="PeriodicidadPlan"></p-tableCheckbox>
+            </td>
+            <td>{{PeriodicidadPlan.nombrePeriodicidadPlanEstudios}}</td>
+            <td>{{PeriodicidadPlan.codigoPeriodicidadPlanEstudios}}</td>
+            <td>{{PeriodicidadPlan.descripcionPeriodicidadPlanEstudios}}</td>
+            <td>{{PeriodicidadPlan.activoPeriodicidadPlanEstudios}}</td>
+            <td>
+              <button pButton pRipple icon="pi pi-pencil"
+                      class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
+                      (click)="editPeriodicidadPlan(PeriodicidadPlan)" pTooltip="Editar"
+                      tooltipPosition="left"></button>
+              <button pButton pRipple icon="pi pi-trash"
+                      class="p-button-rounded p-button-danger p-button-text p-button-sm"
+                      (click)="deletePeriodicidadPlan(PeriodicidadPlan)" pTooltip="Eliminar"
+                      tooltipPosition="left"></button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+          <div class="p-d-flex p-ai-center p-jc-between">
+            In total there are {{lstPeriodicidadPlan ? lstPeriodicidadPlan.length : 0 }} TipoPlans.
+          </div>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</section>
+
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

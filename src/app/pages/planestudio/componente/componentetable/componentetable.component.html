@@ -1,0 +1,164 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="card">
+      <!--
+      <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+          <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-button-sm"
+                  (click)="deleteSelectedComponente()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+                  [disabled]="!selectedComponente || !selectedComponente.length"></button>
+        </ng-template>
+
+        <ng-template pTemplate="right">
+          <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-sm p-button-outlined p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+          <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-sm p-button-outlined p-button-danger p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
+
+        </ng-template>
+      </p-toolbar>
+      -->
+
+      <p-table #dt [value]="lstComponente" [rows]="10" [paginator]="true" [loading]="loading"
+               [globalFilterFields]="['idComponente','codigoComponente',
+               'nombreComponente',
+               'pesoComponente',
+               'idDuracionComponenteDTO.nombreDuracionComponente',
+               'idModalidadComponenteDTO.nombreModalidadComponente',
+               'idTipoComponenteDTO.nombreTipoComponente',
+               'activoComponente']" responsiveLayout="scroll"
+               [(selection)]="selectedComponente" [rowHover]="true" dataKey="idComponente"
+               currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+               [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+          <div class="d-flex justify-content-between flex-wrap">
+            <div>
+              <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-sm p-button-outlined p-button-success p-mr-2 m-1"  pTooltip="XLS" tooltipPosition="bottom"></button>
+              <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-sm p-button-outlined p-button-danger p-mr-2 m-1" pTooltip="PDF" tooltipPosition="bottom"></button>
+              <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-button-sm m-1"
+                      (click)="deleteSelectedComponente()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+                      [disabled]="!selectedComponente || !selectedComponente.length"></button>
+              <button pButton label="Clear" class="p-button-outlined p-button-sm m-1" icon="pi pi-filter-slash" (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
+            </div>
+
+            <label class="text-center">LISTADO DE COMPONENTES</label>
+            <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" class="p-inputtext-sm" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General" />
+                </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 3rem">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="idComponente">
+              <div class="flex justify-content-between align-items-center">#
+              <p-sortIcon field="idComponente"></p-sortIcon>
+              <p-columnFilter type="text" field="idComponente" display="menu"></p-columnFilter>
+              </div>
+            </th>
+            <th pSortableColumn="codigoComponente">
+              <div class="flex justify-content-between align-items-center">Código
+                <p-sortIcon field="codigoComponente"></p-sortIcon>
+                <p-columnFilter type="text" field="codigoComponente" display="menu"></p-columnFilter>
+              </div>
+            </th>
+            <th pSortableColumn="nombreComponente">
+              <div class="flex justify-content-between align-items-center">Nombre
+                <p-sortIcon field="nombreComponente"></p-sortIcon>
+                <p-columnFilter type="text" field="nombreComponente" display="menu"></p-columnFilter>
+              </div>
+            </th>
+            <th pSortableColumn="pesoComponente">
+              <div class="flex justify-content-between align-items-center">Peso
+                <p-sortIcon field="pesoComponente"></p-sortIcon>
+                <p-columnFilter type="text" field="pesoComponente" display="menu"></p-columnFilter>
+              </div>
+            </th>
+            <th pSortableColumn="idDuracionComponenteDTO.nombreDuracionComponente">
+              <div class="flex justify-content-between align-items-center">Duración
+                <p-sortIcon field="idDuracionComponenteDTO.nombreDuracionComponente"></p-sortIcon>
+                <p-columnFilter type="text" field="idDuracionComponenteDTO.nombreDuracionComponente" display="menu"></p-columnFilter>
+              </div>
+            </th>
+            <th pSortableColumn="idModalidadComponenteDTO.nombreModalidadComponente">
+              <div class="flex justify-content-between align-items-center">Modalidad
+                <p-sortIcon field="idModalidadComponenteDTO.nombreModalidadComponente"></p-sortIcon>
+                <p-columnFilter type="text" field="idModalidadComponenteDTO.nombreModalidadComponente" display="menu"></p-columnFilter>
+              </div>
+            </th>
+            <th pSortableColumn="idTipoComponenteDTO.nombreTipoComponente">
+              <div class="flex justify-content-between align-items-center">Tipo
+                <p-sortIcon field="idTipoComponenteDTO.nombreTipoComponente"></p-sortIcon>
+                <p-columnFilter type="text" field="idTipoComponenteDTO.nombreTipoComponente" display="menu"></p-columnFilter>
+              </div>
+            </th>
+            <th pSortableColumn="activoComponente">
+              <div class="flex justify-content-between align-items-center">Activo
+                <p-sortIcon field="activoComponente"></p-sortIcon>
+                <p-columnFilter type="text" field="activoComponente" display="menu"></p-columnFilter>
+              </div>
+            </th>
+            <th>Opciones</th>
+          </tr>
+          <!--<tr>
+            <th></th>
+            <th>
+              <p-columnFilter type="text" field="idComponente"></p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter type="text" field="codigoComponente"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="nombreComponente"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="pesoComponente"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="idDuracionComponenteDTO.nombreDuracionComponente"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="idModalidadComponenteDTO.nombreModalidadComponente"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="idTipoComponenteDTO.nombreTipoComponente"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="activoComponente"></p-columnFilter>
+            </th>
+            <th></th>
+          </tr>-->
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <td>
+              <p-tableCheckbox [value]="item"></p-tableCheckbox>
+            </td>
+            <td>{{item.idComponente}}</td>
+            <td>{{item.codigoComponente}}</td>
+            <td>{{item.nombreComponente}}</td>
+            <td>{{item.pesoComponente}}</td>
+            <td>{{item.idDuracionComponenteDTO.nombreDuracionComponente}}</td>
+            <td>{{item.idModalidadComponenteDTO.nombreModalidadComponente}}</td>
+            <td>{{item.idTipoComponenteDTO.codigoTipoComponente}}-{{item.idTipoComponenteDTO.nombreTipoComponente}}</td>
+            <td>{{item.activoComponente ? 'ACTIVO':'INACTIVO'}}</td>
+            <td>
+              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
+                      (click)="editTipoPlan(item)" pTooltip="Editar" tooltipPosition="left"></button>
+              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text p-button-sm"
+                      (click)="deleteTipoPlan(item)" pTooltip="Eliminar" tooltipPosition="left"></button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+          <div class="p-d-flex p-ai-center p-jc-between">
+            En total existen {{lstComponente ? lstComponente.length : 0 }} Componentes.
+          </div>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</section>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

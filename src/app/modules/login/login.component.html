@@ -1,0 +1,115 @@
+<!--
+<div class="backLeft" style="background-image: url(assets/img/Universidad_Internacional_SEK_Ecuador.jpg)"></div>
+<div class="right">
+  <div class="card card-outline card-primary">
+    <div class="card-header text-center">
+      <a [routerLink]="['/']" class="h1">ZEUS-UI<b>SEK</b></a>
+    </div>
+    <div class="card-body">
+      <p class="login-box-msg">
+        <img src="./assets/img/sek-logo.png">
+      </p>
+      <div class="social-auth-links text-center mb-3">
+        <app-button
+          [block]="true"
+          [loading]="isGoogleLoading"
+          [disabled]="isAuthLoading || isFacebookLoading"
+          [icon]="'google'"
+          [color]="'danger'"
+          (click)="signInWithGoogle()"
+        >
+          Ingresar usando Google+
+        </app-button>
+
+      </div>
+
+      <p class="mb-1">
+        <a [routerLink]="['/forgot-password']">Olvidé mi Password</a>
+      </p>
+    </div>
+  </div>
+</div>
+-->
+<!-- <script>
+  window.onload = function () {
+    google.accounts.id.initialize({
+      client_id: '18826009579-phkj4g5iu89rujduggn6sqlljklogr0s.apps.googleusercontent.com',
+      callback: handleResponse,
+      cancel_on_tap_outside: false,
+      authvalidate_by_googleapis: false,
+      auto_select: false,
+      disable_exponential_cooldowntime: false,
+      context: 'signup',
+      intermediate_iframe_close_callback: logBeforeClose
+    });
+    google.accounts.id.prompt((notification) => {
+      if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+        getDismissedReason(); 
+        getMomentType();
+        getNotDisplayedReason();
+        getSkippedReason();
+        isDismissedMoment();
+        isDisplayed();
+        isNotDisplayed();
+        isSkippedMoment();
+      }
+    });  };
+</script> -->
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-8 px-0 d-none d-sm-block">
+        <img src="./assets/img/Universidad_Internacional_SEK_Ecuador.jpg"  alt="login image" class="login-img">
+      </div>
+      <div class="col-sm-4 login-section-wrapper viewport-header">
+
+        <div class="brand-wrapper" style="padding: 20%;">
+          <img  src="./assets/img/sek-logo.png" alt=""/>
+        </div>
+        <div class="login-wrapper my-auto">
+          <h4 style="padding-bottom: 10%">Iniciar sesión en su Cuenta</h4>
+          
+          <form [formGroup]="loginForm">
+            
+            <div class="loginCenter">
+              <mat-card class="cardStyle">
+                <div id="buttonDiv"></div>
+              </mat-card>
+            </div>
+
+            <!-- <app-button
+              [block]="true"
+              [loading]="isGoogleLoading"
+              [disabled]="isAuthLoading || isFacebookLoading"
+              [icon]="'google'"
+              [color]="'none'"
+              (click)="signInWithGoogleOneTap()"
+            >
+            Ingresar usando Google+
+            </app-button> -->
+
+          </form>
+          <p-divider align="center">
+            <span class="p-tag">&copy; 2022 Uisek</span>
+          </p-divider>
+          <nav class="login-card-footer-nav">
+            <a href="#!">Condiciones de Uso. </a>
+            <a href="#!">Políticas de Privacidad</a>
+          </nav>
+
+        </div>
+
+        <!-- orange waves
+        <section>
+          <div class="wave"></div>
+        </section>
+        -->
+        <div class="ocean">
+          <div class="wave"></div>
+          <div class="wave"></div>
+          <div class="wave"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+

@@ -1,0 +1,129 @@
+<!-- Brand Logo -->
+<a [routerLink]="['/']" class="brand-link">
+  <img
+    src="assets/img/logo-sek-2.png"
+    alt="ZEUSEK"
+    style="opacity: 1; width: 90%;"
+  />
+  <!--<span class="brand-text font-weight-light">ZEUS UISEK</span>-->
+</a>
+
+<!-- Sidebar -->
+
+<div class="sidebar">
+
+  <!-- Sidebar user (optional) -->
+  <!--<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+          <img
+              [src]="userLogged.photoUrl || 'assets/img/default-profile.png'"
+              class="img-circle elevation-2"
+              alt="User Image"
+          />
+      </div>
+      <div class="info">
+          <a [routerLink]="['/profile']" class="d-block">
+              {{ userLogged.email }}
+          </a>
+      </div>
+  </div>
+  -->
+
+  <!-- Sidebar Menu -->
+  <!--<nav class="mt-2" style="overflow-y: hidden;">
+    <ul
+      class="nav nav-pills nav-sidebar flex-column"
+      data-widget="treeview"
+      role="menu"
+      data-accordion="false"
+    >
+
+
+      <app-menu-item
+        *ngFor="let item of menu"
+        [menuItem]="item"
+      ></app-menu-item>
+      <li class="nav-item">
+        <a href="dashboard" class="nav-link">
+          <i class="nav-icon fas fa-th"></i>
+          <p>
+            Widgets
+            <span class="right badge badge-danger">New</span>
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link active">
+          <i class="nav-icon fas fa-tree"></i>
+          <p>
+            UI Elements
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview" style="display: none;">
+          <li class="nav-item">
+            <a href="../UI/general.html" class="nav-link active">
+              <i class="far fa-circle nav-icon"></i>
+              <p>General</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="../UI/icons.html" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Icons</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="../UI/buttons.html" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Buttons</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="../UI/sliders.html" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Sliders</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="../UI/modals.html" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Modals &amp; Alerts</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="../UI/navbar.html" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Navbar &amp; Tabs</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="../UI/timeline.html" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Timeline</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="../UI/ribbons.html" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Ribbons</p>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+
+  </nav>
+  -->
+
+    <p-panelMenu [multiple]="false" [model]="items"
+                 class="nav nav-pills nav-sidebar flex-column"
+                 [style]="{'width':'auto','background':'transparent','padding': '.5rem 1px',
+                 'transition': 'transform 0.4s cubic-bezier(0.05, 0.74, 0.2, 0.99)'}"></p-panelMenu>
+
+
+</div>
+
+
+

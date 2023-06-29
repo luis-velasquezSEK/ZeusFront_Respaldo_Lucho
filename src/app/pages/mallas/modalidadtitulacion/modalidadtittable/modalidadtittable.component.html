@@ -1,0 +1,116 @@
+<section class="content">
+    <div class="container-fluid">
+      <div class="card">
+        <p-toolbar styleClass="p-mb-4">
+          <ng-template pTemplate="left">
+            <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-button-sm"
+                    (click)="deleteSelectedItems()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+                    [disabled]="!selectedModalidadTit || !selectedModalidadTit.length"></button>
+          </ng-template>
+  
+          <ng-template pTemplate="right">
+            <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-sm p-button-outlined p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+            <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-sm p-button-outlined p-button-danger p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
+  
+          </ng-template>
+        </p-toolbar>
+  
+  
+        <p-table #dt [value]="lstModalidadTit" [rows]="10" [paginator]="true" [loading]="loading"
+                 [globalFilterFields]="['idModalidadTitulacion',
+                 'nombreModalidadTitulacion',
+                 'codigoModalidadTitulacion',
+                 'observacionModalidadTitulacion',
+                 'activoModalidadTitulacion',
+                 'idMallaDTO',
+                 'detalleModalidadTitulacionListDTO.nombreModalidadTitulacion',]"
+                 responsiveLayout="stack"
+                 [(selection)]="selectedModalidadTit" [rowHover]="true" dataKey="idModalidadTitulacion"
+                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                 [showCurrentPageReport]="true">
+          <ng-template pTemplate="caption">
+            <div class="d-flex justify-content-between flex-wrap">
+              <button pButton label="Clear" class="p-button-outlined p-button-sm" icon="pi pi-filter-slash" (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
+              <label class="text-center">LISTADO MODALIDAD TITULACION</label>
+              <span class="p-input-icon-left p-ml-auto">
+                      <i class="pi pi-search"></i>
+                      <input pInputText type="text" class="p-inputtext-sm" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General" />
+                  </span>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 3rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              </th>
+              <th pSortableColumn="codigoModalidadTitulacion">Código
+                <p-sortIcon field="codigoModalidadTitulacion"></p-sortIcon>
+              </th>
+              <th pSortableColumn="nombreModalidadTitulacion">Nombre
+                <p-sortIcon field="nombreModalidadTitulacion"></p-sortIcon>
+              </th>
+              <th pSortableColumn="detalleModalidadTitulacionListDTO.nombreModalidadTitulacion">Detalle Modalidad
+                <p-sortIcon field="detalleModalidadTitulacionListDTO.nombreModalidadTitulacion"></p-sortIcon>
+              </th>
+              <th pSortableColumn="activoModalidadTitulacion">Activo
+                <p-sortIcon field="activoModalidadTitulacion"></p-sortIcon>
+              </th>
+              <th pSortableColumn="observacionModalidadTitulacion">Observación
+                <p-sortIcon field="observacionModalidadTitulacion"></p-sortIcon>
+              </th>
+              <th>Opciones</th>
+            </tr>
+            <tr>
+              <th></th>
+              <th>
+                <p-columnFilter type="text" field="codigoModalidadTitulacion"></p-columnFilter>
+              </th>
+  
+              <th>
+                <p-columnFilter type="text" field="nombreModalidadTitulacion"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="detalleModalidadTitulacionListDTO.nombreModalidadTitulacion"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="activoModalidadTitulacion"></p-columnFilter>
+              </th>
+              <th>
+                <p-columnFilter type="text" field="observacionModalidadTitulacion"></p-columnFilter>
+              </th>
+
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-item>
+            <tr>
+              <td>
+                <p-tableCheckbox [value]="item"></p-tableCheckbox>
+              </td>
+              <td>{{item.codigoModalidadTitulacion}}</td>
+              <td>{{item.nombreModalidadTitulacion}}</td>
+              <td>{{item.detalleModalidadTitulacionListDTO.nombreModalidadTitulacion}}</td>
+              <td>{{item.activoModalidadTitulacion ? 'ACTIVO' : 'INACTIVO'}}</td>
+              <td>{{item.observacionModalidadTitulacion}}</td>
+
+              <td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
+                        (click)="editItem(item)" pTooltip="Editar" tooltipPosition="left"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text p-button-sm"
+                        (click)="deleteItem(item)" pTooltip="Eliminar" tooltipPosition="left"></button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+              En Total Existen {{lstModalidadTit ? lstModalidadTit.length : 0 }} Modalidad Titulacion.
+            </div>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </section>
+  
+  
+  <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+  

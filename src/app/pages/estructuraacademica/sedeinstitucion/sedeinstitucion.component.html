@@ -1,0 +1,105 @@
+<div class="grid grid-nogutter surface-0 text-800 position-relative">
+  <div class="ribbon-wrapper ribbon">
+    <div class="ribbon bg-danger">
+      Prueba
+    </div>
+  </div>
+  <div class="col-12 md:col-12 p-6 text-center md:text-left align-items-center ">
+    <section>
+      <div class="text-6xl text-primary font-bold mb-3">Sede Institucion
+        <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+          <ng-template pTemplate>
+            <video width="100%" height="auto" autoplay controls>
+              <source src="assets/video/estadoplan.webm" type="video/mp4">
+            </video>
+          </ng-template>
+        </p-overlayPanel>
+
+        <button (click)="op.toggle($event)"
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-video"
+                class="p-button-rounded p-button-secondary p-button-text"
+        >
+        </button>
+
+      </div>
+      <p class="mt-0 mb-4 text-700 line-height-3">
+        Sede Institucion, vincula Institución Académica con Sede.
+      </p>
+
+      <form [formGroup]="form">
+        <p-panel header="Registro" [toggleable]="false">
+
+
+          <ng-template pTemplate="icons">
+            <button pButton pRipple type="button" icon="pi pi-send" (click)="guardar()" pTooltip="Guardar"
+                    tooltipPosition="top"
+                    class="p-button-rounded p-button-success p-button-text p-button"></button>
+            <button pButton pRipple type="button" icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar"
+                    tooltipPosition="top"
+                    class="p-button-rounded p-button-danger p-button-text p-button"></button>
+
+          </ng-template>
+
+          <div class="p-fluid p-formgrid grid">
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-nombre" type="text" required="true"
+                                       formControlName="nombreSedeInstitucion">
+                                <label for="ftxt-nombre">* Nombre</label>
+                              </span>
+            </div>
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-codigo" type="text" required="true"
+                                       formControlName="codigoSedeInstitucion" maxlength="10">
+                                <label for="ftxt-codigo">* Código</label>
+                              </span>
+            </div>
+            <div class="p-field col-12 md:col-6  mb-0 px-3">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreInstitucionEducativa"
+                                            [showClear]="true" id="fdd-listtipo"
+                                            required [options]="lstInstitucionEducativa"
+                                            [(ngModel)]="institucionEducativa"
+                                            [ngModelOptions]="{standalone: true}"
+                                            [autoDisplayFirst]="false">
+                                     <ng-template pTemplate="selectedItem">
+                                        <div class="country-item country-item-value" *ngIf="institucionEducativa">
+                                            {{institucionEducativa.nombreInstitucionEducativa}}
+                                        </div>
+                                    </ng-template>
+                                    <ng-template let-item pTemplate="item">
+                                      <div class="country-item">
+                                        {{item.nombreInstitucionEducativa}}
+                                      </div>
+                                  </ng-template>
+                                </p-dropdown>
+                                <label for="fdd-listtipo">* Institución Educativa</label>
+                            </span>
+            </div>
+            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3 flex justify-content-evenly">
+              <label for="ftxt-activo">* Activo </label>
+              <p-inputSwitch id="ftxt-activo" formControlName="activoSedeInstitucion"></p-inputSwitch>
+
+            </div>
+
+          </div>
+
+
+        </p-panel>
+      </form>
+
+    </section>
+  </div>
+</div>
+
+
+<p-divider></p-divider>
+
+
+<app-sedeinstituciontable
+  [lstSede]="lstSede"
+  (sedeSelect)=setSeleccionado($event)></app-sedeinstituciontable>

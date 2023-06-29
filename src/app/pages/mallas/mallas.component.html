@@ -1,0 +1,988 @@
+<!-- <section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1></h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Malla</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="grid grid-nogutter surface-0 text-800 position-relative">
+    <div class="ribbon-wrapper ribbon-l">
+        <div class="ribbon bg-danger text-l">
+            PRUEBAS
+        </div>
+    </div>
+
+    <div class="col-12 md:col-12 p-6 text-center md:text-left align-items-center ">
+        <section> -->
+<!-- <div class="text-6xl text-primary font-bold mb-1">Registro Malla -->
+<!-- <div class="text-6xl text-primary font-bold mb-1">Plan de Estudio
+                <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+                    <ng-template pTemplate>
+                        <video width="100%" height="auto" autoplay controls>
+                            <source src="assets/video/estadoplan.webm" type="video/mp4">
+                        </video>
+                    </ng-template>
+                </p-overlayPanel>
+
+                <button (click)="op.toggle($event)" pButton pRipple type="button" icon="pi pi-video"
+                    class="p-button-rounded p-button-secondary p-button-text">
+                </button>
+            </div>
+            <p class="mt-0 mb-4 text-700 line-height-3">Diagrama que de forma gráfica representa los ramos que debes
+                cursar de la carrera por semestre, según el plan de estudios, y la respectiva secuencia de
+                pre-requisitos de cada ramo. Además en ella se indica el nombre de las asignaturas, códigos y créditos.</p> -->
+
+<!-- ICONO CARGA DEL SPINNER -->
+<!--div class="spinner" *ngIf="loadReady">
+                <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8"
+                    fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+            </!--div-->
+<!-- <p-fieldset legend="Plan de Estudio" [toggleable]="true">
+                <form [formGroup]="form" enctype="multipart/form-data" accept-charset="utf8">
+                    <p-panel header="Registro" [toggleable]="false">
+                        <ng-template pTemplate="icons"
+                            pStyleClass="display: flex; justify-content: end; align-items: center;">
+                            <button pButton pRipple type="button" icon="pi pi-send" (click)="guardar()"
+                                pTooltip="Guardar" tooltipPosition="top"
+                                class="p-button-rounded p-button-success p-button-text p-button"></button>
+                            <button pButton pRipple type="button" icon="pi pi-times" (click)="cancelar()"
+                                pTooltip="Cancelar" tooltipPosition="top"
+                                class="p-button-rounded p-button-danger p-button-text p-button"></button>
+                            <button pButton pRipple type="button" icon="pi pi-book" (click)="showModalDialog()"
+                                pTooltip="Ver Catálogo" tooltipPosition="top"
+                                class="p-button-rounded p-button-help p-button-text p-button"></button>
+                        </ng-template>
+                        <div class="p-fluid p-formgrid grid">
+
+                            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                                <span class="p-float-label">
+                                    <input pInputText id="ftxt-codigo" type="text" required="true"
+                                        formControlName="codigoPlanEstudioMalla" maxlength="10">
+                                    <label for="ftxt-codigo">* Codigo Plan Estudio</label>
+                                </span>
+                            </div>
+
+                            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                                <span class="p-float-label">
+                                    <input pInputText id="ftxt-numdecreto" type="text" required="true"
+                                        formControlName="numerodecretoCesMalla">
+                                    <label for="ftxt-numdecreto">* Numero de Decreto</label>
+                                </span>
+                            </div>
+
+                            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                                <span class="p-float-label">
+                                    <p-inputNumber inputId="ftxt-duracionsemestre" [showButtons]="true"
+                                        formControlName="duracionSemestresMalla" maxlength="4">
+                                    </p-inputNumber>
+                                    <label for="ftxt-duracionsemestre" disabled="false">* Duracion de Semestre</label>
+                                </span>
+                            </div>
+
+                            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3 flex justify-content-evenly">
+                                <label for="ftxt-activo">* Activo</label>
+                                <p-inputSwitch id="ftxt-activo" formControlName="activoMalla"></p-inputSwitch>
+                            </div>
+
+                            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                                <span class="p-float-label">
+                                    <input pInputText id="ftxt-periodicidad" type="text" required="true"
+                                        formControlName="periodicidadMalla" maxlength="10">
+                                    <label for="ftxt-periodicidad">* Periodicidad</label>
+                                </span>
+                            </div>
+
+                            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                                <span class="p-float-label">
+                                    <p-inputNumber inputId="ftxt-cupoCes" [showButtons]="true"
+                                        formControlName="cupoCesMalla" maxlength="4">
+                                    </p-inputNumber>
+                                    <label for="ftxt-cupoCes" disabled="false">* Cupo Ces</label>
+                                </span>
+                            </div>
+
+
+
+                            <mat-form-field appearance="fill" class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                                <mat-label>* Fecha de Aprobación</mat-label>
+                                <input matInput [matDatepicker]="picker1" formControlName="fechaAprobacionMalla">
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1 color="primary"></mat-datepicker>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill" class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                                <mat-label>* Fecha de Vigencia</mat-label>
+                                <input matInput [matDatepicker]="picker2" formControlName="fechaVigenciaMalla">
+                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                            </mat-form-field>
+
+                            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                                <span class="p-float-label">
+                                    <input pInputText id="ftxt-dni" type="text" required="true"
+                                        formControlName="semestreInicioMalla">
+                                    <label for="ftxt-dni">* Semestre Inicial</label>
+                                </span>
+                            </div>
+
+                            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                                <span class="p-float-label">
+                                    <input pInputText id="ftxt-dni" type="text" required="true"
+                                        formControlName="semestreFinMalla">
+                                    <label for="ftxt-dni">* Semestre Final</label>
+                                </span>
+                            </div>
+
+                            <div class="p-field col-12 md:col-3 mb-0 px-3">
+                                <span class="p-float-label">
+                                    <p-dropdown [filter]="true" filterBy="nombreEstadoMalla"
+                                        optionLabel="nombreEstadoMalla" [showClear]="true" id="fdd-listestadomalla"
+                                        required formControlName="idEstadoMallaDTO" [options]="lstEstadoMalla"
+                                        [autoDisplayFirst]="false"></p-dropdown>
+                                    <label for="fdd-listestadomalla">* Estado Malla</label>
+                                </span>
+                            </div>
+
+                            <div class="p-field col-12 md:col-3 mb-0 px-3">
+                                <span class="p-float-label">
+                                    <p-dropdown [filter]="true" filterBy="nombreCarrera" optionLabel="nombreCarrera"
+                                        [showClear]="true" id="fdd-listcarrera" required formControlName="idCarreraDTO"
+                                        [options]="lstCarrera" [autoDisplayFirst]="false"></p-dropdown>
+                                    <label for="fdd-listcarrera">* Carrera</label>
+                                </span>
+                            </div>
+
+                            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                                <span class="p-float-label">
+                                    <input pInputText id="ftxt-dni" type="text" required="true"
+                                        formControlName="observacionesMalla">
+                                    <label for="ftxt-dni">* Observacion</label>
+                                </span>
+                            </div>
+
+                            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3">
+                            </div>
+
+                            <div class="p-field col-12 md:col-6 md:mb-4 mb-0 px-3  justify-content-evenly">
+                                <label>* Decreto</label>
+                                <p-fileUpload uploadLabel="Enviar" name="file" [url]="URLFILEUPLOAD" #fileInput
+                                    chooseLabel="Seleccionar" cancelLabel="Cancelar"
+                                    [chooseIcon]="uploadedFiles.length ? 'pi pi-upload':'pi pi-plus'" id="upload"
+                                    (onSelect)="onFileSelect($event)" (onUpload)="onUploadToBackend($event)"
+                                    [multiple]="false" [accept]="ACCEPTFILES" [maxFileSize]="SIZEFILE" mode="advanced"
+                                    [showUploadButton]="false">
+                                    <ng-template let-file pTemplate="file">
+                                        <div class="p-fileupload-content">
+                                            <div class="p-fileupload-files ng-star-inserted">
+                                                <div class="ng-star-inserted">
+                                                    <div class="p-fileupload-row ng-star-inserted">
+                                                        <div
+                                                            style="font-size: 60px;text-align: center;align-items: center;justify-content: center;">
+                                                            <i class="{{getFileExtension(file.name)}}"
+                                                                style="color:#5cb85c;" aria-hidden="true"></i>
+                                                            <img [src]="FirmaURL" alt=""
+                                                                *ngIf="getFileExtension(file.name)===''"
+                                                                class="img-fluid ng-star-inserted">
+                                                        </div>
+                                                        <div class="p-fileupload-filename">{{file.name}}</div>
+                                                        <div>{{file.size}} KB</div>
+                                                        <div>
+                                                            <button type="button" icon="pi pi-times" pbutton=""
+                                                                (click)="remove($event, file)"
+                                                                class="p-element p-button p-component p-button-icon-only">
+                                                                <span class="p-button-icon pi pi-times"
+                                                                    aria-hidden="true"></span>
+                                                                <span aria-hidden="true"
+                                                                    class="p-button-label">&nbsp;</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </p-fileUpload>
+                            </div>
+
+                            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3  justify-content-evenly">
+                                <label>* Resolución Activa</label>
+                                <p-fileUpload uploadLabel="Enviar" name="file" [url]="URLFILEUPLOAD" #fileInput
+                                    chooseLabel="Seleccionar" cancelLabel="Cancelar"
+                                    [chooseIcon]="uploadedFiles.length ? 'pi pi-upload':'pi pi-plus'" id="upload"
+                                    (onSelect)="onFileSelect($event)" (onUpload)="onUploadToBackend($event)"
+                                    [multiple]="false" [accept]="ACCEPTFILES" [maxFileSize]="SIZEFILE" mode="advanced"
+                                    [showUploadButton]="false">
+                                    <ng-template let-file pTemplate="file">
+                                        <div class="p-fileupload-content">
+                                            <div class="p-fileupload-files ng-star-inserted">
+                                                <div class="ng-star-inserted">
+                                                    <div class="p-fileupload-row ng-star-inserted">
+                                                        <div
+                                                            style="font-size: 60px;text-align: center;align-items: center;justify-content: center;">
+                                                            <i class="{{getFileExtension(file.name)}}"
+                                                                style="color:#5cb85c;" aria-hidden="true"></i>
+                                                            <img [src]="FirmaURL" alt=""
+                                                                *ngIf="getFileExtension(file.name)===''"
+                                                                class="img-fluid ng-star-inserted">
+                                                        </div>
+                                                        <div class="p-fileupload-filename">{{file.name}}</div>
+                                                        <div>{{file.size}}</div>
+                                                        <div>
+                                                            <button type="button" icon="pi pi-times" pbutton=""
+                                                                (click)="remove($event, file)"
+                                                                class="p-element p-button p-component p-button-icon-only">
+                                                                <span class="p-button-icon pi pi-times"
+                                                                    aria-hidden="true"></span>
+                                                                <span aria-hidden="true"
+                                                                    class="p-button-label">&nbsp;</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </p-fileUpload>
+                            </div>
+
+                            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3  justify-content-evenly">
+                                <label>* Resolución Cierre</label>
+                                <p-fileUpload uploadLabel="Enviar" name="file" [url]="URLFILEUPLOAD" #fileInput
+                                    chooseLabel="Seleccionar" cancelLabel="Cancelar"
+                                    [chooseIcon]="uploadedFiles.length ? 'pi pi-upload':'pi pi-plus'" id="upload"
+                                    (onSelect)="onFileSelect($event)" (onUpload)="onUploadToBackend($event)"
+                                    [multiple]="false" [accept]="ACCEPTFILES" [maxFileSize]="SIZEFILE" mode="advanced"
+                                    [showUploadButton]="false">
+                                    <ng-template let-file pTemplate="file">
+                                        <div class="p-fileupload-content">
+                                            <div class="p-fileupload-files ng-star-inserted">
+                                                <div class="ng-star-inserted">
+                                                    <div class="p-fileupload-row ng-star-inserted">
+                                                        <div
+                                                            style="font-size: 60px;text-align: center;align-items: center;justify-content: center;">
+                                                            <i class="{{getFileExtension(file.name)}}"
+                                                                style="color:#5cb85c;" aria-hidden="true"></i>
+                                                            <img [src]="FirmaURL" alt=""
+                                                                *ngIf="getFileExtension(file.name)===''"
+                                                                class="img-fluid ng-star-inserted">
+                                                        </div>
+                                                        <div class="p-fileupload-filename">{{file.name}}</div>
+                                                        <div>{{file.size}}</div>
+                                                        <div>
+                                                            <button type="button" icon="pi pi-times" pbutton=""
+                                                                (click)="remove($event, file)"
+                                                                class="p-element p-button p-component p-button-icon-only">
+                                                                <span class="p-button-icon pi pi-times"
+                                                                    aria-hidden="true"></span>
+                                                                <span aria-hidden="true"
+                                                                    class="p-button-label">&nbsp;</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </p-fileUpload>
+                            </div>
+                        </div>
+                    </p-panel>
+                </form>
+            </p-fieldset>
+            
+        </section>
+        <p-divider></p-divider>
+
+        
+        <p-fieldset legend="Franja Horaria" [toggleable]="true" >
+            <app-horariosmodalidadmalla></app-horariosmodalidadmalla>
+        </p-fieldset>
+    
+        <p-divider></p-divider>
+    
+        <p-fieldset legend="Malla" [toggleable]="true">
+            <app-materiaprincipal></app-materiaprincipal>
+        </p-fieldset>
+    </div>
+
+
+</div> -->
+
+<!-- <app-mallastable [lstMalla]="lstMalla" (mallaSelect)="setSeleccionado($event)">
+  </app-mallastable> -->
+
+
+<!-- DIVISION DE LA NUEVA ESTRUCTURA -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1></h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">PLan de Estudio</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="grid grid-nogutter surface-0 text-800 position-relative"
+    style="background: linear-gradient(199deg, rgba(7,92,187,1) 0%, rgba(52,126,209,1) 7%, rgba(244,246,249,1) 25%);">
+    <div class="ribbon-wrapper ribbon-l">
+        <div class="ribbon bg-danger text-xl">
+            PRUEBAS
+        </div>
+    </div>
+
+    <div class="col-12 md:col-12 text-center md:text-left flex align-items-center ">
+        <section>
+
+            <div class="text-6xl text-primary font-bold mb-3">Plan de Estudio
+                <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+                    <ng-template pTemplate>
+                        <video width="100%" height="auto" autoplay controls>
+                            <source src="assets/video/estadoplan.webm" type="video/mp4">
+                        </video>
+                    </ng-template>
+                </p-overlayPanel>
+
+                <button (click)="op.toggle($event)" pButton pRipple type="button" icon="pi pi-video"
+                    class="p-button-rounded p-button-secondary p-button-text">
+                </button>
+
+            </div>
+            <p class="mt-0 mb-4 text-700 line-height-3">Diagrama que de forma gráfica representa los ramos que debes
+                cursar de la carrera por semestre, según el plan de estudios, y la respectiva secuencia de
+                pre-requisitos de cada ramo. Además en ella se indica el nombre de las asignaturas, códigos y créditos.
+            </p>
+
+            <div class="spinner" *ngIf="loadReady">
+                <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8"
+                    fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+            </div>
+
+            <p-toolbar class="flex justify-content-end p-3">
+                <div class="p-toolbar-group-right bg-transparent">
+                    <!-- <button pButton pRipple type="button" icon="pi pi-send" (click)="guardar()" pTooltip="Guardar"
+                    tooltipPosition="top"
+                    class="p-button-rounded p-button-success p-button-text p-button"></button>
+            <button pButton pRipple type="button" icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar"
+                    tooltipPosition="top"
+                    class="p-button-rounded p-button-danger p-button-text p-button"></button> -->
+                    <button pButton pRipple type="button" icon="pi pi-book" (click)="showModalDialog()"
+                        pTooltip="Ver Catálogo" tooltipPosition="top"
+                        class="p-button-rounded p-button-help p-button-text p-button"></button>
+                </div>
+            </p-toolbar>
+
+            <p-timeline [value]="sections" align="left" styleClass="customized-timeline w-full">
+
+                <ng-template pTemplate="marker" let-sections>
+                    <span class="custom-marker p-shadow-2" [style.backgroundColor]="sections.color">
+                        <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+                            <ng-template pTemplate>
+                                <video width="100%" height="auto" autoplay controls>
+                                    <source src="assets/video/estadoplan.webm" type="video/mp4">
+                                </video>
+                            </ng-template>
+                        </p-overlayPanel>
+                        <button (click)="op.toggle($event)" pButton pRipple type="button" [icon]="sections.icon"
+                            [style]="{color: 'white'}" class="p-button-rounded p-button-secondary p-button-text">
+                        </button>
+                    </span>
+                </ng-template>
+                <ng-template pTemplate="content" let-sections>
+                    <p-card [header]="sections.header" [subheader]="sections.subheader" class="p-3 w-full">
+                        <!--  Fin Form 1 para Datos Generales-->
+                        <form [formGroup]="form" *ngIf="sections.index === 1">
+                            <p-toolbar class="flex justify-content-end p-3">
+                                <div class="p-toolbar-group-right bg-transparent">
+                                    <button pButton pRipple type="button" icon="pi pi-send" (click)="guardar()"
+                                        pTooltip="Guardar" tooltipPosition="top"
+                                        class="p-button-rounded p-button-success p-button-text p-button"></button>
+                                    <button pButton pRipple type="button" icon="pi pi-times" (click)="cancelar()"
+                                        pTooltip="Cancelar" tooltipPosition="top"
+                                        class="p-button-rounded p-button-danger p-button-text p-button"></button>
+                                    <!-- <button pButton pRipple type="button" icon="pi pi-book" (click)="showModalDialog()" pTooltip="Ver Catálogo"
+                              tooltipPosition="top"
+                              class="p-button-rounded p-button-help p-button-text p-button"></button> -->
+                                </div>
+                            </p-toolbar>
+                            <div class="p-fluid p-formgrid grid justify-content-center">
+                                <div class="p-field col-12 md:col-5  mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <p-dropdown [filter]="true" filterBy="Facultad"
+                                                    [showClear]="true" id="fdd-listFacultad"
+                                                    required [options]="lstFacultad"
+                                                    [(ngModel)]="FacultadSelected"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    optionLabel="nombreFacultad"
+                                                    (ngModelChange)="llenarDetalleFacultad($event)"
+                                                    [autoDisplayFirst]="false"></p-dropdown>
+                                        <label for="fdd-listFacultad">* Facultad</label>
+                                    </span>
+                                </div>
+                                <div class="p-field col-12 md:col-5  mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <p-dropdown [filter]="true" filterBy="nombreCarrera"
+                                                    [showClear]="true" id="fdd-listCarrera"
+                                                    emptyMessage="No existen Carreras Disponibles" 
+                                                    required [options]="lstCarrera"
+                                                    [(ngModel)]="CarreraSelected"
+                                                    (ngModelChange)="llenarDetalleCarrera($event)"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    optionLabel="nombreCarrera"
+                                                    [autoDisplayFirst]="false"></p-dropdown>
+                                        <label for="fdd-listCarrera">* Carrera</label>
+                                    </span>
+                                </div>
+                                <div class="p-field col-12 md:col-5 md:mb-4 mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <input pInputText id="ftxt-codigo" type="text" required="true"
+                                            formControlName="codigoPlanEstudioMalla" maxlength="10">
+                                        <label for="ftxt-codigo">* Código Plan Estudio</label>
+                                    </span>
+                                </div>
+
+                                <div class="p-field col-12 md:col-5 md:mb-4 mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <input pInputText id="ftxt-numdecreto" type="text" required="true"
+                                            formControlName="numerodecretoCesMalla">
+                                        <label for="ftxt-numdecreto">* Número de Decreto</label>
+                                    </span>
+                                </div>
+
+                                <div class="p-field col-12 md:col-7 md:mb-4 mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <input pInputText id="ftxt-codigo" type="text" required="true"
+                                            formControlName="tituloPlanEstudioMalla" maxlength="10">
+                                        <label for="ftxt-codigo">* Título Academico</label>
+                                    </span>
+                                </div>
+
+                                <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3 flex justify-content-evenly">
+                                    <label for="ftxt-activo">* Activo</label>
+                                    <p-inputSwitch id="ftxt-activo" formControlName="activoMalla"></p-inputSwitch>
+                                </div>
+                                
+                                <div class="p-field col-12 md:col-5 md:mb-4 mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <!-- formControlName="ModalidadMalla" -->
+                                        <input pInputText id="ftxt-periodicidad" type="text" required="true"
+                                             maxlength="10">
+                                        <label for="ftxt-periodicidad">* Modalidad</label>
+                                    </span>
+                                </div>
+
+                                <div class="p-field col-12 md:col-5 md:mb-4 mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <input pInputText id="ftxt-periodicidad" type="text" required="true"
+                                            formControlName="periodicidadMalla" maxlength="10">
+                                        <label for="ftxt-periodicidad">* Periodicidad</label>
+                                    </span>
+                                </div>
+
+                                <div class="p-field col-12 md:col-5 md:mb-4 mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <p-inputNumber inputId="ftxt-duracionsemestre" [showButtons]="true"
+                                            formControlName="duracionSemestresMalla" maxlength="4">
+                                        </p-inputNumber>
+                                        <label for="ftxt-duracionsemestre" disabled="false">* Duración de
+                                            Semestre</label>
+                                    </span>
+                                </div>
+
+                                <div class="p-field col-12 md:col-5 md:mb-4 mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <p-inputNumber inputId="ftxt-cupoCes" [showButtons]="true"
+                                            formControlName="cupoCesMalla" maxlength="4">
+                                        </p-inputNumber>
+                                        <label for="ftxt-cupoCes" disabled="false">* Cupo Ces</label>
+                                    </span>
+                                </div>
+
+                                <mat-form-field appearance="fill" class="p-field col-12 md:col-5 md:mb-4 mb-0 px-3">
+                                    <mat-label>* Fecha de Aprobación</mat-label>
+                                    <input matInput [matDatepicker]="picker1" formControlName="fechaAprobacionMalla">
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1 color="primary"></mat-datepicker>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="fill" class="p-field col-12 md:col-5 md:mb-4 mb-0 px-3">
+                                    <mat-label>* Fecha de Vigencia</mat-label>
+                                    <input matInput [matDatepicker]="picker2" formControlName="fechaVigenciaMalla">
+                                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                                </mat-form-field>
+
+                                <!-- <div class="p-field col-12 md:col-5 md:mb-4 mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <input pInputText id="ftxt-dni" type="text" required="true"
+                                            formControlName="semestreInicioMalla">
+                                        <label for="ftxt-dni">* Semestre Inicial</label>
+                                    </span>
+                                </div>
+
+                                <div class="p-field col-12 md:col-5 md:mb-4 mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <input pInputText id="ftxt-dni" type="text" required="true"
+                                            formControlName="semestreFinMalla">
+                                        <label for="ftxt-dni">* Semestre Final</label>
+                                    </span>
+                                </div> -->
+
+                                <div class="p-field col-12 md:col-5 mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <p-dropdown [filter]="true" filterBy="nombreEstadoMalla"
+                                            optionLabel="nombreEstadoMalla" [showClear]="true" id="fdd-listestadomalla"
+                                            required formControlName="idEstadoMallaDTO" [options]="lstEstadoMalla"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                        <label for="fdd-listestadomalla">* Estado Malla</label>
+                                    </span>
+                                </div>
+
+                                <!-- <div class="p-field col-12 md:col-5 mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <p-dropdown [filter]="true" filterBy="nombreCarrera" optionLabel="nombreCarrera"
+                                            [showClear]="true" id="fdd-listcarrera" required
+                                            formControlName="idCarreraDTO" [options]="lstCarrera"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                        <label for="fdd-listcarrera">* Carrera</label>
+                                    </span>
+                                </div> -->
+
+                                <div class="p-field col-12 md:col-5 md:mb-4 mb-0 px-3">
+                                    <span class="p-float-label">
+                                        <input pInputText id="ftxt-dni" type="text" required="true"
+                                            formControlName="observacionesMalla">
+                                        <label for="ftxt-dni">* Observación</label>
+                                    </span>
+                                </div>
+
+                                <!-- <div class="p-field col-12 md:col-5 md:mb-4 mb-0 px-3">
+                                </div> -->
+
+                                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3  justify-content-evenly">
+                                    <label>* Decreto</label>
+                                    <p-fileUpload uploadLabel="Enviar" name="file" [url]="URLFILEUPLOAD" #fileInput
+                                        chooseLabel="Seleccionar" cancelLabel="Cancelar"
+                                        [chooseIcon]="uploadedFiles.length ? 'pi pi-upload':'pi pi-plus'" id="upload"
+                                        (onSelect)="onFileSelect($event)" (onUpload)="onUploadToBackend($event)"
+                                        [multiple]="false" [accept]="ACCEPTFILES" [maxFileSize]="SIZEFILE"
+                                        mode="advanced" [showUploadButton]="false">
+                                        <ng-template let-file pTemplate="file">
+                                            <div class="p-fileupload-content">
+                                                <div class="p-fileupload-files ng-star-inserted">
+                                                    <div class="ng-star-inserted">
+                                                        <div class="p-fileupload-row ng-star-inserted">
+                                                            <div
+                                                                style="font-size: 60px;text-align: center;align-items: center;justify-content: center;">
+                                                                <i class="{{getFileExtension(file.name)}}"
+                                                                    style="color:#5cb85c;" aria-hidden="true"></i>
+                                                                <img [src]="FirmaURL" alt=""
+                                                                    *ngIf="getFileExtension(file.name)===''"
+                                                                    class="img-fluid ng-star-inserted">
+                                                            </div>
+                                                            <div class="p-fileupload-filename">{{file.name}}</div>
+                                                            <div>{{file.size}} KB</div>
+                                                            <div>
+                                                                <button type="button" icon="pi pi-times" pbutton=""
+                                                                    (click)="remove($event, file)"
+                                                                    class="p-element p-button p-component p-button-icon-only">
+                                                                    <span class="p-button-icon pi pi-times"
+                                                                        aria-hidden="true"></span>
+                                                                    <span aria-hidden="true"
+                                                                        class="p-button-label">&nbsp;</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                    </p-fileUpload>
+                                </div>
+
+                                <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3  justify-content-evenly">
+                                    <label>* Resolución Activa</label>
+                                    <p-fileUpload uploadLabel="Enviar" name="file" [url]="URLFILEUPLOAD" #fileInput
+                                        chooseLabel="Seleccionar" cancelLabel="Cancelar"
+                                        [chooseIcon]="uploadedFiles.length ? 'pi pi-upload':'pi pi-plus'" id="upload"
+                                        (onSelect)="onFileSelect($event)" (onUpload)="onUploadToBackend($event)"
+                                        [multiple]="false" [accept]="ACCEPTFILES" [maxFileSize]="SIZEFILE"
+                                        mode="advanced" [showUploadButton]="false">
+                                        <ng-template let-file pTemplate="file">
+                                            <div class="p-fileupload-content">
+                                                <div class="p-fileupload-files ng-star-inserted">
+                                                    <div class="ng-star-inserted">
+                                                        <div class="p-fileupload-row ng-star-inserted">
+                                                            <div
+                                                                style="font-size: 60px;text-align: center;align-items: center;justify-content: center;">
+                                                                <i class="{{getFileExtension(file.name)}}"
+                                                                    style="color:#5cb85c;" aria-hidden="true"></i>
+                                                                <img [src]="FirmaURL" alt=""
+                                                                    *ngIf="getFileExtension(file.name)===''"
+                                                                    class="img-fluid ng-star-inserted">
+                                                            </div>
+                                                            <div class="p-fileupload-filename">{{file.name}}</div>
+                                                            <div>{{file.size}}</div>
+                                                            <div>
+                                                                <button type="button" icon="pi pi-times" pbutton=""
+                                                                    (click)="remove($event, file)"
+                                                                    class="p-element p-button p-component p-button-icon-only">
+                                                                    <span class="p-button-icon pi pi-times"
+                                                                        aria-hidden="true"></span>
+                                                                    <span aria-hidden="true"
+                                                                        class="p-button-label">&nbsp;</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                    </p-fileUpload>
+                                </div>
+
+                                <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3  justify-content-evenly">
+                                    <label>* Resolución Cierre</label>
+                                    <p-fileUpload uploadLabel="Enviar" name="file" [url]="URLFILEUPLOAD" #fileInput
+                                        chooseLabel="Seleccionar" cancelLabel="Cancelar"
+                                        [chooseIcon]="uploadedFiles.length ? 'pi pi-upload':'pi pi-plus'" id="upload"
+                                        (onSelect)="onFileSelect($event)" (onUpload)="onUploadToBackend($event)"
+                                        [multiple]="false" [accept]="ACCEPTFILES" [maxFileSize]="SIZEFILE"
+                                        mode="advanced" [showUploadButton]="false">
+                                        <ng-template let-file pTemplate="file">
+                                            <div class="p-fileupload-content">
+                                                <div class="p-fileupload-files ng-star-inserted">
+                                                    <div class="ng-star-inserted">
+                                                        <div class="p-fileupload-row ng-star-inserted">
+                                                            <div
+                                                                style="font-size: 60px;text-align: center;align-items: center;justify-content: center;">
+                                                                <i class="{{getFileExtension(file.name)}}"
+                                                                    style="color:#5cb85c;" aria-hidden="true"></i>
+                                                                <img [src]="FirmaURL" alt=""
+                                                                    *ngIf="getFileExtension(file.name)===''"
+                                                                    class="img-fluid ng-star-inserted">
+                                                            </div>
+                                                            <div class="p-fileupload-filename">{{file.name}}</div>
+                                                            <div>{{file.size}}</div>
+                                                            <div>
+                                                                <button type="button" icon="pi pi-times" pbutton=""
+                                                                    (click)="remove($event, file)"
+                                                                    class="p-element p-button p-component p-button-icon-only">
+                                                                    <span class="p-button-icon pi pi-times"
+                                                                        aria-hidden="true"></span>
+                                                                    <span aria-hidden="true"
+                                                                        class="p-button-label">&nbsp;</span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                    </p-fileUpload>
+                                </div>
+                            </div>
+
+                        </form>
+                        <!--  Fin Form 1 -->
+                        <!--  Form 2 para Franja Horaria -->
+                        <form *ngIf="sections.index === 2">
+                            <p-fieldset legend="Franja Horaria" [toggleable]="true" onBeforeToggle="llenarPlaEstudio($event)">
+                                <app-horariosmodalidadmalla></app-horariosmodalidadmalla>
+                            </p-fieldset>
+                            <!-- <div class="p-fluid p-formgrid grid">
+                            </div> -->
+                        </form>
+                        <!-- Fin Form 2-->
+                        <!--  Form 3 para Malla -->
+                        <form *ngIf="sections.index === 3">
+                            <p-fieldset legend="Malla" [toggleable]="true">
+                                <!-- <app-materiaprincipal></app-materiaprincipal> -->
+                                <app-mallacurrilular></app-mallacurrilular> 
+                            </p-fieldset>
+                            <!-- <div class="p-fluid p-formgrid grid">
+                            </div> -->
+                        </form>
+                        <!-- Fin Form 2-->
+                    </p-card>
+                </ng-template>
+            </p-timeline>
+        </section>
+
+        <!-- LISTADO DEL PLAN DE ESTUDIO -->
+
+        <p-dialog [(visible)]="displayModal" position="right" [modal]="true"
+            [style]="{width: '85vw', height:'100vh', 'max-height': '100%', margin: '0rem'}" [draggable]="false"
+            [resizable]="false">
+
+            <ng-template pTemplate="header">
+                <div class="col-12 md:col-8 text-center md:text-left flex align-items-center ">
+                    <div class="text-3xl text-primary font-bold mb-0">Listado Plan de Estudio
+                        <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+                            <ng-template pTemplate>
+                                <video width="100%" height="auto" autoplay controls>
+                                    <source src="assets/video/estadoplan.webm" type="video/mp4">
+                                </video>
+                            </ng-template>
+                        </p-overlayPanel>
+
+                        <button (click)="op.toggle($event)" pButton pRipple type="button" icon="pi pi-video"
+                            class="p-button-rounded p-button-secondary p-button-text">
+                        </button>
+
+                    </div>
+                    <!--p class="mt-0 mb-0 text-700 line-height-3">Templates de Empleados.</!--p-->
+                </div>
+            </ng-template>
+            <!-- Inicio tabla Materias catalogo-->
+
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="card">
+                        <p-toolbar styleClass="p-mb-4">
+                            <ng-template pTemplate="left">
+                                <button pButton pRipple label="Delete" icon="pi pi-trash"
+                                    class="p-button-danger p-button-sm" (click)="deleteSelectedItems()"
+                                    pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+                                    [disabled]="!selectedMalla || !selectedMalla.length"></button>
+                            </ng-template>
+
+                            <ng-template pTemplate="right">
+                                <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
+                                    class="p-button-sm p-button-outlined p-button-success p-mr-2" pTooltip="XLS"
+                                    tooltipPosition="bottom"></button>
+                                <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()"
+                                    class="p-button-sm p-button-outlined p-button-danger p-mr-2" pTooltip="PDF"
+                                    tooltipPosition="bottom"></button>
+
+                            </ng-template>
+                        </p-toolbar>
+
+                        <p-table #dt [value]="lstMalla" [rows]="10" [paginator]="true" [loading]="loading"
+                            [globalFilterFields]="['idMalla',
+                            'codigoPlanEstudioMalla',
+                            'numerodecretoCesMalla',
+                            'duracionSemestresMalla',
+                            'periodicidadMalla',
+                            'cupoCesMalla',
+                            'fechaAprobacionMalla',
+                            'fechaVigenciaMalla',
+                            'pathdecretoCesMalla',
+                            'semestreInicioMalla',
+                            'semestreFinMalla',
+                            'pathresolucionactivaMalla',
+                            'pathresolucioncierreMalla',
+                            'observacionesMalla',
+                            'activoMalla',
+                            'idCarreraDTO.nombreCarrera',
+                            'idEstadoMallaDTO.nombreEstadoMalla',]" responsiveLayout="stack"
+                            [(selection)]="selectedMalla" [rowHover]="true" dataKey="idEmp"
+                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                            [showCurrentPageReport]="true">
+                            <ng-template pTemplate="caption">
+                                <div class="d-flex justify-content-between flex-wrap">
+                                    <button pButton label="Clear" class="p-button-outlined p-button-sm"
+                                        icon="pi pi-filter-slash" (click)="clear(dt)" pTooltip="Quitar Filtros"
+                                        tooltipPosition="right"></button>
+                                    <span class="p-input-icon-left p-ml-auto">
+                                        <i class="pi pi-search"></i>
+                                        <input pInputText type="text" class="p-inputtext-sm"
+                                            (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                            placeholder="Busqueda General" />
+                                    </span>
+                                </div>
+                            </ng-template>
+
+                            <ng-template pTemplate="header">
+                                <div class="spinner" *ngIf="loadReady">
+                                    <p-progressSpinner [style]="{width: '50px', height: '50px'}"
+                                        styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)"
+                                        animationDuration=".5s"></p-progressSpinner>
+                                </div>
+                                <tr>
+                                    <th style="width: 3rem">
+                                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                    </th>
+                                    <th pSortableColumn="codigoPlanEstudioMalla">Código
+                                        <p-sortIcon field="codigoPlanEstudioMalla"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="duracionSemestresMalla">Duracion <br> Semestre
+                                        <p-sortIcon field="duracionSemestresMalla"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="activoMalla">Activo
+                                        <p-sortIcon field="activoMalla"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="periodicidadMalla">Periodicidad
+                                        <p-sortIcon field="periodicidadMalla"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="pathdecretoCesMalla">Decreto Ces
+                                        <p-sortIcon field="pathdecretoCesMalla"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="pathresolucionactivaMalla">Solucion <br> Activa
+                                        <p-sortIcon field="pathresolucionactivaMalla"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="pathresolucioncierreMalla">Solucion <br> Cierre
+                                        <p-sortIcon field="pathresolucioncierreMalla"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="fechaVigenciaMalla">F. Vigencia
+                                        <p-sortIcon field="fechaVigenciaMalla"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="semestreInicioMalla">Semestre <br> Inicio
+                                        <p-sortIcon field="semestreInicioMalla"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="semestreFinMalla">Semestre Fin
+                                        <p-sortIcon field="semestreFinMalla"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="idCarreraDTO.nombreCarrera">Carrera
+                                        <p-sortIcon field="idCarreraDTO.nombreCarrera"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="idEstadoMallaDTO.nombreEstadoMalla">Estado <br> Malla
+                                        <p-sortIcon field="idEstadoMallaDTO.nombreEstadoMalla"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="observacionesMalla">Observación
+                                        <p-sortIcon field="observacionesMalla"></p-sortIcon>
+                                    </th>
+                                    <th>Opciones</th>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <th>
+                                        <p-columnFilter type="text" field="codigoPlanEstudioMalla"></p-columnFilter>
+                                    </th>
+                                    <th>
+                                        <p-columnFilter type="text" field="duracionSemestresMalla"></p-columnFilter>
+                                    </th>
+                                    <th>
+                                        <p-columnFilter type="text" field="activoMalla"></p-columnFilter>
+                                    </th>
+                                    <th>
+                                        <p-columnFilter type="text" field="periodicidadMalla"></p-columnFilter>
+                                    </th>
+                                    <th>
+                                        <p-columnFilter type="text" field="pathdecretoCesMalla"></p-columnFilter>
+                                    </th>
+                                    <th>
+                                        <p-columnFilter type="text" field="pathresolucionactivaMalla"></p-columnFilter>
+                                    </th>
+                                    <th>
+                                        <p-columnFilter type="text" field="pathresolucioncierreMalla"></p-columnFilter>
+                                    </th>
+                                    <th>
+                                        <p-columnFilter type="text" field="fechaVigenciaMalla"></p-columnFilter>
+                                    </th>
+                                    <th>
+                                        <p-columnFilter type="text" field="semestreInicioMalla"></p-columnFilter>
+                                    </th>
+                                    <th>
+                                        <p-columnFilter type="text" field="semestreFinMalla"></p-columnFilter>
+                                    </th>
+                                    <th>
+                                        <p-columnFilter type="text" field="idCarreraDTO.nombreCarrera"></p-columnFilter>
+                                    </th>
+                                    <th>
+                                        <p-columnFilter type="text" field="idEstadoMallaDTO.nombreEstadoMalla">
+                                        </p-columnFilter>
+                                    </th>
+                                    <th>
+                                        <p-columnFilter type="text" field="observacionesMalla"></p-columnFilter>
+                                    </th>
+
+                                    <th></th>
+                                </tr>
+                            </ng-template>
+
+                            <ng-template pTemplate="body" let-item>
+                                <tr>
+                                    <td>
+                                        <p-tableCheckbox [value]="item"></p-tableCheckbox>
+                                    </td>
+                                    <td>{{item.codigoPlanEstudioMalla}}</td>
+                                    <td>{{item.duracionSemestresMalla}}</td>
+                                    <td>{{item.activoMalla ? 'ACTIVO' : 'INACTIVO'}}</td>
+                                    <td>{{item.periodicidadMalla}}</td>
+                                    <td>
+                                        <span
+                                            [class]="item.pathdecretoCesMalla ? 'badge badge-success': 'badge badge-warning'">
+                                            {{item.pathdecretoCesMalla ? item.pathdecretoCesMalla : 'No Existe
+                                            Decreto'}}
+                                        </span>
+                                        <button *ngIf="item.pathdecretoCesMalla"
+                                            (click)="descargarArchivo(item.pathdecretoCesMalla)" pButton pRipple
+                                            type="button" icon="pi pi-cloud-download" pTooltip="Descargar"
+                                            tooltipPosition="top"
+                                            class="p-button-rounded p-button-text p-button-lg"></button>
+                                    </td>
+                                    <td>
+                                        <span
+                                            [class]="item.pathresolucionactivaMalla ? 'badge badge-success': 'badge badge-warning'">
+                                            {{item.pathresolucionactivaMalla ? item.pathresolucionactivaMalla : 'No
+                                            Existe Solucion Activa'}}
+                                        </span>
+                                        <button *ngIf="item.pathresolucionactivaMalla"
+                                            (click)="descargarArchivo(item.pathresolucionactivaMalla)" pButton pRipple
+                                            type="button" icon="pi pi-cloud-download" pTooltip="Descargar"
+                                            tooltipPosition="top"
+                                            class="p-button-rounded p-button-text p-button-lg"></button>
+                                    </td>
+                                    <td>
+                                        <span
+                                            [class]="item.pathresolucioncierreMalla ? 'badge badge-success': 'badge badge-warning'">
+                                            {{item.pathresolucioncierreMalla ? item.pathresolucioncierreMalla : 'No
+                                            Existe Soluciones Cierre'}}
+                                        </span>
+                                        <button *ngIf="item.pathresolucioncierreMalla"
+                                            (click)="descargarArchivo(item.pathresolucioncierreMalla)" pButton pRipple
+                                            type="button" icon="pi pi-cloud-download" pTooltip="Descargar"
+                                            tooltipPosition="top"
+                                            class="p-button-rounded p-button-text p-button-lg"></button>
+                                    </td>
+                                    <td>{{item.fechaVigenciaMalla | date : 'short'}}</td>
+                                    <td>{{item.semestreInicioMalla}}</td>
+                                    <td>{{item.semestreFinMalla}}</td>
+                                    <td>{{item.idCarreraDTO.nombreCarrera}}</td>
+                                    <td>{{item.idEstadoMallaDTO.nombreEstadoMalla}}</td>
+                                    <td>{{item.observacionesMalla}}</td>
+
+                                    <td>
+                                        <button pButton pRipple icon="pi pi-pencil"
+                                            class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
+                                            (click)="editItem(item)" pTooltip="Editar" tooltipPosition="left"></button>
+                                        <button pButton pRipple icon="pi pi-trash"
+                                            class="p-button-rounded p-button-danger p-button-text p-button-sm"
+                                            (click)="deleteItem(item)" pTooltip="Eliminar"
+                                            tooltipPosition="left"></button>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="summary">
+                                <div class="p-d-flex p-ai-center p-jc-between">
+                                    En Total Existen {{lstMalla ? lstMalla.length : 0 }} Plan de Estudio.
+                                </div>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+            </section>
+            <p-confirmDialog [style]="{width: '450px'}">
+            </p-confirmDialog>
+            <!-- Fin tabla catalogo materias-->
+        </p-dialog>
+
+    </div>
+</div>

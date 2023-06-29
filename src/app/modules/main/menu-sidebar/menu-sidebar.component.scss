@@ -1,0 +1,29 @@
+:host {
+    display: block;
+}
+
+.p-panelmenu .p-panelmenu-header > a {
+  padding: 1.5rem;
+  border: 0 none;
+  color: rgba(0, 0, 0, 0.87);
+  background: #b00020;
+  font-weight: 400;
+  border-radius: 4px;
+  transition: none;
+}
+
+.sidebar {
+  height: calc(100% - (3.5rem + 1px));
+  overflow-x: hidden;
+  overflow-y: initial;
+  overflow:auto;
+  padding-bottom: 0;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0;
+  scrollbar-color: #a9a9a9 transparent;
+  scrollbar-width: none;
+}
+
+
+

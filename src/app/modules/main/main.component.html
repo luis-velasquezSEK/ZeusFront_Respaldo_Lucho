@@ -1,0 +1,24 @@
+<app-header (toggleMenuSidebar)="toggleMenuSidebar()"></app-header>
+
+
+<app-menu-sidebar style="
+  min-height: 100% !important;
+  height: 50% !important;
+  position: fixed !important;
+  display: flex !important;
+  flex-direction: column !important;"
+                  class="main-sidebar sidebar-dark-primary elevation-4"
+></app-menu-sidebar>
+
+<div class="content-wrapper">
+  <section class="content">
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+  </section>
+</div>
+
+<app-footer class="main-footer"></app-footer>
+<!--<aside class="control-sidebar control-sidebar-dark"></aside>-->
+<!--<app-control-sidebar></app-control-sidebar>-->
+<div id="sidebar-overlay" (click)="toggleMenuSidebar()"></div>

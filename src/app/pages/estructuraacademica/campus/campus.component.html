@@ -1,0 +1,261 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1></h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Campus</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<div class="grid grid-nogutter surface-0 text-800 position-relative">
+  <div class="ribbon-wrapper ribbon-l">
+    <div class="ribbon bg-danger text-xl">
+      PRUEBAS
+    </div>
+  </div>
+  <div class="col-12 md:col-12 p-6 text-center md:text-left align-items-center ">
+    <section>
+      <div class="text-6xl text-primary font-bold mb-3">Campus
+        <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+          <ng-template pTemplate>
+            <video width="100%" height="auto" autoplay controls>
+              <source src="assets/video/estadoplan.webm" type="video/mp4">
+            </video>
+          </ng-template>
+        </p-overlayPanel>
+
+        <button (click)="op.toggle($event)"
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-video"
+                class="p-button-rounded p-button-secondary p-button-text"
+        >
+        </button>
+      </div>
+      <p class="mt-0 mb-4 text-700 line-height-3">Los Campus son los diferentes lugares
+        donde se encuentran las instalaciones Universitarias</p>
+
+      <form [formGroup]="form" enctype="multipart/form-data" accept-charset="utf8">
+        <p-panel header="Registro" [toggleable]="false">
+          <ng-template pTemplate="icons" pStyleClass="display: flex;
+    justify-content: end;
+    align-items: center;">
+            <button pButton pRipple type="button" icon="pi pi-send" (click)="guardar()" pTooltip="Guardar"
+                    tooltipPosition="top"
+                    class="p-button-rounded p-button-success p-button-text p-button"></button>
+            <button pButton pRipple type="button" icon="pi pi-times" (click)="cancelar()" pTooltip="Cancelar"
+                    tooltipPosition="top"
+                    class="p-button-rounded p-button-danger p-button-text p-button"></button>
+
+          </ng-template>
+          <div class="p-fluid p-formgrid grid">
+            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-codigo" type="text" required="true"
+                                       formControlName="codigoCampus" maxlength="10">
+                                <label for="ftxt-codigo">* Código</label>
+                              </span>
+            </div>
+            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-nombre" type="text" required="true"
+                                       formControlName="nombreCampus">
+                                <label for="ftxt-nombre">* Nombre</label>
+                              </span>
+            </div>
+            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-callep" type="text" required="true"
+                                       formControlName="callePrincipalCampus">
+                                <label for="ftxt-callep">* Calle Principal</label>
+                              </span>
+            </div>
+
+            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-calles" type="text" required="true"
+                                       formControlName="calleSecundariaCampus">
+                                <label for="ftxt-calles">* Calle Secundaria</label>
+                              </span>
+            </div>
+            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-nrcampus" type="text" required="true"
+                                       formControlName="numeroCampus">
+                                <label for="ftxt-nrcampus">* No. Campus</label>
+                              </span>
+            </div>
+            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-referencia" type="text" required="true"
+                                       formControlName="referenciaCampus">
+                                <label for="ftxt-referencia">* Referencia</label>
+                              </span>
+            </div>
+            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-codpostal" type="text" required="true"
+                                       formControlName="codPostalCampus">
+                                <label for="ftxt-codpostal">* Código Postal</label>
+                              </span>
+            </div>
+            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-telefono" type="text" required="true"
+                                       formControlName="telefonoCampus">
+                                <label for="ftxt-telefono">* Teléfono</label>
+                              </span>
+            </div>
+            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-fax" type="text" required="false"
+                                       formControlName="faxCampus">
+                                <label for="ftxt-fax">* Fax</label>
+                              </span>
+            </div>
+            <div class="p-field col-12 md:col-3 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-email" type="text" required="true"
+                                       formControlName="emailCampus">
+                                <label for="ftxt-email">* Email</label>
+                              </span>
+            </div>
+
+            <div class="p-field col-12 md:col-3 mb-0 px-3">
+                           <span class="p-float-label">
+                             <p-dropdown [filter]="true" filterBy="nombreSedeInstitucion"
+                                         [showClear]="true" id="fdd-listsede"
+                                         required
+                                         formControlName="idSedeInstitucionDTO"
+                                         [options]="lstSede"
+                                         optionLabel="nombreSedeInstitucion"
+                                         [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listsede">* Sede</label>
+                            </span>
+            </div>
+
+            <div class="p-field col-12 md:col-2 md:mb-4 mb-0 px-3 flex justify-content-evenly">
+              <label for="ftxt-activo">* Activo </label>
+              <p-inputSwitch id="ftxt-activo" formControlName="activoCampus"></p-inputSwitch>
+            </div>
+
+            <div class="p-field col-12 md:col-3  mb-0 px-3">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombrePais"
+                                            [showClear]="true" id="fdd-listpais"
+                                            required
+                                            emptyMessage="No existen Paises Disponibles"
+                                            [options]="lstPais"
+                                            [(ngModel)]="pais"
+                                            (ngModelChange)="llenarDetallePais($event)"
+                                            [ngModelOptions]="{standalone: true}"
+                                            optionLabel="nombrePais"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listpais">* País</label>
+                            </span>
+            </div>
+
+            <div class="p-field col-12 md:col-3  mb-0 px-3">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreRegion"
+                                            optionLabel="nombreRegion"
+                                            required
+                                            emptyMessage="No existen Regiones Disponibles"
+                                            [options]="lstRegion"
+                                            [autoDisplayFirst]="false"
+                                            [showClear]="true"
+                                            [(ngModel)]="region"
+                                            (ngModelChange)="llenarDetalleRegion($event)"
+                                            [ngModelOptions]="{standalone: true}"
+                                            id="fdd-listregion"></p-dropdown>
+                                <label for="fdd-listregion">* Región</label>
+                            </span>
+            </div>
+
+            <div class="p-field col-12 md:col-3  mb-0 px-3">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreProvincia"
+                                            optionLabel="nombreProvincia"
+                                            required
+                                            emptyMessage="No existen Provincias Disponibles"
+                                            [options]="lstProvincia"
+                                            [autoDisplayFirst]="false"
+                                            [showClear]="true"
+                                            [(ngModel)]="provincia"
+                                            (ngModelChange)="llenarDetalleProvincia($event)"
+                                            [ngModelOptions]="{standalone: true}"
+                                            id="fdd-listprovincia"></p-dropdown>
+                                <label for="fdd-listprovincia">* Provincia</label>
+                            </span>
+            </div>
+            <div class="p-field col-12 md:col-3  mb-0 px-3">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreCanton"
+                                            optionLabel="nombreCanton"
+                                            required
+                                            emptyMessage="No existen Cantones Disponibles"
+                                            [options]="lstCanton"
+                                            [autoDisplayFirst]="false"
+                                            [showClear]="true"
+                                            [(ngModel)]="canton"
+                                            (ngModelChange)="llenarDetalleCanton($event)"
+                                            [ngModelOptions]="{standalone: true}"
+                                            id="fdd-listcanton"></p-dropdown>
+                                <label for="fdd-listcanton">* Cantón</label>
+                            </span>
+            </div>
+
+            <div class="p-field col-12 md:col-3  mb-0 px-3">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreCiudad"
+                                            optionLabel="nombreCiudad"
+                                            required
+                                            emptyMessage="No existen Ciudad Disponibles"
+                                            [options]="lstCiudad"
+                                            [autoDisplayFirst]="false"
+                                            [showClear]="true"
+                                            [(ngModel)]="ciudad"
+                                            (ngModelChange)="llenarDetalleCiudad($event)"
+                                            [ngModelOptions]="{standalone: true}"
+                                            id="fdd-listciudad"></p-dropdown>
+                                <label for="fdd-listciudad">* Ciudad</label>
+                            </span>
+            </div>
+
+            <div class="p-field col-12 md:col-3  mb-0 px-3">
+                           <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreParroquia"
+                                            [showClear]="true" id="fdd-listparroquia"
+                                            required
+                                            optionDisabled="activoParroquia"
+                                            emptyMessage="No existen Parroquias Disponibles"
+                                            formControlName="idParroquiaDTO"
+                                            [options]="lstParroquia"
+                                            optionLabel="nombreParroquia"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listparroquia">* Parroquia</label>
+                            </span>
+            </div>
+
+          </div>
+
+        </p-panel>
+      </form>
+    </section>
+  </div>
+</div>
+
+
+<p-divider></p-divider>
+
+<app-campustable [lstCampus]="lstCampus"
+                 (campusSelect)=setSeleccionado($event)></app-campustable>

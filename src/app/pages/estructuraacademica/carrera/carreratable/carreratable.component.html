@@ -1,0 +1,178 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="card">
+      <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+          <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-button-sm"
+                  (click)="deleteSelectedItems()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+                  [disabled]="!selectedCarrera || !selectedCarrera.length"></button>
+        </ng-template>
+
+        <ng-template pTemplate="right">
+          <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-sm p-button-outlined p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+          <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-sm p-button-outlined p-button-danger p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>
+
+        </ng-template>
+      </p-toolbar>
+
+
+      <p-table #dt [value]="lstCarrera" [rows]="10" [paginator]="true" [loading]="loading"
+               [globalFilterFields]="['idCarrera',
+               'codigoCarrera',
+               'nombreCarrera',
+               'siglasCarrera',
+               'tituloCarrera',
+               'mencionCarrera',
+               'pathdecretoAprobacionCarrera',
+               'fechacreaCarrera',
+               'fechaactCarrera',
+               'fechacierraCarrera',
+               'activoCarrera',
+               'idEstadoCarreraDTO.nombreEstadoCarrera',
+               'idFacultadDTO.nombreFacultad']"
+               responsiveLayout="stack"
+               [(selection)]="selectedCarrera" [rowHover]="true" dataKey="idCarrera"
+               currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+               [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+          <div class="d-flex justify-content-between flex-wrap">
+            <button pButton label="Clear" class="p-button-outlined p-button-sm" icon="pi pi-filter-slash" (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
+            <label class="text-center">LISTADO DE CARRERAS</label>
+            <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" class="p-inputtext-sm" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General" />
+                </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 3rem">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="codigoCarrera">Código
+              <p-sortIcon field="codigoCarrera"></p-sortIcon>
+            </th>
+            <th pSortableColumn="nombreCarrera">Nombre
+              <p-sortIcon field="nombreCarrera"></p-sortIcon>
+            </th>
+            <th pSortableColumn="siglasCarrera">Siglas
+              <p-sortIcon field="siglasCarrera"></p-sortIcon>
+            </th>
+            <th pSortableColumn="tituloCarrera">Título
+              <p-sortIcon field="tituloCarrera"></p-sortIcon>
+            </th>
+            <th pSortableColumn="mencionCarrera">Mención
+              <p-sortIcon field="mencionCarrera"></p-sortIcon>
+            </th>
+            <th pSortableColumn="pathdecretoAprobacionCarrera">Decreto
+              <p-sortIcon field="pathdecretoAprobacionCarrera"></p-sortIcon>
+            </th>
+            <th pSortableColumn="fechacreaCarrera">F. Crea
+              <p-sortIcon field="fechacreaCarrera"></p-sortIcon>
+            </th>
+            <th pSortableColumn="fechaactCarrera">F. Actualización
+              <p-sortIcon field="fechaactCarrera"></p-sortIcon>
+            </th>
+            <th pSortableColumn="fechacierraCarrera">F. Cierra
+              <p-sortIcon field="fechacierraCarrera"></p-sortIcon>
+            </th>
+            <th pSortableColumn="activoCarrera">Activo
+              <p-sortIcon field="activoCarrera"></p-sortIcon>
+            </th>
+            <th pSortableColumn="idEstadoCarreraDTO.nombreEstadoCarrera">Estado
+              <p-sortIcon field="idEstadoCarreraDTO.nombreEstadoCarrera"></p-sortIcon>
+            </th>
+            <th pSortableColumn="idFacultadDTO.nombreFacultad">Facultad
+              <p-sortIcon field="idFacultadDTO.nombreFacultad"></p-sortIcon>
+            </th>
+            <th>Opciones</th>
+          </tr>
+          <tr>
+            <th></th>
+            <th>
+              <p-columnFilter type="text" field="codigoCarrera"></p-columnFilter>
+            </th>
+
+            <th>
+              <p-columnFilter type="text" field="nombreCarrera"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="siglasCarrera"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="tituloCarrera"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="mencionCarrera"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="pathdecretoAprobacionCarrera"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="fechacreaCarrera"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="fechaactCarrera"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="fechacierraCarrera"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="activoCarrera"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="idEstadoCarreraDTO.nombreEstadoCarrera"></p-columnFilter>
+            </th>
+            <th>
+              <p-columnFilter type="text" field="idFacultadDTO.nombreFacultad"></p-columnFilter>
+            </th>
+
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <td>
+              <p-tableCheckbox [value]="item"></p-tableCheckbox>
+            </td>
+            <td>{{item.codigoCarrera}}</td>
+            <td>{{item.nombreCarrera}}</td>
+            <td>{{item.siglasCarrera}}</td>
+            <td>{{item.tituloCarrera}}</td>
+            <td>{{item.mencionCarrera}}</td>
+            <td>
+              <span [class]="item.pathdecretoAprobacionCarrera ? 'badge badge-success': 'badge badge-warning'">
+              {{item.pathdecretoAprobacionCarrera ? item.pathdecretoAprobacionCarrera : 'Correquisito sin Archivo'}}
+              </span>
+              <button *ngIf="item.pathdecretoAprobacionCarrera" (click)="descargarArchivo(item.pathdecretoAprobacionCarrera)"
+                      pButton pRipple type="button" icon="pi pi-cloud-download" pTooltip="Descargar"
+                      tooltipPosition="top"
+                      class="p-button-rounded p-button-text p-button-lg"></button>
+            </td>
+            <td>{{item.fechacreaCarrera | date : 'short'}}</td>
+            <td>{{item.fechaactCarrera | date : 'short'}}</td>
+            <td>{{item.fechacierraCarrera | date : 'short'}}</td>
+            <td>{{item.activoCarrera ? 'ACTIVO':'INACTIVO'}}</td>
+            <td>{{item.idEstadoCarreraDTO.nombreEstadoCarrera}}</td>
+            <td>{{item.idFacultadDTO.nombreFacultad}}</td>
+
+            <td>
+              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
+                      (click)="editItem(item)" pTooltip="Editar" tooltipPosition="left"></button>
+              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text p-button-sm"
+                      (click)="deleteItem(item)" pTooltip="Eliminar" tooltipPosition="left"></button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+          <div class="p-d-flex p-ai-center p-jc-between">
+            En Total Existen {{lstCarrera ? lstCarrera.length : 0 }} Carreras.
+          </div>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</section>
+
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

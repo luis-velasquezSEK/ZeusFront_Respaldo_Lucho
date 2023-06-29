@@ -1,0 +1,114 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1></h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Controles Periodo</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+<div class="grid grid-nogutter surface-0 text-800 position-relative">
+    <div class="ribbon-wrapper ribbon-lg">
+        <div class="ribbon bg-danger text-md">
+            PRUEBA
+        </div>
+    </div>
+    <div class="col-12 md:col-12 p-6 text-center md:text-left align-items-center ">
+        <section>
+            <div class="text-6xl text-primary font-bold mb-3">Controles Periodo
+                <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+                    <ng-template pTemplate>
+                        <video width="100%" height="auto" autoplay controls>
+                            <source src="assets/video/estadoplan.webm" type="video/mp4">
+                        </video>
+                    </ng-template>
+                </p-overlayPanel>
+
+                <button (click)="op.toggle($event)" pButton pRipple type="button" icon="pi pi-video"
+                    class="p-button-rounded p-button-secondary p-button-text">
+                </button>
+            </div>
+            <p class="mt-0 mb-4 text-700 line-height-3">Un Control Periodo Académico es una parte de un año académico, 
+                el tiempo durante el cual una institución educativa imparte clases a los estudiantes que 
+                cursan una o más asignaturas.</p>
+
+            <form [formGroup]="form" enctype="multipart/form-data" accept-charset="utf8">
+                <p-panel header="Registro" [toggleable]="false">
+                    <ng-template pTemplate="icons"
+                        pStyleClass="display: flex; justify-content: end; align-items: center;">
+                        <button pButton pRipple type="button" icon="pi pi-send" (click)="guardar()" pTooltip="Guardar"
+                            tooltipPosition="top"
+                            class="p-button-rounded p-button-success p-button-text p-button"></button>
+                        <button pButton pRipple type="button" icon="pi pi-times" (click)="cancelar()"
+                            pTooltip="Cancelar" tooltipPosition="top"
+                            class="p-button-rounded p-button-danger p-button-text p-button"></button>
+
+                    </ng-template>
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-nombre" type="text" required="true"
+                                    formControlName="nombreControlPeriodo">
+                                <label for="ftxt-nombre">* Nombre</label>
+                            </span>
+                        </div>
+
+                        <mat-form-field appearance="fill" class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                            <mat-label>* Fecha Inicial control</mat-label>
+                            <input matInput [matDatepicker]="picker1" formControlName="fechaiControlPeriodo">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1 color="primary"></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill" class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                            <mat-label>* Fecha Final Control</mat-label>
+                            <input matInput [matDatepicker]="picker2" formControlName="fechafControlPeriodo">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                        </mat-form-field>
+
+                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-descripcion" type="text" required="true"
+                                    formControlName="vigenteControlPeriodo" maxlength="2">
+                                <label for="ftxt-descripcion">* Control Vigente</label>
+                            </span>
+                        </div>
+                        
+                        <div class="p-field col-12 md:col-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <p-dropdown [filter]="true" 
+                                filterBy="codigoPeriodo" 
+                                optionLabel="codigoPeriodo"
+                                [showClear]="true" 
+                                id="fdd-listduracion" required 
+                                formControlName="idPeriodoDTO"
+                                [options]="lstPeriodo" 
+                                [autoDisplayFirst]="false">
+                                </p-dropdown>
+                                <label for="fdd-listduracion">* Periodo</label>
+                            </span>
+                        </div>
+                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3 flex justify-content-evenly">
+                            <label for="ftxt-activo">* Activo </label>
+                            <p-inputSwitch id="ftxt-activo" formControlName="activoControlPeriodo"></p-inputSwitch>
+                        </div>
+                    </div>
+                </p-panel>
+            </form>
+        </section>
+    </div>
+</div>
+
+<p-divider></p-divider>
+
+<app-controlperiodotable [lstControlPer]="lstControlPer" (ControlPerSelect)=setSeleccionado($event)>
+</app-controlperiodotable>

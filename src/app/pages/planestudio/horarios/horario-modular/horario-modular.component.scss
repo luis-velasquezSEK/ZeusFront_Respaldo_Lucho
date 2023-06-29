@@ -1,0 +1,279 @@
+:host ::ng-deep {
+
+
+  .product-name {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .product-description {
+    margin: 0 0 1rem 0;
+  }
+
+  .product-category-icon {
+    vertical-align: middle;
+    margin-right: .5rem;
+  }
+
+  .product-category {
+    font-weight: 600;
+    vertical-align: middle;
+  }
+
+  .product-list-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+
+
+    .product-list-detail {
+      flex: 1 1 0;
+    }
+
+    .p-rating {
+      margin: 0 0 .5rem 0;
+    }
+
+    .product-price {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: .5rem;
+      align-self: flex-end;
+    }
+
+    .product-list-action {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /*
+    .p-button {
+      margin-bottom: .5rem;
+    }*/
+  }
+
+  .product-grid-item {
+    margin: .5em;
+    border: 1px solid #dee2e6;
+
+    .product-grid-item-top,
+    .product-grid-item-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+
+
+    .product-grid-item-content {
+      text-align: center;
+    }
+
+    .product-price {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+  }
+}
+
+.card {
+  padding: 2rem;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  margin-bottom: 2rem;
+}
+
+@media screen and (max-width: 576px) {
+  :host ::ng-deep .product-list-item {
+    flex-direction: column;
+    align-items: center;
+
+
+
+    .product-list-detail {
+      text-align: center;
+    }
+
+    .product-price {
+      align-self: center;
+    }
+
+    .product-list-action {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-list-action {
+      margin-top: 2rem;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+  }
+}
+
+
+@media screen and (min-width: 768px) {
+  .justify-content-between {
+    justify-content: space-between;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .flex-row {
+    flex-direction: row !important;
+  }
+}
+
+
+
+
+:host ::ng-deep .p-organizationchart {
+  .p-person {
+    padding: 0;
+    border: 0 none;
+  }
+
+  .node-header, .node-content {
+    padding: .5em .7rem;
+  }
+
+  .node-header {
+    background-color: #495ebb;
+    color: #ffffff;
+  }
+
+  .node-content {
+    text-align: center;
+    border: 1px solid #495ebb;
+  }
+
+
+  .department-cfo {
+    background-color: #7247bc;
+    color: #ffffff;
+  }
+
+  .department-coo {
+    background-color: #a534b6;
+    color: #ffffff;
+  }
+
+  .department-cto {
+    background-color: #e9286f;
+    color: #ffffff;
+  }
+}
+
+
+.info-box .info-box-icon {
+  border-radius: .25rem;
+  align-items: center;
+  display: flex;
+  font-size: 1.875rem;
+  justify-content: center;
+  text-align: center;
+  width: 8%;
+  vertical-align: center;
+}
+
+:host ::ng-deep button {
+  margin-right: .25em;
+}
+
+:host ::ng-deep .p-component-overlay-enter .pi.pi-lock {
+  animation: enter 150ms forwards;
+}
+
+:host ::ng-deep .p-component-overlay-leave .pi.pi-lock {
+  animation: leave 150ms forwards;
+}
+
+@keyframes enter {
+  from {
+    color: transparent;
+  }
+  to {
+    color: var(--text-color);
+  }
+}
+
+@keyframes leave {
+  from {
+    color: var(--text-color);
+  }
+  to {
+    color: transparent;
+  }
+}
+
+
+
+
+#wrap{
+  display: block;
+}
+
+#box1, #box2, #box3, #box4{
+  display: block;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#box1{
+  text-align: center;
+  border: 1px solid gray;
+  height: 250px;
+  overflow: auto;
+}
+
+#progressbar{
+  text-align: center;
+  height: 20px;
+  padding: 10px;
+}
+
+#box1 span{
+  margin-left: 10px;
+}
+
+#box2 span{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#box2 #selectButton{
+  background-color: rgb(1, 155, 1);
+}
+
+#box2 #uploadButton{
+  background-color: rgb(26, 26, 160);
+}
+
+#box3{
+  color: red;
+}
+
+#box4 ul{
+  list-style: none;
+}
+
+#box4 ul li{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#box4 ul li a{
+  text-decoration: none;
+  color: white;
+  margin-right: 20px;
+}
+
+

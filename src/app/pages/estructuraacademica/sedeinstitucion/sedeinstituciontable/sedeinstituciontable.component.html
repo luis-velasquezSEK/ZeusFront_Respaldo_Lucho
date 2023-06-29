@@ -1,0 +1,99 @@
+<section class="content">
+  <div class="container-fluid">
+    <div class="card">
+      <p-table #dt [value]="lstSede" [rows]="10" [paginator]="true" [loading]="loading"
+               [globalFilterFields]="['idSedeInstitucion',
+               'codigoSedeInstitucion',
+               'nombreSedeInstitucion',
+               'activoSedeInstitucion',
+               'idInstitucionEducativaDTO.nombreInstitucionEducativa',
+               'activoComponente']"
+               responsiveLayout="scroll"
+               [(selection)]="selectedSede" [rowHover]="true" dataKey="idSedeInstitucion"
+               currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+               [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+          <div class="d-flex justify-content-between flex-wrap">
+            <div>
+              <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-sm p-button-outlined p-button-success p-mr-2 m-1"  pTooltip="XLS" tooltipPosition="bottom"></button>
+              <button type="button" pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-sm p-button-outlined p-button-danger p-mr-2 m-1" pTooltip="PDF" tooltipPosition="bottom"></button>
+              <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger p-button-sm m-1"
+                      (click)="deleteSelectedSede()" pTooltip="Eliminar Seleccionados" tooltipPosition="right"
+                      [disabled]="!selectedSede || !selectedSede.length"></button>
+              <button pButton label="Clear" class="p-button-outlined p-button-sm m-1" icon="pi pi-filter-slash" (click)="clear(dt)" pTooltip="Quitar Filtros" tooltipPosition="right"></button>
+            </div>
+
+            <label class="text-center">LISTADO DE SEDES</label>
+            <span class="p-input-icon-left p-ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" class="p-inputtext-sm" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Busqueda General" />
+                </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 3rem">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="idSedeInstitucion">
+              <div class="flex justify-content-between align-items-center">#
+                <p-sortIcon field="idSedeInstitucion"></p-sortIcon>
+                <p-columnFilter type="text" field="idSedeInstitucion" display="menu"></p-columnFilter>
+              </div>
+            </th>
+            <th pSortableColumn="codigoSedeInstitucion">
+              <div class="flex justify-content-between align-items-center">Código
+                <p-sortIcon field="codigoSedeInstitucion"></p-sortIcon>
+                <p-columnFilter type="text" field="codigoSedeInstitucion" display="menu"></p-columnFilter>
+              </div>
+            </th>
+            <th pSortableColumn="nombreSedeInstitucion">
+              <div class="flex justify-content-between align-items-center">Nombre
+                <p-sortIcon field="nombreSedeInstitucion"></p-sortIcon>
+                <p-columnFilter type="text" field="nombreSedeInstitucion" display="menu"></p-columnFilter>
+              </div>
+            </th>
+            <th pSortableColumn="idInstitucionEducativaDTO.nombreInstitucionEducativa">
+              <div class="flex justify-content-between align-items-center">Instutición Educativa
+                <p-sortIcon field="idInstitucionEducativaDTO.nombreInstitucionEducativa"></p-sortIcon>
+                <p-columnFilter type="text" field="idInstitucionEducativaDTO.nombreInstitucionEducativa" display="menu"></p-columnFilter>
+              </div>
+            </th>
+            <th pSortableColumn="activoSedeInstitucion">
+              <div class="flex justify-content-between align-items-center">Activo
+                <p-sortIcon field="activoSedeInstitucion"></p-sortIcon>
+                <p-columnFilter type="text" field="activoSedeInstitucion" display="menu"></p-columnFilter>
+              </div>
+            </th>
+            <th>Opciones</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <td>
+              <p-tableCheckbox [value]="item"></p-tableCheckbox>
+            </td>
+            <td>{{item.idSedeInstitucion}}</td>
+            <td>{{item.codigoSedeInstitucion}}</td>
+            <td>{{item.nombreSedeInstitucion}}</td>
+            <td>{{item.idInstitucionEducativaDTO.nombreInstitucionEducativa}}</td>
+            <td>{{item.activoSedeInstitucion ? 'ACTIVO':'INACTIVO'}}</td>
+            <td>
+              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-text p-button-sm p-mr-2"
+                      (click)="editSede(item)" pTooltip="Editar" tooltipPosition="left"></button>
+              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text p-button-sm"
+                      (click)="deleteSede(item)" pTooltip="Eliminar" tooltipPosition="left"></button>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+          <div class="p-d-flex p-ai-center p-jc-between">
+            En total existen {{lstSede ? lstSede.length : 0 }} Sedes.
+          </div>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</section>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

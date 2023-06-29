@@ -1,0 +1,86 @@
+<div class="grid grid-nogutter surface-0 text-800 position-relative">
+    <div class="col-12 md:col-12 p-6 text-center md:text-left align-items-center ">
+        <section>
+            <div class="text-6xl text-primary font-bold mb-3">SubTipo Modalidad Titulacion
+                <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+                    <ng-template pTemplate>
+                        <video width="100%" height="auto" autoplay controls>
+                            <source src="assets/video/estadoplan.webm" type="video/mp4">
+                        </video>
+                    </ng-template>
+                </p-overlayPanel>
+
+                <button (click)="op.toggle($event)" pButton pRipple type="button" icon="pi pi-video"
+                    class="p-button-rounded p-button-secondary p-button-text">
+                </button>
+            </div>
+            <p class="mt-0 mb-4 text-700 line-height-3"></p>
+
+            <form [formGroup]="form" enctype="multipart/form-data" accept-charset="utf8">
+                <p-panel header="Registro" [toggleable]="false">
+                    <ng-template pTemplate="icons"
+                        pStyleClass="display: flex; justify-content: end; align-items: center;">
+                        <button pButton pRipple type="button" icon="pi pi-send" (click)="guardar()" pTooltip="Guardar"
+                            tooltipPosition="top"
+                            class="p-button-rounded p-button-success p-button-text p-button"></button>
+                        <button pButton pRipple type="button" icon="pi pi-times" (click)="cancelar()"
+                            pTooltip="Cancelar" tooltipPosition="top"
+                            class="p-button-rounded p-button-danger p-button-text p-button"></button>
+
+                    </ng-template>
+                    <div class="p-fluid p-formgrid grid">
+
+                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-codigo" type="text" required="true"
+                                    formControlName="codigoSubTipoModalidadTitulacion" [maxLength]="10">
+                                <label for="ftxt-codigo">* Código</label>
+                            </span>
+                        </div>
+
+                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-nombre" type="text" required="true"
+                                    formControlName="nombreSubTipoModalidadTitulacion">
+                                <label for="ftxt-nombre">* Nombre</label>
+                            </span>
+                        </div>
+
+
+                        <div class="p-field col-12 md:col-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreTipoModalidadTitulacion"
+                                            optionLabel="nombreTipoModalidadTitulacion" 
+                                            [showClear]="true" 
+                                            id="fdd-listtipomodtit" required 
+                                            formControlName="idTipoModalidadTitulacionDTO"
+                                            [options]="lstTipoMt" 
+                                            [autoDisplayFirst]="false">
+                                </p-dropdown>
+                                <label for="fdd-listtipomodtit">* Tipo Modalidad</label>
+                            </span>
+                        </div>
+                        
+                        <div class="p-field col-12 md:col-8 md:mb-4 mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-observacion" type="text" required="true"
+                                formControlName="observacionSubTipoModalidadTitulacion">
+                                <label for="ftxt-observacion">* Observación</label>
+                            </span>
+                        </div>
+
+                        <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3 flex justify-content-evenly">
+                            <label for="ftxt-activo">* Activo </label>
+                            <p-inputSwitch id="ftxt-activo" formControlName="activoSubTipoModalidadTitulacion">
+                            </p-inputSwitch>
+                        </div>
+
+                    </div>
+                </p-panel>
+            </form>
+        </section>
+        <p-divider></p-divider>
+        <app-subtipomodalidadtittable [lstSubTipoMt]="lstSubTipoMt" (subTipoMtSelect)=setSeleccionado($event)>
+        </app-subtipomodalidadtittable>
+    </div>
+</div>

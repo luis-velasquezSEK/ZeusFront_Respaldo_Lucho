@@ -1,0 +1,423 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1></h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active"> Componentes</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="grid grid-nogutter surface-0 text-800 position-relative"
+  style="background: linear-gradient(199deg, rgba(7,92,187,1) 0%, rgba(52,126,209,1) 7%, rgba(244,246,249,1) 25%);">
+  <div class="ribbon-wrapper ribbon-l">
+    <div class="ribbon bg-danger text-xl">
+      PRUEBAS
+    </div>
+  </div>
+
+  <div class="col-12 md:col-12 text-center md:text-left align-items-center ">
+    <section>
+
+      <div class="text-6xl text-primary font-bold mb-3"> Componentes por Materia de Plan de Estudio
+        <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+          <ng-template pTemplate>
+            <video width="100%" height="auto" autoplay controls>
+              <source src="assets/video/estadoplan.webm" type="video/mp4">
+            </video>
+          </ng-template>
+        </p-overlayPanel>
+
+        <button (click)="op.toggle($event)" pButton pRipple type="button" icon="pi pi-video"
+          class="p-button-rounded p-button-secondary p-button-text">
+        </button>
+
+      </div>
+      <p class="mt-0 mb-4 text-700 line-height-3">Crear componentes de una materia ligada a un plan de estudio</p>
+      <p-toolbar class="flex justify-content-end p-3">
+        <div class="p-toolbar-group-start">
+          <p-button label="Guardar" icon="pi pi-save" class="p-1" styleClass="p-button-outlined p-button-success"
+            (click)="guardar()"></p-button>
+          <p-button label="Limpiar" icon="pi pi-trash" class="p-1" styleClass="p-button-outlined p-button-danger"
+            (click)="cancelar()"></p-button>
+          <p-button label="Ver Catálogo" icon="pi pi-list" class="p-1" styleClass="p-button-outlined p-button-primary"
+            (click)="popUpMateriasComponentes()"></p-button>
+        </div>
+      </p-toolbar>
+
+      <p-timeline [value]="sections" align="left" styleClass="customized-timeline w-full">
+        <ng-template pTemplate="marker" let-sections>
+          <span class="custom-marker p-shadow-2" [style.backgroundColor]="sections.color">
+            <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+              <ng-template pTemplate>
+                <video width="100%" height="auto" autoplay controls>
+                  <source src="assets/video/estadoplan.webm" type="video/mp4">
+                </video>
+              </ng-template>
+            </p-overlayPanel>
+            <button (click)="op.toggle($event)" pButton pRipple type="button" [icon]="sections.icon"
+              [style]="{color: 'white'}" class="p-button-rounded p-button-secondary p-button-text">
+            </button>
+          </span>
+        </ng-template>
+
+        <ng-template pTemplate="content" let-sections>
+          <p-card [header]="sections.header" [subheader]="sections.subheader" class="p-3 w-full">
+
+            <!--Seccion plan de estudio-->
+            <form [formGroup]="formGeneral" *ngIf="sections.index === 1">
+              <div class="p-fluid p-formgrid grid justify-content-center">
+
+                <div class="p-field col-12 md:col-6 mb-0 px-3">
+                  <span class="p-float-label">
+                    <p-dropdown [filter]="true" filterBy="nombreFacultad" [showClear]="true" id="fdd-listfacultad"
+                      required optionLabel="nombreFacultad" formControlName="controlfacultad" [options]="facultadlst"
+                      [(ngModel)]="facultadSelected" (onChange)="onChangeFacultad($event)">
+                    </p-dropdown>
+                    <label for="fdd-listfacultad">
+                      Facultad
+                    </label>
+                  </span>
+                </div>
+
+                <div class="p-field col-12 md:col-6 mb-0 px-3">
+                  <span class="p-float-label">
+                    <p-dropdown [filter]="true" filterBy="nombreCarrera" [showClear]="true" id="fdd-listCarrera"
+                      required formControlName="controlcarrera" [options]="carreralst" [(ngModel)]="carreraSelected"
+                      optionLabel="nombreCarrera" (onChange)="onChangeCarrera($event)" [autoDisplayFirst]="false">
+                    </p-dropdown>
+                    <label for="fdd-listCarrera">
+                      Carrera
+                    </label>
+                  </span>
+                </div>
+
+
+                <div class="p-field col-12 md:col-6 mb-0 px-3">
+                  <span class="p-float-label">
+                    <p-dropdown [filter]="true" filterBy="codigoPlanEstudioMalla" [showClear]="true"
+                      id="fdd-listPlanEst" required formControlName="controlplanestudio" [options]="planEstudiolst"
+                      [(ngModel)]="planSelected" optionLabel="codigoPlanEstudioMalla"
+                      (onChange)="onChangeModalidad($event)" [autoDisplayFirst]="false">
+                    </p-dropdown>
+                    <label for="fdd-listPlanEst">
+                      Plan de estudio.
+                    </label>
+                  </span>
+                </div>
+
+                <div class="p-field col-12 md:col-6 mb-0 px-3">
+                  <span class="p-float-label">
+                    <p-dropdown [filter]="true" filterBy="idModalidadPeNavigation.nombreModalidadPe" [showClear]="true"
+                      id="fdd-modalidad" required optionLabel="idModalidadPeNavigation.nombreModalidadPe"
+                      formControlName="controlmodalidad" [options]="modalidadlst" [(ngModel)]="modalidadSelected"
+                      [autoDisplayFirst]="false">
+                    </p-dropdown>
+                    <label for="fdd-modalidad">
+                      Modalidad
+                    </label>
+                  </span>
+                </div>
+
+                <!--PopUp-->
+                <div class="p-field col-12 md:col-6 mb-0 px-3">
+                  <p-button (click)="popUpMateriasPlan()" icon="pi pi-external-link" label="Buscar Materias"></p-button>
+                  <p-dialog header="Materias" [(visible)]="visible" [style]="{ width: '50vw', height: '650px' }">
+
+                    <div class="card">
+                      <p-toast></p-toast>
+                      <p-table #dt2 [value]="materiaMallalst" selectionMode="single"
+                        [(selection)]="selectedMateriaMalla" dataKey="idMateria" (onRowSelect)="onRowSelect($event)"
+                        (onRowUnselect)="onRowUnselect($event)" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+                        [loading]="loading" [paginator]="true"
+                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                        [globalFilterFields]="['codigoMateria', 'nombreMateria', 'creditosMateria', 'horasSemestralesMateria']">
+                        <ng-template pTemplate="caption">
+                          <div class="flex">
+                            <span class="p-input-icon-left ml-auto">
+                              <i class="pi pi-search"></i>
+                              <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')"
+                                placeholder="buscar" />
+                            </span>
+                          </div>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                          <tr>
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>Créditos</th>
+                            <th>Horas Semestrales</th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-materia>
+                          <tr [pSelectableRow]="materia">
+
+                            <td>{{materia.codigoMateria}}</td>
+                            <td>{{materia.nombreMateria}}</td>
+                            <td>{{materia.creditosMateria}}</td>
+                            <td>{{materia.horasSemestralesMateria}}</td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                  </p-dialog>
+                </div>
+                <!--fin pop up-->
+              </div>
+            </form>
+            <!--Fin Seccion Plan de Estudio-->
+
+
+            <!--Seccion Materia-->
+            <form [formGroup]="formMateria" *ngIf="sections.index === 2">
+
+              <div class="p-fluid p-formgrid grid justify-content-center">
+                <div class="p-field col-12 md:col-6  mb-0 px-3">
+                  <span class="p-float-label">
+                    <input [readonly]="true" pInputText id="ftxt-cod" type="text" required="true" formControlName="codigoMateria"
+                      [(ngModel)]="codMateriaSelected">
+                    <label for="ftxt-cod">Código Materia</label>
+                  </span>
+                </div>
+
+                <div class="p-field col-12 md:col-6  mb-0 px-3">
+                  <span class="p-float-label">
+                    <input [readonly]="true" pInputText id="ftxt-nombre" type="text" required="true" formControlName="nombreMateria"
+                      [(ngModel)]="nomMateriaSelected">
+                    <label for="ftxt-nombre">Nombre Materia</label>
+                  </span>
+                </div>
+
+
+                <div class="p-field col-12 md:col-6  mb-0 px-3">
+                  <span class="p-float-label">
+                    <input [readonly]="true" pInputText id="ftxt-cod" type="text" required="true" formControlName="creditoMateria"
+                      [(ngModel)]="credMateriaSelected">
+                    <label for="ftxt-cod">Créditos </label>
+                  </span>
+                </div>
+
+                <div class="p-field col-12 md:col-6  mb-0 px-3">
+                  <span class="p-float-label">
+                    <input [readonly]="true" pInputText id="ftxt-nombre" type="text" required="true" formControlName="horasMateria"
+                      [(ngModel)]="horaMateriaSelected">
+                    <label for="ftxt-nombre">Horas</label>
+                  </span>
+                </div>
+              </div>
+            </form>
+            <!--Fin Seccion Materia-->
+
+
+
+<!--Seccion Componentes-->
+            <form *ngIf="sections.index === 3">
+              <div class="p-fluid p-formgrid grid justify-content-center">
+                <div class="p-field col-12 md:col-10  mb-0 px-3">
+                  <div class="border-2 border-dashed border-300 h-auto">
+                    <div class="surface-0 p-3">
+                      <form>
+                        <ul class="list-none p-0 m-0">
+                          <p-table #table [value]="lsttipoSubtipoComponenteDto" [loading]="loading" responsiveLayout="stack"
+                            [(selection)]="selectedSubTipoComponente" [rowHover]="true" dataKey="idSubtipoComponente"
+                            rowGroupMode="rowspan"groupRowsBy="codigoTipoComponente" 
+                            >
+                            <ng-template pTemplate="header">
+                              <tr>
+                                  <th>Tipo</th>
+                                  <th>Subtipo</th>
+                                  <th>Descripción</th>
+                                  <th>Total Horas</th>
+                              </tr>
+                          </ng-template>
+                            
+                            <ng-template pTemplate="body" let-item  let-rowgroup="rowgroup"
+                            
+                            let-rowspan="rowspan"
+                            >
+                              <tr>
+                                <td *ngIf="rowgroup" [attr.rowspan]="rowspan">
+                                  <div>{{item.codigoTipoComponente || 'none'}}</div>
+                                </td>
+
+                                <td>
+                                  <div>{{item.codigoSubtipoComponente || 'none'}}</div>
+                                </td>
+
+                                <td>
+                                  <div>{{item.nombreSubtipoComponente || 'none'}}</div>
+                                </td>
+                                <td>
+                                  <div>
+                                    <span class="p-float-label">
+                                      <p-inputNumber name="{{item.idSubtipoComponente}}"
+                                        [(ngModel)]="peso[item.idSubtipoComponente]" min="0" required="true">
+                                      </p-inputNumber>
+                                      <label for="ftxt-cupos">* Horas de Materia</label>
+                                    </span>
+                                  </div>
+                                </td>
+                              </tr>
+                            </ng-template>
+                          </p-table>
+                        </ul>
+                      </form>
+                    </div>
+                  </div>
+                  <br>
+                  <p-fieldset>
+                    <ng-template pTemplate="header">
+                      <div class="flex align-items-center text-primary">
+                        
+                        <span class="font-bold text-lg">Totales</span>
+                      </div>
+                    </ng-template>
+                    <div class="p-fluid p-formgrid grid justify-content-center">
+                      <div class="p-field col-12 md:col-3  mb-0 px-3">
+                        <span class="p-float-label">
+                          <input pInputText id="ftxt-cod" type="text" required="true" 
+                            [value]="totalAAValue"
+                            [readonly]="true"
+                            [(ngModel)]="totalAAValue">
+                          <label for="ftxt-cod">AA</label>
+                        </span>
+                      </div>
+                      <div class="p-field col-12 md:col-3  mb-0 px-3">
+                        <span class="p-float-label">
+                          <input pInputText id="ftxt-cod" type="text" required="true" 
+                            [readonly]="true" 
+                            [value]="totalACDValue"
+                            [(ngModel)]="totalACDValue">
+                          <label for="ftxt-cod">ACD</label>
+                        </span>
+                      </div>
+                      <div class="p-field col-12 md:col-3  mb-0 px-3">
+                        <span class="p-float-label">
+                          <input pInputText id="ftxt-cod" type="text" 
+                          [(ngModel)]="totalAPEValue" 
+                          [readonly]="true" 
+                          [value]="totalAPEValue">
+                          <label for="ftxt-cod">APE</label>
+                        </span>
+                      </div>                    
+                    </div>
+                  </p-fieldset>
+                </div>
+              </div>
+            </form>
+            <!--Fin Seccion Componentes-->  
+          </p-card>
+        </ng-template>
+      </p-timeline>
+
+
+      <!--Tabla ver Catalogos materia con componente-->
+      <p-dialog [(visible)]="displayModal" position="right" [modal]="true"
+        [style]="{width: '70vw', height:'100vh', 'max-height': '100%', margin: '0rem'}" [draggable]="false"
+        [resizable]="false">
+        <ng-template pTemplate="header">
+          <div class="col-12 md:col-8 text-center md:text-left flex align-items-center ">
+            <p class="mt-0 mb-0 text-700 line-height-3">Componentes por materia.</p>
+          </div>
+        </ng-template>
+        <section class="content">
+          <div class="container-fluid">
+            <p-toast></p-toast>
+            <div class="card">
+              <p-table 
+              selectionMode="single"
+              (onRowSelect)="onRowSelectComponente($event)" #dt [value]="listMateriasCatalogo" [rows]="10" [paginator]="true"
+                [globalFilterFields]="['codigoPlanEstudioMalla','codigoMateria','nombreMateria']"
+                responsiveLayout="scroll" [(selection)]="materiasCatalogo" [rowHover]="true"
+                dataKey="planMateriaMallaDto.id"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [showCurrentPageReport]="true">
+                <ng-template pTemplate="header">
+                  <tr>
+
+                    <th style="width: 3rem">
+                    </th>
+                    <th pSortableColumn="planMateriaMallaDto.codigoPlanEstudioMalla">Cod Plan Estudio
+                      <p-sortIcon field="planMateriaMallaDto.codigoPlanEstudioMalla"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="planMateriaMallaDto.codigoMateria">Cod Materia
+                      <p-sortIcon field="planMateriaMallaDto.codigoMateria"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="planMateriaMallaDto.nombreMateria">Materia
+                      <p-sortIcon field="planMateriaMallaDto.nombreMateria"></p-sortIcon>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>
+                    </th>
+                    <th>
+                      <p-columnFilter type="text" field="planMateriaMallaDto.codigoPlanEstudioMalla"></p-columnFilter>
+                    </th>
+                    <th>
+                      <p-columnFilter type="text" field="planMateriaMallaDto.codigoMateria"></p-columnFilter>
+                    </th>
+                    <th>
+                      <p-columnFilter type="text" field="planMateriaMallaDto.nombreMateria"></p-columnFilter>
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item let-expanded="expanded">
+                  <tr [pSelectableRow]="item">
+                    <td>
+                      <button type="button" pButton pRipple [pRowToggler]="item"
+                        class="p-button-text p-button-rounded p-button-plain"
+                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                    </td>
+                    <td>{{item.planMateriaMallaDto.codigoPlanEstudioMalla}}</td>
+                    <td>{{item.planMateriaMallaDto.codigoMateria}}</td>
+                    <td>{{item.planMateriaMallaDto.nombreMateria}}</td>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="rowexpansion" let-item>
+                  <tr>
+                    <td colspan="10">
+                      <div class="p-5">
+                        <p-table [value]="item.componentesMateriaDto" dataKey="idPlanEstudio">
+                          <ng-template pTemplate="header">
+                  <tr>
+                    <th pSortableColumn="codigoSubtipoComponente">Cod Sub componente<p-sortIcon
+                        field="codigoSubtipoComponente"></p-sortIcon></th>
+                    <th pSortableColumn="nombreSubtipoComponente">Componente<p-sortIcon field="nombreSubtipoComponente"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="horasComponente">Horas<p-sortIcon field="horasComponente"></p-sortIcon></th>
+                    <th pSortableColumn="pesoComponente">Peso<p-sortIcon field="pesoComponente"></p-sortIcon></th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-component>
+                  <tr>
+                    <td>{{ component.codigoSubtipoComponente}}</td>
+                    <td>{{ component.nombreSubtipoComponente }}</td>
+                    <td>{{ component.horasComponente}}</td>
+                    <td>{{ component.pesoComponente}}</td>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                  <tr>
+                    <td colspan="6">No existen datos para este registro.</td>
+                  </tr>
+                </ng-template>
+                </p-table>
+                </div>
+                </td>
+                </tr>
+                </ng-template>
+            </p-table>
+          </div>
+  </div>
+  </section>
+  <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+  </p-dialog>
+  <!--Fin Tabla ver Catalogos materia con componente-->
+  </section>
+
+</div>

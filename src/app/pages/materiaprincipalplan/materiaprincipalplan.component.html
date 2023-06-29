@@ -1,0 +1,347 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1></h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active"> Materia</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="grid grid-nogutter surface-0 text-800 position-relative"
+     style="background: linear-gradient(199deg, rgba(7,92,187,1) 0%, rgba(52,126,209,1) 7%, rgba(244,246,249,1) 25%);">
+  <div class="ribbon-wrapper ribbon-l">
+    <div class="ribbon bg-danger text-xl">
+      PRUEBAS
+    </div>
+  </div>
+
+  <div class="col-12 md:col-12 text-center md:text-left align-items-center ">
+    <section>
+
+      <div class="text-6xl text-primary font-bold mb-3"> Materia
+        <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+          <ng-template pTemplate>
+            <video width="100%" height="auto" autoplay controls>
+              <source src="assets/video/estadoplan.webm" type="video/mp4">
+            </video>
+          </ng-template>
+        </p-overlayPanel>
+
+        <button (click)="op.toggle($event)"
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-video"
+                class="p-button-rounded p-button-secondary p-button-text"
+        >
+        </button>
+
+      </div>
+      <p class="mt-0 mb-4 text-700 line-height-3">Las materias principales se crean para alimentar los diferentes planes
+        de estudio con ayuda de diferentes configuraciones como: Facultad, Carrera, Período, Modalidad y Malla.</p>
+      <p-toolbar class="flex justify-content-end p-3">
+        <div class="p-toolbar-group-start">
+          <p-button label="Guardar" icon="pi pi-save" class="p-1" styleClass="p-button-outlined p-button-success" (click)="guardar()"></p-button>
+          <p-button label="Limpiar" icon="pi pi-trash" class="p-1" styleClass="p-button-outlined p-button-danger" (click)="cancelar()"></p-button>
+          <p-button label="Ver Catálogo" icon="pi pi-list" class="p-1" styleClass="p-button-outlined p-button-primary" (click)="showModalDialog()"></p-button>
+        </div>
+      </p-toolbar>
+
+      <p-timeline [value]="sections" align="left" styleClass="customized-timeline w-full">
+        <ng-template pTemplate="marker" let-sections>
+            <span class="custom-marker p-shadow-2" [style.backgroundColor]="sections.color">
+            <p-overlayPanel #op [showCloseIcon]="true" [style]="{width: '450px'}">
+              <ng-template pTemplate>
+                <video width="100%" height="auto" autoplay controls>
+                  <source src="assets/video/estadoplan.webm" type="video/mp4">
+                </video>
+              </ng-template>
+            </p-overlayPanel>
+            <button (click)="op.toggle($event)"
+                    pButton
+                    pRipple
+                    type="button"
+                    [icon]="sections.icon" [style]="{color: 'white'}"
+                    class="p-button-rounded p-button-secondary p-button-text"
+            >
+            </button>
+            </span>
+        </ng-template>
+        <ng-template pTemplate="content" let-sections>
+          <p-card [header]="sections.header" [subheader]="sections.subheader" class="p-3 w-full">
+            <!--  Fin Form 1 para Datos Generales-->
+            <form [formGroup]="formGeneral" *ngIf="sections.index === 1">
+              <div class="p-fluid p-formgrid grid justify-content-center">
+                <div class="p-field col-12 md:col-5  mb-0 px-3">
+                              <span class="p-float-label">
+                                  <input pInputText id="ftxt-cod" type="text" required="true"
+                                         formControlName="codigoMateriap">
+                                  <label for="ftxt-cod">* Código Materia Principal</label>
+                             </span>
+                </div>
+                <div class="p-field col-12 md:col-5  mb-0 px-3">
+                            <span class="p-float-label">
+                                <input pInputText id="ftxt-nombre" type="text" required="true"
+                                       formControlName="nombreMateriap">
+                                <label for="ftxt-nombre">* Nombre Materia Principal</label>
+                              </span>
+                </div>
+                <div class="p-field col-12 md:col-5  mb-0 px-3">
+                            <span class="p-float-label">
+                              <p-inputNumber formControlName="creditosMateriap" inputId="ftxt-creditos" mode="decimal"
+                                             [minFractionDigits]="2" [maxFractionDigits]="5" [showButtons]="true"
+                                             required="true" >
+                                </p-inputNumber>
+                                <label for="ftxt-creditos">* Créditos Materia Principal</label>
+                              </span>
+                </div>
+                <div class="p-field col-12 md:col-5  mb-0 px-3">
+                            <span class="p-float-label">
+                              <p-inputNumber formControlName="horasSemestralesMateriap" inputId="ftxt-horas"
+                                             [showButtons]="true" required="true">
+                                </p-inputNumber>
+                                <label for="ftxt-horas">* Horas Semestrales</label>
+                              </span>
+                </div>
+                <div class="p-field col-12 md:col-5  mb-0 px-3">
+                            <span class="p-float-label">
+                              <p-inputNumber formControlName="cuposMatriculaMateriap" inputId="ftxt-cupos"
+                                             [showButtons]="true" required="true">
+                                </p-inputNumber>
+                                <label for="ftxt-cupos">* Cupos Matrícula</label>
+                              </span>
+                </div>
+                <div class="p-field col-12 md:col-5  mb-0 px-3">
+                  <!--
+                  <span class="p-float-label p-input-icon-left">
+                                <i class="fa fa-asterisk text-pink-600"></i>
+                  -->
+                  <span class="p-float-label">
+                              <input pInputText id="ftxt-unesco" type="text" required="true"
+                                     formControlName="campoUnescoMateriap">
+                                <label for="ftxt-unesco">* Unesco</label>
+                              </span>
+                </div>
+                <div class="p-field col-12 md:col-4 md:mb-4 mb-0 px-3 flex justify-content-evenly">
+                  <label for="ftxt-activo">* Activo </label>
+                  <p-inputSwitch id="ftxt-activo" formControlName="activoMateriap"></p-inputSwitch>
+                </div>
+
+              </div>
+
+            </form>
+
+
+
+            <!--  Fin Form 1 -->
+            <!--  Form 2 para Tipo de Materia y OUC -->
+            <form [formGroup]="form" *ngIf="sections.index === 2">
+              <div class="p-fluid p-formgrid grid justify-content-center">
+                <div class="p-field col-12 md:col-5 mb-0 px-3">
+                            <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreTipoMateriaCatalogo"
+                                            [showClear]="true"
+                                            id="fdd-listTipoMat"
+                                            required 
+
+                                            [options]="listTipoMateriaP"
+                                            [(ngModel)]="tipoMateriaPSeleccteded"
+                                            
+                                            optionLabel="nombreTipoMateriaCatalogo" 
+                                            formControlName="idTipoMateria"
+                                            [autoDisplayFirst]="false"></p-dropdown>                                                                                      
+                                <label for="fdd-listTipoMat">* Tipos de Materia Principal</label>
+                            </span>
+                </div>
+                <div class="p-field col-12 md:col-5 mb-0 px-3">
+                            <span class="p-float-label">
+                                <p-dropdown [filter]="true" filterBy="nombreUoc"
+                                            [showClear]="true" 
+                                            id="fdd-listUoc"
+                                            required 
+                                            [options]="listUoc"
+                                            [(ngModel)]="uocSeleccted"
+                                            optionLabel="nombreUoc"
+                                            formControlName="idUnidadOrganizacional"
+                                            [autoDisplayFirst]="false"></p-dropdown>
+                                <label for="fdd-listUoc">* Unidad Organizacional Curricular</label>
+                            </span>
+                </div>
+              </div>
+            </form>
+            <!-- Fin Form 2-->
+            <!--  Form 2 para Tipo de Materia y OUC -->
+            <form *ngIf="sections.index === 3">
+              <!-- Inicio seccion facultad carrera  -->
+              <div class="p-fluid p-formgrid grid justify-content-center">
+                <div class="p-field col-12 md:col-6  mb-0 px-3">
+                  <div class="border-2 border-dashed border-300 h-auto">
+                    <div class="surface-0 p-3">
+                      <form >
+                        <ul class="list-none p-0 m-0">
+                          <!-- <li class="flex align-items-center py-3 px-2 border-300 flex-wrap"> -->
+                            <p-table #table [value]="listSubTipoComponente" [loading]="loading"
+                                    responsiveLayout="stack"
+                                    [(selection)]="selectedTipoComponenete" [rowHover]="true" dataKey="idSubtipoComponente"
+                                    
+                                    >
+                              <ng-template pTemplate="body" let-item >
+                                <tr>
+                                  <td>
+                                    <div>{{item.nombreSubtipoComponente || 'none'}}</div>
+                                  </td>
+                                  <td>
+                                    <div>{{item.codigoSubtipoComponente || 'none'}}</div>
+                                  </td>
+                                  <td>
+                                    <div>
+                                      
+                                      <span class="p-float-label" >
+                                        
+                                        <p-inputNumber   name="{{item.idSubtipoComponente}}" [(ngModel)]="peso[item.idSubtipoComponente]"  min="0"
+                                                        required="true" >
+                                        </p-inputNumber>
+                                        
+                                          <label for="ftxt-cupos">* Horas de Materia</label>
+                                      </span>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </ng-template>
+                            </p-table>
+                          <!-- </li> -->
+                        </ul>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <!-- Fin Form 2-->
+          </p-card>
+        </ng-template>
+      </p-timeline>
+
+    </section>
+
+    <p-dialog [(visible)]="displayModal" position="right" [modal]="true"
+              [style]="{width: '70vw', height:'100vh', 'max-height': '100%', margin: '0rem'}"
+              [draggable]="false" [resizable]="false">
+
+      <ng-template pTemplate="header">
+        <div class="col-12 md:col-8 text-center md:text-left flex align-items-center ">
+        <p class="mt-0 mb-0 text-700 line-height-3">Catálogo de Materias.</p>
+        </div>
+      </ng-template>
+
+      <!-- Inicio tabla Materias catalogo-->
+      <section class="content">
+        <div class="container-fluid">
+
+          <div class="card">
+            <p-toolbar styleClass="p-mb-12">
+              <ng-template pTemplate="left">
+                <button pButton pRipple label="Editar Registro" icon="pi pi-edit" class="p-button-outlined p-button-success" (click)="confirmMateriaTemplate()" [disabled]="!materiasCatalogo"></button>
+              </ng-template>
+
+            </p-toolbar>
+            <p-table #dt [value]="listMateriasCatalogo" [rows]="10" [paginator]="true"
+                     [globalFilterFields]="['codigoMateria','nombreMateria','creditosMateria','horasSemestralesMateria','cuposMatriculaMateria','idTipoMateriaCatalogoNavigation.nombreTipoMateriaCatalogo','idUocNavigation.nombreUoc']"
+                     [(selection)]="materiasCatalogo" responsiveLayout="scroll"
+                     [rowHover]="true" dataKey="codigoMateria"
+                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                     [showCurrentPageReport]="true">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th style="width: 3rem">
+                  </th>
+
+                  <th pSortableColumn="codigoMateria">Código
+                    <p-sortIcon field="codigoMateria"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="nombreMateria">Nombre
+                    <p-sortIcon field="nombreMateria"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="creditosMateria">Créditos
+                    <p-sortIcon field="creditosMateria"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="horasSemestralesMateria">Horas
+                    <p-sortIcon field="horasSemestralesMateria"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="cuposMatriculaMateria">Cupos
+                    <p-sortIcon field="cuposMatriculaMateria"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="idTipoMateriaCatalogoNavigation.nombreTipoMateriaCatalogo">Tipo
+                    <p-sortIcon field="idTipoMateriaCatalogoNavigation.nombreTipoMateriaCatalogo"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="idUocNavigation.nombreUoc">UOC
+                    <p-sortIcon field="idUocNavigation.nombreUoc"></p-sortIcon>
+                  </th>
+                </tr>
+                <tr>
+                  <th></th>
+                  <th>
+                    <div class="p-d-flex p-jc-between p-ai-center">
+                      <p-columnFilter type="text" field="codigoMateria"></p-columnFilter>
+                    </div>
+                  </th>
+                  <th>
+                    <p-columnFilter type="text" field="nombreMateria"></p-columnFilter>
+                  </th>
+                  <th>
+                    <p-columnFilter type="text" field="creditosMateria"></p-columnFilter>
+                  </th>
+                  <th>
+                    <p-columnFilter type="text" field="horasSemestralesMateria"></p-columnFilter>
+                  </th>
+                  <th>
+                    <p-columnFilter type="text" field="cuposMatriculaMateria"></p-columnFilter>
+                  </th>
+                  <th>
+                    <p-columnFilter type="text"
+                    field="idTipoMateriaCatalogoNavigation.nombreTipoMateriaCatalogo"></p-columnFilter>
+                  </th>
+                  <th>
+                    <p-columnFilter type="text"
+                    field="idUocNavigation.nombreUoc"></p-columnFilter>
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-item let-expanded="expanded">
+                <tr>
+                  <td>
+                    <p-tableRadioButton [value]="item"></p-tableRadioButton>
+                  </td>
+                  <td>{{item.codigoMateria}}</td>
+                  <td>{{item.nombreMateria}}</td>
+                  <td>{{item.creditosMateria}}</td>
+                  <td>{{item.horasSemestralesMateria}}</td>
+                  <td>{{item.cuposMatriculaMateria}}</td>
+                  <td>{{item.idTipoMateriaCatalogoNavigation.nombreTipoMateriaCatalogo}}</td>
+                  <td>{{item.idUocNavigation.nombreUoc}}</td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="summary">
+                <div class="p-d-flex p-ai-center p-jc-between">
+                  En total hay {{listMateriasCatalogo ? listMateriasCatalogo.length : 0 }} Materias.
+                </div>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </section>
+      <!-- Fin tabla catalogo materias-->
+      <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </p-dialog>
+
+  </div>
+</div>
+
